@@ -166,6 +166,7 @@
             color: var(--text-secondary);
             line-height: 1.50;
             max-width: 560px;
+        }
         .post-item .tags {
             display: flex;
             gap: 6px;
@@ -173,16 +174,17 @@
             margin-top: 8px;
         }
         .post-item .tag {
+            display: inline-block;
             font-size: 12px;
             font-weight: 600;
-color: var(--text-secondary);
-            background: var(--bg-alt);
-            padding: 6px 14px;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
             border-radius: 9999px;
             letter-spacing: 0.125px;
         }
 
-        .topics .topic:hover { background: var(--btn-hover); }
+
 
         /* Theme toggle pill */
         .theme-toggle {
