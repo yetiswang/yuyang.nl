@@ -1,5 +1,7 @@
 
         :root {
+            --body-font: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+            --heading-font: 'Source Serif 4', Georgia, serif;
             --text: rgba(0,0,0,0.92);
             --text-secondary: #5a544c;
             --text-muted: #9a948d;
@@ -44,6 +46,8 @@
             --link-hover: #7ab8ff;
         }
         [data-theme='light'] {
+            --body-font: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+            --heading-font: 'Source Serif 4', Georgia, serif;
             --text: rgba(0,0,0,0.92);
             --text-secondary: #5a544c;
             --text-muted: #9a948d;
@@ -69,10 +73,23 @@
         }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
         body {
-            font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+            font-family: var(--body-font);
             color: var(--text);
             background: var(--bg);
             line-height: 1.5;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
+        }
         }
         .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
         a { color: var(--link); text-decoration: none; }
@@ -109,7 +126,21 @@
 
         /* Hero */
         .hero {
+            position: relative;
             padding: 96px 0 64px;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--link) 0%, transparent 70%);
+            opacity: 0.05;
+            top: -200px;
+            right: -150px;
+            pointer-events: none;
         }
         .hero .eyebrow {
             font-size: 14px;
@@ -120,7 +151,7 @@
             margin-bottom: 20px;
         }
         .hero h1 {
-            font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+            font-family: var(--body-font);
             font-size: 64px;
             font-weight: 700;
             line-height: 1.00;
@@ -129,7 +160,7 @@
             margin-bottom: 20px;
         }
         .hero .subtitle {
-            font-family: 'Source Serif 4', Georgia, serif;
+            font-family: var(--heading-font);
             font-size: 20px;
             font-weight: 500;
             color: var(--text-secondary);
