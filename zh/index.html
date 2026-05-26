@@ -1,27 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuyang Wang — Research Infrastructure Manager</title>
-    <meta name="description" content="Personal site of Yuyang Wang, Research Infrastructure Manager at ICMS / TU/e Eindhoven.">
+    <title>王昱仰 — 研究基礎設施管理</title>
+    <meta name="description" content="王昱仰 (Yuyang Wang) 的個人網站 — ICMS / 荷蘭愛茵霍芬科技大學 研究基礎設施管理">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans-TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif;
             color: rgba(0,0,0,0.95);
             background: #ffffff;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
         a { color: #0075de; text-decoration: none; }
         a:hover { border-bottom: 1px solid #0075de; }
 
-        /* Navigation */
         nav {
             display: flex;
             justify-content: space-between;
@@ -49,7 +48,6 @@
         nav .links a:hover { border-bottom-color: rgba(0,0,0,0.95); color: rgba(0,0,0,0.95); }
         nav .links a.lang { font-size: 13px; letter-spacing: 0.05em; }
 
-        /* Hero */
         .hero {
             padding: 96px 0 64px;
         }
@@ -62,11 +60,11 @@
             margin-bottom: 20px;
         }
         .hero h1 {
-            font-family: 'Inter', system-ui, sans-serif;
-            font-size: 64px;
+            font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
+            font-size: 56px;
             font-weight: 700;
-            line-height: 1.00;
-            letter-spacing: -2.125px;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
             color: rgba(0,0,0,0.95);
             margin-bottom: 20px;
         }
@@ -111,7 +109,6 @@
         }
         .hero .links-row a.primary:hover { background: #005bab; }
 
-        /* Sections */
         section { padding: 64px 0; }
         section + section { border-top: 1px solid rgba(0,0,0,0.1); }
         section:last-of-type { border-bottom: 1px solid rgba(0,0,0,0.1); }
@@ -125,7 +122,6 @@
             margin-bottom: 24px;
         }
 
-        /* Projects */
         .project { margin-bottom: 28px; }
         .project:last-child { margin-bottom: 0; }
         .project h3 {
@@ -159,7 +155,6 @@
             letter-spacing: 0.125px;
         }
 
-        /* About */
         .about-text {
             font-size: 16px;
             font-weight: 400;
@@ -169,7 +164,6 @@
         .about-text p { margin-bottom: 12px; }
         .about-text p:last-child { margin-bottom: 0; }
 
-        /* Topics */
         .topics {
             display: flex;
             flex-wrap: wrap;
@@ -186,7 +180,6 @@
         }
         .topics .topic:hover { background: rgba(0,0,0,0.08); }
 
-        /* Footer */
         footer {
             padding: 32px 0;
             text-align: center;
@@ -197,7 +190,7 @@
 
         @media (max-width: 600px) {
             .hero { padding: 48px 0 40px; }
-            .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
+            .hero h1 { font-size: 36px; letter-spacing: -0.3px; }
             .hero .subtitle { font-size: 18px; }
             nav .links { gap: 16px; }
             section { padding: 40px 0; }
@@ -207,91 +200,90 @@
 <body>
     <div class="container">
         <nav>
-            <a href="/" class="logo">Yuyang Wang</a>
+            <a href="/zh/" class="logo">王昱仰</a>
             <div class="links">
                 <a href="mailto:y.wang8@tue.nl">Email</a>
                 <a href="https://www.linkedin.com/in/yuyangwangtue/" target="_blank">LinkedIn</a>
                 <a href="https://github.com/yetiswang" target="_blank">GitHub</a>
-                <a href="/blog/">Blog</a>
-                <a href="/zh/" class="lang">中文</a>
+                <a href="/zh/blog/">網誌</a>
+                <a href="/" class="lang">EN</a>
             </div>
         </nav>
 
         <header class="hero">
-            <div class="eyebrow">Research Infrastructure Manager</div>
-            <h1>Yuyang Wang</h1>
-            <p class="subtitle">ICMS — Institute for Complex Molecular Systems · TU/e Eindhoven</p>
-            <p class="blurb">Building research infrastructure at the intersection of AI, automation, and materials science. Coordinating national-scale initiatives for AI-driven discovery.</p>
+            <div class="eyebrow">研究基礎設施管理</div>
+            <h1>王昱仰</h1>
+            <p class="subtitle">ICMS 複雜分子系統研究所 · 荷蘭愛茵霍芬科技大學<br>研究基礎設施經理</p>
+            <p class="blurb">在人工智慧、自動化與材料科學的交匯點上建構研究基礎設施。統籌國家級人工智慧驅動科學發現計畫。</p>
             <div class="links-row">
                 <a href="mailto:y.wang8@tue.nl" class="primary">Email &#8599;</a>
                 <a href="https://www.linkedin.com/in/yuyangwangtue/" target="_blank">LinkedIn &#8599;</a>
                 <a href="https://github.com/yetiswang" target="_blank">GitHub &#8599;</a>
-
             </div>
         </header>
 
         <section>
-            <h2>Projects</h2>
+            <h2>專案</h2>
 
             <div class="project">
                 <h3>DiscoveryLabNL</h3>
-                <p>A candidate national research infrastructure for AI-driven materials discovery, submitted to NWO LSRI 2027. Three pillars: Self-Driving Labs, Advanced Multimodal Characterisation, and AI Core.</p>
+                <p>候選國家級人工智慧驅動材料發現研究基礎設施，已提交至 NWO LSRI 2027 計畫。三大支柱：自駕實驗室、先進多模態特徵化、人工智慧核心。</p>
                 <div class="tags">
                     <span class="tag">NWO LSRI</span>
-                    <span class="tag">National</span>
+                    <span class="tag">國家級</span>
                 </div>
             </div>
 
             <div class="project">
-                <h3>RISN — Research Infrastructure Synchronisation Network</h3>
-                <p>A TU/e-wide coordination network connecting research infrastructure leaders to share resources, expertise, and strategy across the university.</p>
+                <h3>RISN — 研究基礎設施同步網絡</h3>
+                <p>愛茵霍芬科技大學校級協調網絡，串聯各研究基礎設施主管，共享資源、專業知識與策略規劃。</p>
                 <div class="tags">
                     <span class="tag">TU/e</span>
-                    <span class="tag">Internal</span>
+                    <span class="tag">校內</span>
                 </div>
             </div>
 
             <div class="project">
-                <h3>ICMS AI Toolkit</h3>
-                <p>Building a shared, version-controlled toolkit for the ICMS team's AI-assisted-work transition — vendor-agnostic core with per-tool modules for Copilot, Claude, ChatGPT, and others.</p>
+                <h3>ICMS AI 工具包</h3>
+                <p>為 ICMS 團隊建立共享、版本控制的人工智慧輔助工作轉型工具包 — 獨立於供應商的核心模組，搭配各工具專用模組。</p>
                 <div class="tags">
-                    <span class="tag">Internal</span>
+                    <span class="tag">校內</span>
                 </div>
             </div>
 
             <div class="project">
                 <h3><a href="https://superresolution.nl" target="_blank">superresolution.nl &#8599;</a></h3>
-                <p>Facility and infrastructure-facing web presence for the superresolution microscopy community at TU/e.</p>
+                <p>為 TU/e 超解析顯微鏡社群打造的設施與基礎設施入口網站。</p>
                 <div class="tags">
-                    <span class="tag">Web</span>
+                    <span class="tag">網站</span>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2>Topics</h2>
+            <h2>領域</h2>
             <div class="topics">
-                <span class="topic">AI for Science</span>
-                <span class="topic">Self-Driving Labs</span>
-                <span class="topic">Research Infrastructure</span>
-                <span class="topic">Multi-Agent Systems</span>
-                <span class="topic">Laboratory Automation</span>
-                <span class="topic">Automated Discovery</span>
-                <span class="topic">Organisational Design</span>
-                <span class="topic">Strategy & Coordination</span>
+                <span class="topic">科學人工智慧</span>
+                <span class="topic">自駕實驗室</span>
+                <span class="topic">研究基礎設施</span>
+                <span class="topic">多智能體系統</span>
+                <span class="topic">實驗室自動化</span>
+                <span class="topic">自動化科學發現</span>
+                <span class="topic">組織設計</span>
+                <span class="topic">策略與協調</span>
             </div>
         </section>
 
         <section>
-            <h2>About</h2>
+            <h2>關於</h2>
             <div class="about-text">
-                <p>Research Infrastructure Manager at the Institute for Complex Molecular Systems (ICMS), TU/e Eindhoven. I operate at the intersection of infrastructure, strategy, and institutional coordination — connecting people across organisational boundaries and turning scattered signals into structured action.</p>
-                <p>My work spans national research infrastructure proposals (NWO LSRI, ESFRI), consortium building (RAISE), and day-to-day laboratory operations management.</p>
+                <p>任職於荷蘭愛茵霍芬科技大學（TU/e）複雜分子系統研究所（ICMS），擔任研究基礎設施經理。我的工作在基礎設施、策略與機構協調的交界處 — 連結跨組織的人員，將零散的訊號轉化為結構化的行動。</p>
+                <p>涵蓋國家級研究基礎設施提案（NWO LSRI、ESFRI）、聯盟建構（RAISE），以及日常實驗室運營管理。</p>
             </div>
         </section>
 
         <footer>
-            <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
+            <p>&copy; 2026 王昱仰 &middot; 荷蘭愛茵霍芬</p>
         </footer>
     </div>
 </body>
