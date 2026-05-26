@@ -132,13 +132,13 @@
         .hero::before {
             content: '';
             position: absolute;
-            width: 500px;
-            height: 500px;
+            width: 800px;
+            height: 800px;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--link) 0%, transparent 70%);
-            opacity: 0.05;
-            top: -200px;
-            right: -150px;
+            background: radial-gradient(circle at 40% 50%, var(--link) 0%, transparent 50%);
+            opacity: 0.12;
+            top: -350px;
+            left: -100px;
             pointer-events: none;
         }
         .hero .eyebrow {
