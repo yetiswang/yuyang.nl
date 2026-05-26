@@ -326,8 +326,10 @@
             .hero { padding: 48px 0 40px; }
             .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
             .hero .subtitle { font-size: 18px; }
+            .hero::before { width: 400px; height: 400px; }
             nav .links { gap: 16px; }
             section { padding: 40px 0; }
+            body::before { background-size: 24px 24px; }
         }
     
 /* Featured post */
