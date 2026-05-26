@@ -9,6 +9,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/shared.css">
+    <style>
+        .post-header h1 {
+            font-family: 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0;
+            margin-bottom: 16px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -31,72 +41,65 @@
         <header class="hero">
             <div class="eyebrow">在大學管理科學</div>
             <h1>王昱揚</h1>
-            <p class="subtitle">ICMS 複雜分子系統研究所 · 荷蘭埃因霍溫科技大學<br>研究基礎設施經理</p>
-            <p class="blurb">在人工智慧、自動化與材料科學的交匯點上建構研究基礎設施。統籌國家級人工智慧驅動科學發現計畫。</p>
+            <p class="subtitle">ICMS 複雜分子系統研究所 · 荷蘭埃因霍溫科技大學</p>
+            <p class="blurb">創造那些原本不可能出現的發現條件。在 AI 驅動研究時代的基礎設施、策略與機構協調。</p>
             <div class="links-row">
-                <a href="mailto:y.wang8@tue.nl" class="primary">Email &#8599;</a>
-                <a href="https://www.linkedin.com/in/yuyangwangtue/" target="_blank">LinkedIn &#8599;</a>
+                <a href="https://www.linkedin.com/in/yuyangwangtue/" target="_blank" class="primary">LinkedIn &#8599;</a>
+                <a href="mailto:y.wang8@tue.nl">Email &#8599;</a>
                 <a href="https://github.com/yetiswang" target="_blank">GitHub &#8599;</a>
             </div>
         </header>
 
         <section>
-            <h2>專案</h2>
-
-            <div class="project">
-                <h3>DiscoveryLabNL</h3>
-                <p>候選國家級人工智慧驅動材料發現研究基礎設施，已提交至 NWO LSRI 2027 計畫。三大支柱：自動化實驗室、先進多模態特徵化、人工智慧核心。</p>
-                <div class="tags">
-                    <span class="tag">NWO LSRI</span>
-                    <span class="tag">國家級</span>
-                </div>
-            </div>
-
-            <div class="project">
-                <h3>RISN — 研究基礎設施同步網絡</h3>
-                <p>埃因霍溫科技大學校級協調網絡，連接各研究基礎設施主管，共享資源、專業知識與策略規劃。</p>
-                <div class="tags">
-                    <span class="tag">TU/e</span>
-                    <span class="tag">校內</span>
-                </div>
-            </div>
-
-            <div class="project">
-                <h3>ICMS AI 工具包</h3>
-                <p>為 ICMS 團隊建立共享、版本控制的人工智慧輔助工作轉型工具包 — 獨立於供應商的核心模組，搭配各工具專用模組。</p>
-                <div class="tags">
-                    <span class="tag">校內</span>
-                </div>
-            </div>
-
-            <div class="project">
-                <h3><a href="https://superresolution.nl" target="_blank">superresolution.nl &#8599;</a></h3>
-                <p>為 TU/e 超分辨率顯微鏡社群打造的設施與基礎設施入口網站。</p>
-                <div class="tags">
-                    <span class="tag">網站</span>
-                </div>
+            <h2>最新文章</h2>
+            <div class="featured">
+                <a href="/zh/blog/what-does-it-mean-to-manage-science/" class="featured-card">
+                    <div class="label">Featured</div>
+                    <h3>管理科學意味著什麼？</h3>
+                    <p>科學管理不是行政工作。不是追趕經費申請。而是創造那些原本不可能出現的發現條件。</p>
+                    <div class="meta">2026 年 5 月 26 日</div>
+                </a>
             </div>
         </section>
 
         <section>
-            <h2>領域</h2>
-            <div class="topics">
-                <span class="topic">科學人工智慧</span>
-                <span class="topic">自動化實驗室</span>
-                <span class="topic">研究基礎設施</span>
-                <span class="topic">多智能體系統</span>
-                <span class="topic">實驗室自動化</span>
-                <span class="topic">自動化科學發現</span>
-                <span class="topic">組織設計</span>
-                <span class="topic">策略與協調</span>
+            <h2>正在閱讀</h2>
+            <div class="reading-item">
+                <span class="type">論文</span>
+                <div class="content">
+                    <div class="title"><a href="https://arxiv.org/abs/2305.16261" target="_blank">The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery</a></div>
+                    <div class="attribution">Lu et al. · arXiv 2024</div>
+                </div>
+            </div>
+            <div class="reading-item">
+                <span class="type">書籍</span>
+                <div class="content">
+                    <div class="title">The New Science of Cities</div>
+                    <div class="attribution">Michael Batty · MIT Press 2013</div>
+                </div>
+            </div>
+            <div class="reading-item">
+                <span class="type">論文</span>
+                <div class="content">
+                    <div class="title"><a href="https://www.nature.com/articles/s41586-023-06292-5" target="_blank">Autonomous chemical research with large language models</a></div>
+                    <div class="attribution">Bojar et al. · Nature 2023</div>
+                </div>
             </div>
         </section>
 
         <section>
             <h2>關於</h2>
             <div class="about-text">
-                <p>任職於荷蘭埃因霍溫科技大學（TU/e）複雜分子系統研究所（ICMS），擔任研究基礎設施經理。我的工作在基礎設施、策略與機構協調的交界處 — 連結跨組織的人員，將零散的訊號轉化為結構化的行動。</p>
-                <p>涵蓋國家級研究基礎設施提案（NWO LSRI、ESFRI）、聯盟建構（RAISE），以及日常實驗室運營管理。</p>
+                <p>任職於荷蘭埃因霍溫科技大學（TU/e）複雜分子系統研究所（ICMS），致力於創造發現的條件——國家級研究基礎設施提案、跨校協調網絡，以及將科學野心轉化為運作現實的組織層面。</p>
+                <p>我的視角來自於 DiscoveryLabNL、RISN、實驗室運營的日常工作，以及對 AI 時代科學如何被完成的持續觀察。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>關於本站</h2>
+            <div class="colophon">
+                本網站使用 <a href="https://pages.github.com/" target="_blank">GitHub Pages</a> 構建，以純 HTML 書寫。字體使用 <a href="https://fonts.google.com/specimen/Noto+Serif+TC" target="_blank">思源宋體</a> 和 <a href="https://fonts.google.com/specimen/Inter" target="_blank">Inter</a>。原始碼在 <a href="https://github.com/yetiswang/yuyang.nl" target="_blank">GitHub</a> 上。
+                <br>由 <a href="https://claude.ai" target="_blank">Claude Code</a>、<a href="https://hermes-agent.nousresearch.com" target="_blank">Hermes Agent</a> 協助建置與維護。
             </div>
         </section>
 
