@@ -7,136 +7,223 @@
     <meta name="description" content="Personal site of Yuyang Wang, Research Infrastructure Manager at ICMS / TU/e Eindhoven.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: #1a1a2e;
-            background: #fafafa;
-            line-height: 1.6;
-            min-height: 100vh;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color: rgba(0,0,0,0.95);
+            background: #ffffff;
+            line-height: 1.5;
         }
         .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+        a { color: #0075de; text-decoration: none; }
+        a:hover { border-bottom: 1px solid #0075de; }
 
-        /* Hero */
-        .hero {
-            padding: 100px 0 48px;
-        }
-        .hero h1 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-            color: #1a1a2e;
-        }
-        .hero .title {
-            font-size: 1.1rem;
-            color: #555;
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-        .hero .affiliation {
-            font-size: 0.95rem;
-            color: #777;
-            margin-bottom: 20px;
-        }
-        .hero p {
-            color: #444;
-            max-width: 600px;
-        }
-
-        .links {
+        /* Navigation */
+        nav {
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 24px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
-        .links a {
-            color: #2563eb;
+        nav .logo {
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(0,0,0,0.95);
             text-decoration: none;
-            font-size: 0.9rem;
+        }
+        nav .logo:hover { border-bottom: none; color: #0075de; }
+        nav .links { display: flex; gap: 24px; }
+        nav .links a {
+            font-size: 15px;
             font-weight: 500;
-            padding: 6px 0;
+            color: rgba(0,0,0,0.95);
+            text-decoration: none;
+            padding: 4px 0;
             border-bottom: 1.5px solid transparent;
             transition: border-color 0.15s;
         }
-        .links a:hover { border-bottom-color: #2563eb; }
+        nav .links a:hover { border-bottom-color: rgba(0,0,0,0.95); color: rgba(0,0,0,0.95); }
+
+        /* Hero */
+        .hero {
+            padding: 96px 0 64px;
+        }
+        .hero .eyebrow {
+            font-size: 14px;
+            font-weight: 500;
+            color: #a39e98;
+            text-transform: uppercase;
+            letter-spacing: 0.125px;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.00;
+            letter-spacing: -2.125px;
+            color: rgba(0,0,0,0.95);
+            margin-bottom: 20px;
+        }
+        .hero .subtitle {
+            font-size: 20px;
+            font-weight: 500;
+            color: #615d59;
+            line-height: 1.40;
+            max-width: 560px;
+            margin-bottom: 32px;
+        }
+        .hero .blurb {
+            font-size: 16px;
+            font-weight: 400;
+            color: #615d59;
+            line-height: 1.50;
+            max-width: 560px;
+        }
+        .hero .links-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+        .hero .links-row a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .hero .links-row a:hover { background: rgba(0,0,0,0.08); border-bottom: none; }
+        .hero .links-row a.primary {
+            background: #0075de;
+            color: #ffffff;
+        }
+        .hero .links-row a.primary:hover { background: #005bab; }
 
         /* Sections */
-        section { padding: 48px 0; }
-        section + section { border-top: 1px solid #e5e7eb; }
+        section { padding: 64px 0; }
+        section + section { border-top: 1px solid rgba(0,0,0,0.1); }
+        section:last-of-type { border-bottom: 1px solid rgba(0,0,0,0.1); }
 
         h2 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 16px;
-            letter-spacing: -0.01em;
+            font-size: 14px;
+            font-weight: 500;
+            color: #a39e98;
+            text-transform: uppercase;
+            letter-spacing: 0.125px;
+            margin-bottom: 24px;
         }
 
         /* Projects */
-        .project { margin-bottom: 24px; }
+        .project { margin-bottom: 28px; }
         .project:last-child { margin-bottom: 0; }
         .project h3 {
-            font-size: 1rem;
+            font-size: 18px;
             font-weight: 600;
+            color: rgba(0,0,0,0.95);
             margin-bottom: 4px;
         }
-        .project h3 a {
-            color: #1a1a2e;
-            text-decoration: none;
-        }
-        .project h3 a:hover { color: #2563eb; }
+        .project h3 a { color: rgba(0,0,0,0.95); }
+        .project h3 a:hover { color: #0075de; border-bottom: none; }
         .project p {
-            font-size: 0.9rem;
-            color: #555;
-            line-height: 1.5;
+            font-size: 15px;
+            font-weight: 400;
+            color: #615d59;
+            line-height: 1.50;
+            margin-bottom: 6px;
+        }
+        .project .tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
         }
         .project .tag {
             display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #2563eb;
-            background: #eff6ff;
-            padding: 2px 8px;
-            border-radius: 4px;
-            margin-top: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #097fe8;
+            background: #f2f9ff;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
         }
 
-        /* CV / misc */
-        .cv-section p { color: #555; font-size: 0.9rem; margin-bottom: 8px; }
-        .cv-section p:last-child { margin-bottom: 0; }
-        .cv-section a { color: #2563eb; text-decoration: none; border-bottom: 1px solid transparent; }
-        .cv-section a:hover { border-bottom-color: #2563eb; }
+        /* About */
+        .about-text {
+            font-size: 16px;
+            font-weight: 400;
+            color: rgba(0,0,0,0.95);
+            line-height: 1.50;
+        }
+        .about-text p { margin-bottom: 12px; }
+        .about-text p:last-child { margin-bottom: 0; }
+
+        /* Topics */
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .topics .topic {
+            font-size: 14px;
+            font-weight: 500;
+            color: #615d59;
+            background: #f6f5f4;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            transition: background 0.15s;
+        }
+        .topics .topic:hover { background: rgba(0,0,0,0.08); }
 
         /* Footer */
         footer {
-            padding: 40px 0;
+            padding: 32px 0;
             text-align: center;
-            color: #999;
-            font-size: 0.8rem;
+            color: #a39e98;
+            font-size: 14px;
+            font-weight: 400;
         }
 
         @media (max-width: 600px) {
-            .hero { padding: 60px 0 32px; }
-            .hero h1 { font-size: 1.8rem; }
+            .hero { padding: 48px 0 40px; }
+            .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
+            .hero .subtitle { font-size: 18px; }
+            nav .links { gap: 16px; }
+            section { padding: 40px 0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header class="hero">
-            <h1>Yuyang Wang</h1>
-            <p class="title">Research Infrastructure Manager</p>
-            <p class="affiliation">ICMS — Institute for Complex Molecular Systems · TU/e Eindhoven</p>
-            <p>Building research infrastructure at the intersection of AI, automation, and materials science. Coordinating national-scale initiatives for AI-driven discovery.</p>
+        <nav>
+            <a href="/" class="logo">Yuyang Wang</a>
             <div class="links">
                 <a href="mailto:y.wang8@tue.nl">Email</a>
+                <a href="https://www.linkedin.com/in/yuyangwangtue/" target="_blank">LinkedIn</a>
                 <a href="https://github.com/yetiswang" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/yuyang-wang-1530504a/" target="_blank">LinkedIn</a>
-                <a href="https://x.com/yetiswang" target="_blank">𝕏 / Twitter</a>
-                <a href="https://scholar.google.com/citations?user=3d7AqqoAAAAJ" target="_blank">Google Scholar</a>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <div class="eyebrow">Research Infrastructure Manager</div>
+            <h1>Yuyang Wang</h1>
+            <p class="subtitle">ICMS — Institute for Complex Molecular Systems · TU/e Eindhoven</p>
+            <p class="blurb">Building research infrastructure at the intersection of AI, automation, and materials science. Coordinating national-scale initiatives for AI-driven discovery.</p>
+            <div class="links-row">
+                <a href="mailto:y.wang8@tue.nl" class="primary">Email &#8599;</a>
+                <a href="https://www.linkedin.com/in/yuyangwangtue/" target="_blank">LinkedIn &#8599;</a>
+                <a href="https://github.com/yetiswang" target="_blank">GitHub &#8599;</a>
+                <a href="https://x.com/yetiswang" target="_blank">𝕏 &#8599;</a>
             </div>
         </header>
 
@@ -146,47 +233,62 @@
             <div class="project">
                 <h3>DiscoveryLabNL</h3>
                 <p>A candidate national research infrastructure for AI-driven materials discovery, submitted to NWO LSRI 2027. Three pillars: Self-Driving Labs, Advanced Multimodal Characterisation, and AI Core.</p>
-                <span class="tag">NWO LSRI</span>
+                <div class="tags">
+                    <span class="tag">NWO LSRI</span>
+                    <span class="tag">National</span>
+                </div>
             </div>
 
             <div class="project">
                 <h3>RISN — Research Infrastructure Synchronisation Network</h3>
                 <p>A TU/e-wide coordination network connecting research infrastructure leaders to share resources, expertise, and strategy across the university.</p>
-                <span class="tag">TU/e</span>
+                <div class="tags">
+                    <span class="tag">TU/e</span>
+                    <span class="tag">Internal</span>
+                </div>
             </div>
 
             <div class="project">
                 <h3>ICMS AI Toolkit</h3>
-                <p>Building a shared, version-controlled toolkit for the ICMS team's AI-assisted-work transition — vendor-agnostic core with per-tool modules.</p>
-                <span class="tag">Internal</span>
+                <p>Building a shared, version-controlled toolkit for the ICMS team's AI-assisted-work transition — vendor-agnostic core with per-tool modules for Copilot, Claude, ChatGPT, and others.</p>
+                <div class="tags">
+                    <span class="tag">Internal</span>
+                </div>
             </div>
 
             <div class="project">
-                <h3><a href="https://superresolution.nl" target="_blank">superresolution.nl ↗</a></h3>
-                <p>Facility and infrastructure-facing web presence for the superresolution microscopy community.</p>
-                <span class="tag">Web</span>
+                <h3><a href="https://superresolution.nl" target="_blank">superresolution.nl &#8599;</a></h3>
+                <p>Facility and infrastructure-facing web presence for the superresolution microscopy community at TU/e.</p>
+                <div class="tags">
+                    <span class="tag">Web</span>
+                </div>
             </div>
         </section>
 
         <section>
             <h2>Topics</h2>
-            <p style="color:#555;font-size:0.9rem;line-height:1.7;">
-                AI for Science · Self-Driving Laboratories · Research Infrastructure Strategy · 
-                Multi-Agent Systems · Automated Discovery · Federated Research Infrastructure · 
-                Laboratory Automation · Organisational Design for Research
-            </p>
+            <div class="topics">
+                <span class="topic">AI for Science</span>
+                <span class="topic">Self-Driving Labs</span>
+                <span class="topic">Research Infrastructure</span>
+                <span class="topic">Multi-Agent Systems</span>
+                <span class="topic">Laboratory Automation</span>
+                <span class="topic">Automated Discovery</span>
+                <span class="topic">Organisational Design</span>
+                <span class="topic">Strategy & Coordination</span>
+            </div>
         </section>
 
         <section>
             <h2>About</h2>
-            <div class="cv-section">
-                <p>Research Infrastructure Manager at ICMS — Institute for Complex Molecular Systems, TU/e Eindhoven. I operate at the intersection of infrastructure, strategy, and institutional coordination — connecting people across organisational boundaries and turning scattered signals into structured action.</p>
-                <p>My work spans national research infrastructure proposals (NWO LSRI, ESFRI), consortium building (RAISE), and day-to-day laboratory operations management at the ICMS.</p>
+            <div class="about-text">
+                <p>Research Infrastructure Manager at the Institute for Complex Molecular Systems (ICMS), TU/e Eindhoven. I operate at the intersection of infrastructure, strategy, and institutional coordination — connecting people across organisational boundaries and turning scattered signals into structured action.</p>
+                <p>My work spans national research infrastructure proposals (NWO LSRI, ESFRI), consortium building (RAISE), and day-to-day laboratory operations management.</p>
             </div>
         </section>
 
         <footer>
-            <p>© 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
+            <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
         </footer>
     </div>
 </body>
