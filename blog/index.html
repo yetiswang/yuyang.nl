@@ -10,34 +10,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --text: rgba(0,0,0,0.95);
-            --text-secondary: #615d59;
-            --text-muted: #a39e98;
-            --bg: #ffffff;
-            --bg-alt: #f6f5f4;
-            --border: rgba(0,0,0,0.1);
-            --btn-bg: rgba(0,0,0,0.05);
+            --text: rgba(0,0,0,0.92);
+            --text-secondary: #5a544c;
+            --text-muted: #9a948d;
+            --bg: #fcfcfa;
+            --bg-alt: #f2f0ed;
+            --border: rgba(0,0,0,0.08);
+            --btn-bg: rgba(0,0,0,0.04);
             --btn-hover: rgba(0,0,0,0.08);
-            --tag-bg: #f2f9ff;
-            --tag-text: #097fe8;
-            --link: #0075de;
-            --link-hover: #005bab;
+            --tag-bg: #eef4fc;
+            --tag-text: #0a6fc0;
+            --link: #0066c8;
+            --link-hover: #004d99;
         }
         @media (prefers-color-scheme: dark) {
-            :root {
-                --text: rgba(230,225,215,0.95);
-                --text-secondary: #a09888;
-                --text-muted: #706858;
-                --bg: #1a1816;
-                --bg-alt: #242220;
-                --border: rgba(255,255,255,0.08);
-                --btn-bg: rgba(255,255,255,0.08);
-                --btn-hover: rgba(255,255,255,0.12);
-                --tag-bg: #1e2a3a;
+            :root:not([data-theme='light']) {
+                --text: rgba(235,230,220,0.93);
+                --text-secondary: #a89888;
+                --text-muted: #7a7068;
+                --bg: #1c1a18;
+                --bg-alt: #262422;
+                --border: rgba(255,255,255,0.07);
+                --btn-bg: rgba(255,255,255,0.06);
+                --btn-hover: rgba(255,255,255,0.10);
+                --tag-bg: #1a2635;
                 --tag-text: #7ab8ff;
                 --link: #5ba0e0;
                 --link-hover: #7ab8ff;
             }
+        }
+        [data-theme='dark'] {
+            --text: rgba(235,230,220,0.93);
+            --text-secondary: #a89888;
+            --text-muted: #7a7068;
+            --bg: #1c1a18;
+            --bg-alt: #262422;
+            --border: rgba(255,255,255,0.07);
+            --btn-bg: rgba(255,255,255,0.06);
+            --btn-hover: rgba(255,255,255,0.10);
+            --tag-bg: #1a2635;
+            --tag-text: #7ab8ff;
+            --link: #5ba0e0;
+            --link-hover: #7ab8ff;
+        }
+        [data-theme='light'] {
+            --text: rgba(0,0,0,0.92);
+            --text-secondary: #5a544c;
+            --text-muted: #9a948d;
+            --bg: #fcfcfa;
+            --bg-alt: #f2f0ed;
+            --border: rgba(0,0,0,0.08);
+            --btn-bg: rgba(0,0,0,0.04);
+            --btn-hover: rgba(0,0,0,0.08);
+            --tag-bg: #eef4fc;
+            --tag-text: #0a6fc0;
+            --link: #0066c8;
+            --link-hover: #004d99;
         }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
@@ -61,10 +89,10 @@
         nav .logo {
             font-size: 15px;
             font-weight: 600;
-            color: rgba(0,0,0,0.95);
+            color: var(--text);
             text-decoration: none;
         }
-        nav .logo:hover { border-bottom: none; color: #0075de; }
+        nav .logo:hover { border-bottom: none; color: var(--link); }
         nav .links { display: flex; gap: 24px; }
         nav .links a {
             font-family: 'Inter', system-ui, sans-serif;
@@ -175,7 +203,8 @@ color: var(--text-secondary);
             <div class="links">
                 <a href="/">Home</a>
                 <a href="/blog/" class="active">Blog</a>
-                <a href="/zh/" class="lang">中文</a>
+                <a href="/zh/blog/" class="lang">中文</a>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode"></button>
             </div>
         </nav>
 
@@ -194,5 +223,33 @@ color: var(--text-secondary);
             <p>&copy; 2026 Yuyang Wang &middot; <a href="/">yuyang.nl</a></p>
         </footer>
     </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            function getPreferred() {
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            function applyTheme(theme) {
+                html.setAttribute('data-theme', theme);
+                btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+                btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            var saved = localStorage.getItem('theme');
+            if (saved) { applyTheme(saved); }
+            else { applyTheme(getPreferred()); }
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', next);
+                applyTheme(next);
+            });
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    applyTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

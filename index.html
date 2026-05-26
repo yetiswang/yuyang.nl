@@ -10,34 +10,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --text: rgba(0,0,0,0.95);
-            --text-secondary: #615d59;
-            --text-muted: #a39e98;
-            --bg: #ffffff;
-            --bg-alt: #f6f5f4;
-            --border: rgba(0,0,0,0.1);
-            --btn-bg: rgba(0,0,0,0.05);
+            --text: rgba(0,0,0,0.92);
+            --text-secondary: #5a544c;
+            --text-muted: #9a948d;
+            --bg: #fcfcfa;
+            --bg-alt: #f2f0ed;
+            --border: rgba(0,0,0,0.08);
+            --btn-bg: rgba(0,0,0,0.04);
             --btn-hover: rgba(0,0,0,0.08);
-            --tag-bg: #f2f9ff;
-            --tag-text: #097fe8;
-            --link: #0075de;
-            --link-hover: #005bab;
+            --tag-bg: #eef4fc;
+            --tag-text: #0a6fc0;
+            --link: #0066c8;
+            --link-hover: #004d99;
         }
         @media (prefers-color-scheme: dark) {
-            :root {
-                --text: rgba(230,225,215,0.95);
-                --text-secondary: #a09888;
-                --text-muted: #706858;
-                --bg: #1a1816;
-                --bg-alt: #242220;
-                --border: rgba(255,255,255,0.08);
-                --btn-bg: rgba(255,255,255,0.08);
-                --btn-hover: rgba(255,255,255,0.12);
-                --tag-bg: #1e2a3a;
+            :root:not([data-theme='light']) {
+                --text: rgba(235,230,220,0.93);
+                --text-secondary: #a89888;
+                --text-muted: #7a7068;
+                --bg: #1c1a18;
+                --bg-alt: #262422;
+                --border: rgba(255,255,255,0.07);
+                --btn-bg: rgba(255,255,255,0.06);
+                --btn-hover: rgba(255,255,255,0.10);
+                --tag-bg: #1a2635;
                 --tag-text: #7ab8ff;
                 --link: #5ba0e0;
                 --link-hover: #7ab8ff;
             }
+        }
+        [data-theme='dark'] {
+            --text: rgba(235,230,220,0.93);
+            --text-secondary: #a89888;
+            --text-muted: #7a7068;
+            --bg: #1c1a18;
+            --bg-alt: #262422;
+            --border: rgba(255,255,255,0.07);
+            --btn-bg: rgba(255,255,255,0.06);
+            --btn-hover: rgba(255,255,255,0.10);
+            --tag-bg: #1a2635;
+            --tag-text: #7ab8ff;
+            --link: #5ba0e0;
+            --link-hover: #7ab8ff;
+        }
+        [data-theme='light'] {
+            --text: rgba(0,0,0,0.92);
+            --text-secondary: #5a544c;
+            --text-muted: #9a948d;
+            --bg: #fcfcfa;
+            --bg-alt: #f2f0ed;
+            --border: rgba(0,0,0,0.08);
+            --btn-bg: rgba(0,0,0,0.04);
+            --btn-hover: rgba(0,0,0,0.08);
+            --tag-bg: #eef4fc;
+            --tag-text: #0a6fc0;
+            --link: #0066c8;
+            --link-hover: #004d99;
         }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
@@ -62,10 +90,10 @@
         nav .logo {
             font-size: 15px;
             font-weight: 600;
-            color: rgba(0,0,0,0.95);
+            color: var(--text);
             text-decoration: none;
         }
-        nav .logo:hover { border-bottom: none; color: #0075de; }
+        nav .logo:hover { border-bottom: none; color: var(--link); }
         nav .links { display: flex; gap: 24px; }
         nav .links a {
             font-family: 'Inter', system-ui, sans-serif;
@@ -87,7 +115,7 @@
         .hero .eyebrow {
             font-size: 14px;
             font-weight: 500;
-            color: #a39e98;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.125px;
             margin-bottom: 20px;
@@ -98,7 +126,7 @@
             font-weight: 700;
             line-height: 1.00;
             letter-spacing: -2.125px;
-            color: rgba(0,0,0,0.95);
+            color: var(--text);
             margin-bottom: 20px;
         }
         .hero .subtitle {
@@ -131,13 +159,13 @@
             padding: 8px 16px;
             font-size: 15px;
             font-weight: 500;
-            color: rgba(0,0,0,0.95);
+            color: var(--text);
             background: var(--btn-bg);
             border-radius: 4px;
             text-decoration: none;
             transition: background 0.15s;
         }
-        .hero .links-row a:hover { background: rgba(0,0,0,0.08); border-bottom: none; }
+        .hero .links-row a:hover { background: var(--btn-hover); border-bottom: none; }
         .hero .links-row a.primary {
             background: var(--link);
             color: #ffffff;
@@ -164,15 +192,15 @@
         .project h3 {
             font-size: 18px;
             font-weight: 600;
-            color: rgba(0,0,0,0.95);
+            color: var(--text);
             margin-bottom: 4px;
         }
-        .project h3 a { color: rgba(0,0,0,0.95); }
+        .project h3 a { color: var(--text); }
         .project h3 a:hover { color: var(--link); border-bottom: none; }
         .project p {
             font-size: 15px;
             font-weight: 400;
-            color: #615d59;
+            color: var(--text-secondary);
             line-height: 1.50;
             margin-bottom: 6px;
         }
@@ -185,7 +213,7 @@
             display: inline-block;
             font-size: 12px;
             font-weight: 600;
-            color: #097fe8;
+            color: var(--tag-text);
             background: var(--tag-bg);
             padding: 4px 8px;
             border-radius: 9999px;
@@ -196,7 +224,7 @@
         .about-text {
             font-size: 16px;
             font-weight: 400;
-            color: rgba(0,0,0,0.95);
+            color: var(--text);
             line-height: 1.50;
         }
         .about-text p { margin-bottom: 12px; }
@@ -217,7 +245,24 @@
             border-radius: 9999px;
             transition: background 0.15s;
         }
-        .topics .topic:hover { background: rgba(0,0,0,0.08); }
+        .topics .topic:hover { background: var(--btn-hover); }
+
+        /* Theme toggle */
+        .theme-btn {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            padding: 2px 4px;
+            color: var(--text-muted);
+            transition: color 0.15s, transform 0.15s;
+            display: flex;
+            align-items: center;
+        }
+        .theme-btn:hover { color: var(--text); transform: scale(1.1); }
+        .theme-btn:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-radius: 4px; }
 
         /* Footer */
         footer {
@@ -247,6 +292,7 @@
                 <a href="https://github.com/yetiswang" target="_blank">GitHub</a>
                 <a href="/blog/">Blog</a>
                 <a href="/zh/" class="lang">中文</a>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode"></button>
             </div>
         </nav>
 
@@ -327,5 +373,33 @@
             <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
         </footer>
     </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            function getPreferred() {
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            function applyTheme(theme) {
+                html.setAttribute('data-theme', theme);
+                btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+                btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            var saved = localStorage.getItem('theme');
+            if (saved) { applyTheme(saved); }
+            else { applyTheme(getPreferred()); }
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('theme', next);
+                applyTheme(next);
+            });
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                if (!localStorage.getItem('theme')) {
+                    applyTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
