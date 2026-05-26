@@ -105,7 +105,7 @@
             transition: border-color 0.15s;
         }
         nav .links a:hover { border-bottom-color: var(--text); color: var(--text); }
-        nav .links a.active { border-bottom-color: rgba(0,0,0,0.95); }
+        nav .links a.active { border-bottom-color: var(--text); }
         nav .links a.lang { font-size: 13px; letter-spacing: 0.05em; }
 
         .page-heading {
@@ -121,13 +121,13 @@
         .page-heading p {
             font-size: 16px;
             font-weight: 400;
-            color: #615d59;
+            color: var(--text-secondary);
         }
 
         .posts { padding: 40px 0 64px; }
         .posts .empty {
             padding: 48px 0;
-            color: #a39e98;
+            color: var(--text-muted);
             font-size: 15px;
             font-weight: 400;
         }
@@ -139,7 +139,7 @@
         .post-item .date {
             font-size: 14px;
             font-weight: 500;
-            color: #a39e98;
+            color: var(--text-muted);
             margin-bottom: 4px;
         }
         .post-item h2 {
@@ -148,13 +148,13 @@
             margin-bottom: 6px;
         }
         .post-item h2 a {
-            color: rgba(0,0,0,0.95);
+            color: var(--text);
         }
-h3 a:hover { color: var(--link); border-bottom: none; }
+        .post-item h2 a:hover { color: var(--link); border-bottom: none; }
         .post-item p {
             font-size: 15px;
             font-weight: 400;
-color: var(--text-secondary);
+            color: var(--text-secondary);
             line-height: 1.50;
             max-width: 560px;
         .post-item .tags {
@@ -178,7 +178,7 @@ color: var(--text-secondary);
             margin-top: 40px;
             font-size: 15px;
             font-weight: 500;
-            color: #0075de;
+            color: var(--link);
         }
 
         footer {
