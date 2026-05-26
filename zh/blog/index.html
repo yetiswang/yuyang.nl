@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" class="preload">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,7 +67,16 @@
             --link: #0066c8;
             --link-hover: #004d99;
         }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html.preload, html.preload * { transition: none !important; }
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { transition: none !important; }
+        }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
         body {
             font-family: 'Inter', 'Noto Serif TC', 'Songti SC', 'SimSun', serif;
@@ -196,7 +205,11 @@ color: var(--text-secondary);
                 <a href="/zh/">首頁</a>
                 <a href="/zh/blog/" class="active">網誌</a>
                 <a href="/blog/" class="lang">EN</a>
-                <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark mode"></button>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
             </div>
         </nav>
 
@@ -224,9 +237,9 @@ color: var(--text-secondary);
             }
             function applyTheme(theme) {
                 html.setAttribute('data-theme', theme);
-                btn.textContent = theme === 'dark' ? '☀️' : '🌙';
                 btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
             }
+            html.classList.remove('preload');
             var saved = localStorage.getItem('theme');
             if (saved) { applyTheme(saved); }
             else { applyTheme(getPreferred()); }
