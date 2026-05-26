@@ -7,7 +7,7 @@
     <meta name="description" content="Personal site of Yuyang Wang, Research Infrastructure Manager at ICMS / TU/e Eindhoven.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
     <style>
         :root {
             --text: rgba(0,0,0,0.95);
@@ -42,7 +42,7 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
         body {
-            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
             color: var(--text);
             background: var(--bg);
             line-height: 1.5;
@@ -68,15 +68,16 @@
         nav .logo:hover { border-bottom: none; color: #0075de; }
         nav .links { display: flex; gap: 24px; }
         nav .links a {
+            font-family: 'Inter', system-ui, sans-serif;
             font-size: 15px;
             font-weight: 500;
-            color: rgba(0,0,0,0.95);
+            color: var(--text);
             text-decoration: none;
             padding: 4px 0;
             border-bottom: 1.5px solid transparent;
             transition: border-color 0.15s;
         }
-        nav .links a:hover { border-bottom-color: rgba(0,0,0,0.95); color: rgba(0,0,0,0.95); }
+        nav .links a:hover { border-bottom-color: var(--text); color: var(--text); }
         nav .links a.lang { font-size: 13px; letter-spacing: 0.05em; }
 
         /* Hero */
@@ -92,7 +93,7 @@
             margin-bottom: 20px;
         }
         .hero h1 {
-            font-family: 'Inter', system-ui, sans-serif;
+            font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
             font-size: 64px;
             font-weight: 700;
             line-height: 1.00;
@@ -101,6 +102,7 @@
             margin-bottom: 20px;
         }
         .hero .subtitle {
+            font-family: 'Source Serif 4', Georgia, serif;
             font-size: 20px;
             font-weight: 500;
             color: var(--text-secondary);
@@ -122,6 +124,7 @@
             margin-top: 32px;
         }
         .hero .links-row a {
+            font-family: 'Inter', system-ui, sans-serif;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -148,8 +151,8 @@
 
         h2 {
             font-size: 14px;
-            font-weight: 500;
-            color: #a39e98;
+            font-weight: 600;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.125px;
             margin-bottom: 24px;
