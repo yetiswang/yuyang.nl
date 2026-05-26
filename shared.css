@@ -326,7 +326,12 @@
             .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
             .hero .subtitle { font-size: 18px; }
             .hero::before { width: 400px; height: 400px; }
-            nav .links { gap: 16px; }
+            nav .links { gap: 12px; }
+            nav .links a { font-size: 14px; }
+            .theme-toggle { padding: 2px; }
+            .toggle-track { width: 36px; height: 18px; }
+            .toggle-indicator { width: 12px; height: 12px; left: 2px; }
+            [data-theme='dark'] .toggle-indicator { left: calc(100% - 14px); }
             section { padding: 40px 0; }
             body::before { background-size: 24px 24px; }
         }
