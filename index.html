@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuyang Wang — Research Infrastructure Manager</title>
+    <meta name="description" content="Personal site of Yuyang Wang, Research Infrastructure Manager at ICMS / TU/e Eindhoven.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1a1a2e;
+            background: #fafafa;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+        /* Hero */
+        .hero {
+            padding: 100px 0 48px;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+        .hero .title {
+            font-size: 1.1rem;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .hero .affiliation {
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            color: #444;
+            max-width: 600px;
+        }
+
+        .links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+        .links a {
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 6px 0;
+            border-bottom: 1.5px solid transparent;
+            transition: border-color 0.15s;
+        }
+        .links a:hover { border-bottom-color: #2563eb; }
+
+        /* Sections */
+        section { padding: 48px 0; }
+        section + section { border-top: 1px solid #e5e7eb; }
+
+        h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        /* Projects */
+        .project { margin-bottom: 24px; }
+        .project:last-child { margin-bottom: 0; }
+        .project h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .project h3 a {
+            color: #1a1a2e;
+            text-decoration: none;
+        }
+        .project h3 a:hover { color: #2563eb; }
+        .project p {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.5;
+        }
+        .project .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #2563eb;
+            background: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+
+        /* CV / misc */
+        .cv-section p { color: #555; font-size: 0.9rem; margin-bottom: 8px; }
+        .cv-section p:last-child { margin-bottom: 0; }
+        .cv-section a { color: #2563eb; text-decoration: none; border-bottom: 1px solid transparent; }
+        .cv-section a:hover { border-bottom-color: #2563eb; }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero { padding: 60px 0 32px; }
+            .hero h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="hero">
+            <h1>Yuyang Wang</h1>
+            <p class="title">Research Infrastructure Manager</p>
+            <p class="affiliation">ICMS — Institute for Complex Molecular Systems · TU/e Eindhoven</p>
+            <p>Building research infrastructure at the intersection of AI, automation, and materials science. Coordinating national-scale initiatives for AI-driven discovery.</p>
+            <div class="links">
+                <a href="mailto:y.wang8@tue.nl">Email</a>
+                <a href="https://github.com/yetiswang" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/yuyang-wang-1530504a/" target="_blank">LinkedIn</a>
+                <a href="https://x.com/yetiswang" target="_blank">𝕏 / Twitter</a>
+                <a href="https://scholar.google.com/citations?user=3d7AqqoAAAAJ" target="_blank">Google Scholar</a>
+            </div>
+        </header>
+
+        <section>
+            <h2>Projects</h2>
+
+            <div class="project">
+                <h3>DiscoveryLabNL</h3>
+                <p>A candidate national research infrastructure for AI-driven materials discovery, submitted to NWO LSRI 2027. Three pillars: Self-Driving Labs, Advanced Multimodal Characterisation, and AI Core.</p>
+                <span class="tag">NWO LSRI</span>
+            </div>
+
+            <div class="project">
+                <h3>RISN — Research Infrastructure Synchronisation Network</h3>
+                <p>A TU/e-wide coordination network connecting research infrastructure leaders to share resources, expertise, and strategy across the university.</p>
+                <span class="tag">TU/e</span>
+            </div>
+
+            <div class="project">
+                <h3>ICMS AI Toolkit</h3>
+                <p>Building a shared, version-controlled toolkit for the ICMS team's AI-assisted-work transition — vendor-agnostic core with per-tool modules.</p>
+                <span class="tag">Internal</span>
+            </div>
+
+            <div class="project">
+                <h3><a href="https://superresolution.nl" target="_blank">superresolution.nl ↗</a></h3>
+                <p>Facility and infrastructure-facing web presence for the superresolution microscopy community.</p>
+                <span class="tag">Web</span>
+            </div>
+        </section>
+
+        <section>
+            <h2>Topics</h2>
+            <p style="color:#555;font-size:0.9rem;line-height:1.7;">
+                AI for Science · Self-Driving Laboratories · Research Infrastructure Strategy · 
+                Multi-Agent Systems · Automated Discovery · Federated Research Infrastructure · 
+                Laboratory Automation · Organisational Design for Research
+            </p>
+        </section>
+
+        <section>
+            <h2>About</h2>
+            <div class="cv-section">
+                <p>I operate at the intersection of infrastructure, strategy, and institutional coordination — connecting people across organisational boundaries and turning scattered signals into structured action. My work spans national research infrastructure proposals (NWO LSRI, ESFRI), consortium building (RAISE), and day-to-day laboratory operations management.</p>
+                <p>Previously: research in computational materials science, multi-scale modelling, and machine learning for materials discovery at the Van der Waals–Zeeman Institute, University of Amsterdam.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
+        </footer>
+    </div>
+</body>
+</html>
