@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Yuyang Wang</title>
+    <meta name="description" content="Blog posts by Yuyang Wang on research infrastructure, AI for science, and strategy.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color: rgba(0,0,0,0.95);
+            background: #ffffff;
+            line-height: 1.5;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+        a { color: #0075de; text-decoration: none; }
+        a:hover { border-bottom: 1px solid #0075de; }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        nav .logo {
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(0,0,0,0.95);
+            text-decoration: none;
+        }
+        nav .logo:hover { border-bottom: none; color: #0075de; }
+        nav .links { display: flex; gap: 24px; }
+        nav .links a {
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(0,0,0,0.95);
+            text-decoration: none;
+            padding: 4px 0;
+            border-bottom: 1.5px solid transparent;
+            transition: border-color 0.15s;
+        }
+        nav .links a:hover { border-bottom-color: rgba(0,0,0,0.95); color: rgba(0,0,0,0.95); }
+        nav .links a.active { border-bottom-color: rgba(0,0,0,0.95); }
+
+        .page-heading {
+            padding: 64px 0 8px;
+        }
+        .page-heading h1 {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.10;
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
+        }
+        .page-heading p {
+            font-size: 16px;
+            font-weight: 400;
+            color: #615d59;
+        }
+
+        .posts { padding: 40px 0 64px; }
+        .posts .empty {
+            padding: 48px 0;
+            color: #a39e98;
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .post-item {
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        .post-item:first-child { border-top: 1px solid rgba(0,0,0,0.1); }
+        .post-item .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: #a39e98;
+            margin-bottom: 4px;
+        }
+        .post-item h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .post-item h2 a {
+            color: rgba(0,0,0,0.95);
+        }
+        .post-item h2 a:hover { color: #0075de; border-bottom: none; }
+        .post-item p {
+            font-size: 15px;
+            font-weight: 400;
+            color: #615d59;
+            line-height: 1.50;
+        }
+        .post-item .tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+        .post-item .tag {
+            font-size: 12px;
+            font-weight: 600;
+            color: #097fe8;
+            background: #f2f9ff;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 40px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #0075de;
+        }
+
+        footer {
+            padding: 32px 0;
+            text-align: center;
+            color: #a39e98;
+            font-size: 14px;
+            font-weight: 400;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .page-heading h1 { font-size: 32px; letter-spacing: -0.8px; }
+            nav .links { gap: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <a href="/" class="logo">Yuyang Wang</a>
+            <div class="links">
+                <a href="/">Home</a>
+                <a href="/blog/" class="active">Blog</a>
+            </div>
+        </nav>
+
+        <div class="page-heading">
+            <h1>Blog</h1>
+            <p>Notes on research infrastructure, AI for science, and strategy.</p>
+        </div>
+
+        <div class="posts">
+            <div class="empty">
+                No posts yet. Coming soon.
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Yuyang Wang &middot; <a href="/">yuyang.nl</a></p>
+        </footer>
+    </div>
+</body>
+</html>
