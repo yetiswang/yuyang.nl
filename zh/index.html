@@ -18,6 +18,61 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/shared.css">
+    <style>
+        .hero-bg {
+            opacity: 0.4;
+        }
+        .hero-bg .mountain {
+            position: absolute;
+            bottom: -5%;
+            left: -5%;
+            right: -5%;
+            height: 75%;
+            pointer-events: none;
+        }
+        .hero-bg .mountain-far {
+            background: rgba(0,0,0,0.04);
+            clip-path: polygon(0% 100%, 0% 50%, 8% 55%, 18% 35%, 28% 48%, 40% 30%, 52% 45%, 65% 28%, 78% 42%, 90% 32%, 100% 48%, 100% 100%);
+            animation: mountain-breathe 24s ease-in-out infinite;
+        }
+        .hero-bg .mountain-mid {
+            background: rgba(0,0,0,0.06);
+            clip-path: polygon(0% 100%, 5% 65%, 15% 50%, 25% 60%, 38% 42%, 50% 55%, 62% 40%, 75% 52%, 88% 38%, 100% 55%, 100% 100%);
+            animation: mountain-breathe 28s ease-in-out 3s infinite;
+        }
+        .hero-bg .mountain-near {
+            background: rgba(0,0,0,0.10);
+            clip-path: polygon(0% 100%, 10% 75%, 22% 62%, 35% 70%, 48% 55%, 60% 65%, 72% 52%, 85% 60%, 100% 50%, 100% 100%);
+            animation: mountain-breathe 32s ease-in-out 6s infinite;
+        }
+        .hero-bg .mist {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 70% 25% at 25% 55%, rgba(190,190,190,0.18), transparent 60%),
+                radial-gradient(ellipse 50% 20% at 70% 45%, rgba(180,180,180,0.14), transparent 60%),
+                radial-gradient(ellipse 60% 15% at 45% 70%, rgba(200,200,200,0.10), transparent 50%);
+            animation: mist-drift 20s ease-in-out infinite;
+        }
+        @keyframes mountain-breathe {
+            0%, 100% { opacity: 0.7; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(-4px); }
+        }
+        @keyframes mist-drift {
+            0%, 100% { background-position: 25% 55%, 70% 45%, 45% 70%; }
+            33% { background-position: 35% 50%, 60% 50%, 40% 65%; }
+            66% { background-position: 20% 60%, 75% 40%, 50% 75%; }
+        }
+        [data-theme='dark'] .hero-bg .mountain-far { background: rgba(255,255,255,0.03); }
+        [data-theme='dark'] .hero-bg .mountain-mid { background: rgba(255,255,255,0.05); }
+        [data-theme='dark'] .hero-bg .mountain-near { background: rgba(255,255,255,0.08); }
+        [data-theme='dark'] .hero-bg .mist { display: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-bg .mountain,
+            .hero-bg .mist { animation: none; }
+        }
+    </style>
     <script>
         (function() {
             try {
@@ -63,6 +118,12 @@
         </nav>
 
         <header class="hero">
+            <div class="hero-bg">
+                <div class="mountain mountain-far"></div>
+                <div class="mountain mountain-mid"></div>
+                <div class="mountain mountain-near"></div>
+                <div class="mist"></div>
+            </div>
             <div class="eyebrow">在大學管理科學</div>
             <h1>王昱揚</h1>
             <p class="blurb">創造那些原本不可能出現的發現條件。在 AI 驅動研究時代的基礎設施、策略與機構協調。</p>
