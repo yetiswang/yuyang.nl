@@ -149,16 +149,26 @@
             btn.addEventListener('click', function() {
                 var cur = html.getAttribute('data-theme');
                 var next = cur === 'dark' ? 'light' : 'dark';
+                html.classList.add('preload');
                 html.setAttribute('data-theme', next);
                 try { localStorage.setItem('theme', next); } catch(e) {}
                 updateLabel();
+                void html.offsetWidth;
+                requestAnimationFrame(function() {
+                    html.classList.remove('preload');
+                });
             });
 
             sysDark.addEventListener('change', function(e) {
                 try {
                     if (!localStorage.getItem('theme')) {
+                        html.classList.add('preload');
                         html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
                         updateLabel();
+                        void html.offsetWidth;
+                        requestAnimationFrame(function() {
+                            html.classList.remove('preload');
+                        });
                     }
                 } catch(err) {}
             });
