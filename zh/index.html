@@ -113,39 +113,51 @@
             var btn = document.getElementById('theme-toggle');
             var html = document.documentElement;
             var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
-            var clicks = 0;
-            function applyTheme(theme) {
-                html.setAttribute('data-theme', theme);
-                btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+
+            function getEffective() {
+                if (html.hasAttribute('data-theme')) {
+                    return html.getAttribute('data-theme');
+                }
+                return sysDark.matches ? 'dark' : 'light';
             }
+            function updateLabel() {
+                var t = getEffective();
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+
             html.classList.remove('preload');
+
             var saved = localStorage.getItem('theme');
             if (saved === 'dark' || saved === 'light') {
-                applyTheme(saved);
-            } else {
-                applyTheme(sysDark.matches ? 'dark' : 'light');
+                html.setAttribute('data-theme', saved);
             }
+            updateLabel();
+
+            var clicks = 0;
             btn.addEventListener('click', function() {
                 clicks++;
                 if (clicks === 1) {
                     setTimeout(function() {
                         if (clicks === 1) {
-                            var cur = html.getAttribute('data-theme');
+                            var cur = getEffective();
                             var next = cur === 'dark' ? 'light' : 'dark';
+                            html.setAttribute('data-theme', next);
                             localStorage.setItem('theme', next);
-                            applyTheme(next);
+                            updateLabel();
                         }
                         clicks = 0;
                     }, 300);
                 } else {
+                    html.removeAttribute('data-theme');
                     localStorage.removeItem('theme');
-                    applyTheme(sysDark.matches ? 'dark' : 'light');
+                    updateLabel();
                     clicks = 0;
                 }
             });
+
             sysDark.addEventListener('change', function() {
                 if (!localStorage.getItem('theme')) {
-                    applyTheme(sysDark.matches ? 'dark' : 'light');
+                    updateLabel();
                 }
             });
         })();
