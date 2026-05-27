@@ -95,11 +95,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
+            padding: 16px 24px;
             border-bottom: 1px solid var(--border);
             position: relative;
             z-index: 2;
             background: var(--bg);
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            box-sizing: border-box;
+        }
+        .container nav {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            padding: 16px 24px;
+            box-sizing: border-box;
         }
         nav .logo {
             font-size: 15px;
