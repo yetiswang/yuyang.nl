@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="項目 — 王昱揚">
-    <meta property="og:description" content="研究基礎設施、機構協調與實驗室運營，科學背後的工作。">
-    <meta property="og:url" content="https://yuyang.nl/zh/projects/">
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="跨校協調網絡 — 王昱揚">
+    <meta property="og:description" content="建立並維護研究機構之間的連結組織。網絡本身就是基礎設施。">
+    <meta property="og:url" content="https://yuyang.nl/zh/projects/coordination-networks/">
+    <meta property="og:type" content="article">
     <meta property="og:site_name" content="Yuyang Wang">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="項目 — 王昱揚">
-    <meta name="twitter:description" content="研究基礎設施、機構協調與實驗室運營，科學背後的工作。">
-    <title>項目 — 王昱揚</title>
-    <meta name="description" content="研究基礎設施、機構協調與實驗室運營，科學背後的工作。">
+    <meta name="twitter:title" content="跨校協調網絡 — 王昱揚">
+    <meta name="twitter:description" content="建立並維護研究機構之間的連結組織。網絡本身就是基礎設施。">
+    <title>跨校協調網絡 — 王昱揚</title>
+    <meta name="description" content="建立並維護研究機構之間的連結組織。網絡本身就是基礎設施。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -30,65 +30,29 @@
                 document.documentElement.setAttribute('data-theme', 'light');
             }
         })();
-    </script>    <style>
-        :root { --body-font: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif; --heading-font: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif; }
+    </script>
     <style>
-        .page-heading {
+        :root { --body-font: 'Songti TC', 'Noto Serif TC', 'STSong', 'PingFang TC', serif; --heading-font: 'Songti TC', 'Noto Serif TC', 'STSong', 'PingFang TC', serif; }
+
+        .post-header {
             padding: 64px 0 8px;
         }
-        .page-heading h1 {
-            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
-            font-size: 40px;
-            font-weight: 700;
-            line-height: 1.15;
-            letter-spacing: -0.3px;
-            margin-bottom: 12px;
-        }
-        .page-heading p {
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-        .posts { padding: 40px 0 64px; }
-        .posts .empty {
-            padding: 48px 0;
-            color: var(--text-muted);
-            font-size: 15px;
-            font-weight: 400;
-        }
-        .post-item {
-            padding: 24px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .post-item:first-child { border-top: 1px solid var(--border); }
-        .post-item .date {
+        .post-header .date {
             font-size: 14px;
             font-weight: 500;
             color: var(--text-muted);
-            margin-bottom: 4px;
+            margin-bottom: 12px;
         }
-        .post-item h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 6px;
+        .post-header h1 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0;
+            margin-bottom: 16px;
+            text-wrap: balance;
         }
-        .post-item h2 a {
-            color: var(--text);
-        }
-        .post-item h2 a:hover { color: var(--link); border-bottom: none; }
-        .post-item p {
-            font-size: 15px;
-            font-weight: 400;
-            color: var(--text-secondary);
-            line-height: 1.50;
-        }
-        .post-item .tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-        .post-item .tag {
+        .post-header .category {
             display: inline-block;
             font-size: 12px;
             font-weight: 600;
@@ -98,9 +62,46 @@
             border-radius: 9999px;
             letter-spacing: 0.125px;
         }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body blockquote {
+            border-left: 3px solid var(--link);
+            margin: 24px 0;
+            padding: 12px 24px;
+            background: var(--bg-alt);
+            border-radius: 4px;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        .post-body blockquote p:last-child { margin-bottom: 0; }
+        .post-nav {
+            padding: 24px 0 0;
+            border-top: 1px solid var(--border);
+        }
+        .post-nav a {
+            font-size: 15px;
+            font-weight: 500;
+        }
         @media (max-width: 600px) {
-            .page-heading h1 { font-size: 32px; letter-spacing: -0.8px; }
-            nav .links { gap: 16px; }
+            .post-header h1 { font-size: 28px; }
+            .post-body { font-size: 16px; }
         }
     </style>
 </head>
@@ -112,7 +113,7 @@
                 <a href="/zh/">首頁</a>
                 <a href="/zh/projects/" class="active">項目</a>
                 <a href="/zh/blog/">網誌</a>
-                <a href="/blog/" class="lang">EN</a>
+                <a href="/" class="lang">EN</a>
                 </div>
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
                     <span class="toggle-track">
@@ -123,56 +124,32 @@
             <button class="nav-hamburger" aria-label="Menu"><span></span></button>
         </nav>
 
-        <div class="page-heading">
-            <h1>項目</h1>
-            <p>研究基礎設施、機構協調與實驗室運營，科學背後的工作。</p>
-        </div>
-
-        <div class="posts">
-            <div class="post-item">
-                <div class="date">進行中 · 國家規模</div>
-                <h2><a href="/zh/projects/superresolution-platform/">一個國家級顯微鏡平台</a></h2>
-                <p>一個橫跨三個學院、連結六所合作機構的聯合超分辨率顯微設施。挑戰在於協調，而非技術。</p>
-                <div class="tags">
-                    <span class="tag">國家級基礎設施</span>
-                    <span class="tag">跨學院協調</span>
-                    <span class="tag">治理設計</span>
-                </div>
-            </div>
-            <div class="post-item">
-                <div class="date">進行中 · 構想階段</div>
-                <h2><a href="/zh/projects/infrastructure-proposals/">國家級研究基礎設施提案</a></h2>
-                <p>為國家級資助計劃設計大型基礎設施提案。從科學論證到長期可持續性的完整生命週期。</p>
-                <div class="tags">
-                    <span class="tag">基礎設施設計</span>
-                    <span class="tag">聯盟組建</span>
-                    <span class="tag">科學政策</span>
-                </div>
-            </div>
-            <div class="post-item">
+        <article>
+            <header class="post-header">
                 <div class="date">進行中 · 季度節奏</div>
-                <h2><a href="/zh/projects/coordination-networks/">跨校協調網絡</a></h2>
-                <p>研究機構之間的連結組織。網絡本身就是基礎設施。</p>
-                <div class="tags">
-                    <span class="tag">機構協調</span>
-                    <span class="tag">共享設施</span>
-                    <span class="tag">網絡設計</span>
-                </div>
+                <h1>跨校協調網絡</h1>
+                <span class="category">機構協調</span>
+            </header>
+
+            <div class="post-body">
+                <p>建立並維護研究機構之間的連結組織。當一項技術存在於某個實驗室、需求存在於另一個實驗室時，連結不會自動發生。它需要刻意的基礎設施：共享使用協議、數據管理規範、技術人員的職涯路徑，以及來自反覆合作的信任。</p>
+
+                <h2>網絡本身就是基礎設施</h2>
+
+                <p>人們傾向於把協調看作真實工作之上的柔性層次。但對許多問題而言，協調層就是真實工作本身。一件新設備是一個節點。網絡是讓一個節點轉化為多個社群都能使用的能力的東西。</p>
+
+                <h2>刻意放慢</h2>
+
+                <p>網絡以季度節奏建立，而非衝刺式的速度。在正確的時間召開的正確會議，年復一年地進行，是真正會累積的。錯誤的本能是每個月都在追求可見的進度。正確的本能是投資那些在資助週期翻篇之後仍會留下的關係。</p>
             </div>
-            <div class="post-item">
-                <div class="date">進行中 · 日常工作</div>
-                <h2><a href="/zh/projects/lab-operations/">AI 時代的實驗室運營</a></h2>
-                <p>自主儀器、AI 流程與人類研究者交會的運營層。設備是最簡單的部分。</p>
-                <div class="tags">
-                    <span class="tag">實驗室運營</span>
-                    <span class="tag">AI 整合</span>
-                    <span class="tag">自主實驗室</span>
-                </div>
+
+            <div class="post-nav">
+                <a href="/zh/projects/">&larr; 返回項目</a>
             </div>
-        </div>
+        </article>
 
         <footer>
-            <p>&copy; 2026 王昱揚 &middot; <a href="/zh/">yuyang.nl</a></p>
+            <p>&copy; 2026 王昱揚 &middot; 荷蘭埃因霍溫</p>
         </footer>
     </div>
     <script>

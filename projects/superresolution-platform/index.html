@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Projects — Yuyang Wang">
-    <meta property="og:description" content="Research infrastructure, institutional coordination, and lab operations — the work behind the science.">
-    <meta property="og:url" content="https://yuyang.nl/projects/">
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="A National Microscopy Platform — Yuyang Wang">
+    <meta property="og:description" content="Building a national super-resolution microscopy platform: the work was coordination, not technology.">
+    <meta property="og:url" content="https://yuyang.nl/projects/superresolution-platform/">
+    <meta property="og:type" content="article">
     <meta property="og:site_name" content="Yuyang Wang">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Projects — Yuyang Wang">
-    <meta name="twitter:description" content="Research infrastructure, institutional coordination, and lab operations — the work behind the science.">
-    <title>Projects — Yuyang Wang</title>
-    <meta name="description" content="Research infrastructure, institutional coordination, and lab operations — the work behind the science.">
+    <meta name="twitter:title" content="A National Microscopy Platform — Yuyang Wang">
+    <meta name="twitter:description" content="Building a national super-resolution microscopy platform: the work was coordination, not technology.">
+    <title>A National Microscopy Platform — Yuyang Wang</title>
+    <meta name="description" content="Building a national super-resolution microscopy platform: the work was coordination, not technology.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -32,61 +32,25 @@
         })();
     </script>
     <style>
-        .page-heading {
+        .post-header {
             padding: 64px 0 8px;
         }
-        .page-heading h1 {
-            font-size: 40px;
-            font-weight: 700;
-            line-height: 1.10;
-            letter-spacing: -1.5px;
-            margin-bottom: 12px;
-        }
-        .page-heading p {
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-        .posts { padding: 40px 0 64px; }
-        .posts .empty {
-            padding: 48px 0;
-            color: var(--text-muted);
-            font-size: 15px;
-            font-weight: 400;
-        }
-        .post-item {
-            padding: 24px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .post-item:first-child { border-top: 1px solid var(--border); }
-        .post-item .date {
+        .post-header .date {
             font-size: 14px;
             font-weight: 500;
             color: var(--text-muted);
-            margin-bottom: 4px;
+            margin-bottom: 12px;
         }
-        .post-item h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 6px;
+        .post-header h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            text-wrap: balance;
         }
-        .post-item h2 a {
-            color: var(--text);
-        }
-        .post-item h2 a:hover { color: var(--link); border-bottom: none; }
-        .post-item p {
-            font-size: 15px;
-            font-weight: 400;
-            color: var(--text-secondary);
-            line-height: 1.50;
-        }
-        .post-item .tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-        .post-item .tag {
+        .post-header .category {
             display: inline-block;
             font-size: 12px;
             font-weight: 600;
@@ -96,9 +60,47 @@
             border-radius: 9999px;
             letter-spacing: 0.125px;
         }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body blockquote {
+            border-left: 3px solid var(--link);
+            margin: 24px 0;
+            padding: 12px 24px;
+            background: var(--bg-alt);
+            border-radius: 4px;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        .post-body blockquote p:last-child { margin-bottom: 0; }
+        .post-nav {
+            padding: 24px 0 0;
+            border-top: 1px solid var(--border);
+        }
+        .post-nav a {
+            font-size: 15px;
+            font-weight: 500;
+        }
         @media (max-width: 600px) {
-            .page-heading h1 { font-size: 32px; letter-spacing: -0.8px; }
-            nav .links { gap: 16px; }
+            .post-header h1 { font-size: 32px; letter-spacing: -0.3px; }
+            .post-body { font-size: 17px; }
         }
     </style>
 </head>
@@ -110,7 +112,7 @@
                 <a href="/">Home</a>
                 <a href="/projects/" class="active">Projects</a>
                 <a href="/blog/">Blog</a>
-                <a href="/zh/blog/" class="lang">中文</a>
+                <a href="/zh/" class="lang">中文</a>
                 </div>
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
                     <span class="toggle-track">
@@ -121,56 +123,34 @@
             <button class="nav-hamburger" aria-label="Menu"><span></span></button>
         </nav>
 
-        <div class="page-heading">
-            <h1>Projects</h1>
-            <p>Research infrastructure, institutional coordination, and lab operations: the work behind the science.</p>
-        </div>
-
-        <div class="posts">
-            <div class="post-item">
+        <article>
+            <header class="post-header">
                 <div class="date">Ongoing · National scale</div>
-                <h2><a href="/projects/superresolution-platform/">A National Microscopy Platform</a></h2>
-                <p>A federated super-resolution facility bridging three faculties and six partner institutions. The challenge was coordination, not technology.</p>
-                <div class="tags">
-                    <span class="tag">National Infrastructure</span>
-                    <span class="tag">Cross-Faculty Coordination</span>
-                    <span class="tag">Governance Design</span>
-                </div>
+                <h1>A National Microscopy Platform</h1>
+                <span class="category">National Infrastructure</span>
+            </header>
+
+            <div class="post-body">
+                <p>A national platform for super-resolution microscopy that did not exist before I arrived. The challenge was not the technology. It was the coordination: aligning three faculties within the university, bridging to six partner institutions across the Netherlands, and negotiating the governance that turned a collection of microscopes into a shared national facility.</p>
+
+                <p>Today it operates as a federated infrastructure. Open access calls. Shared data standards. A steering model that distributes decision-making across stakeholders rather than concentrating it in a single institution.</p>
+
+                <h2>The invisible work</h2>
+
+                <p>The memos. The alignment meetings. The legal frameworks. The patient back-and-forth that gets twenty parties to agree on how to share an instrument they each helped pay for. None of this appears in the facility brochure. All of it is what made the facility possible.</p>
+
+                <p>The website is public. The structure behind it is the project.</p>
+
+                <p><a href="https://superresolution.nl" target="_blank">superresolution.nl &#8599;</a></p>
             </div>
-            <div class="post-item">
-                <div class="date">Ongoing · Framing phase</div>
-                <h2><a href="/projects/infrastructure-proposals/">National Research Infrastructure Proposals</a></h2>
-                <p>Large-scale infrastructure proposals for national funding programmes. Full lifecycle, from scientific case to long-term sustainability.</p>
-                <div class="tags">
-                    <span class="tag">Infrastructure Design</span>
-                    <span class="tag">Consortium Building</span>
-                    <span class="tag">Science Policy</span>
-                </div>
+
+            <div class="post-nav">
+                <a href="/projects/">&larr; Back to Projects</a>
             </div>
-            <div class="post-item">
-                <div class="date">Ongoing · Quarterly rhythm</div>
-                <h2><a href="/projects/coordination-networks/">Cross-University Coordination Networks</a></h2>
-                <p>The connective tissue between research institutions. The network itself is the infrastructure.</p>
-                <div class="tags">
-                    <span class="tag">Institutional Coordination</span>
-                    <span class="tag">Shared Facilities</span>
-                    <span class="tag">Network Design</span>
-                </div>
-            </div>
-            <div class="post-item">
-                <div class="date">Ongoing · Daily work</div>
-                <h2><a href="/projects/lab-operations/">Lab Operations in the AI Era</a></h2>
-                <p>The operational layer where autonomous instrumentation, AI pipelines, and human researchers intersect. The equipment is the easy part.</p>
-                <div class="tags">
-                    <span class="tag">Lab Operations</span>
-                    <span class="tag">AI Integration</span>
-                    <span class="tag">Autonomous Labs</span>
-                </div>
-            </div>
-        </div>
+        </article>
 
         <footer>
-            <p>&copy; 2026 Yuyang Wang &middot; <a href="/">yuyang.nl</a></p>
+            <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
         </footer>
     </div>
     <script>

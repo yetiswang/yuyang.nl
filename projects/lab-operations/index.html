@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Blog — Yuyang Wang">
-    <meta property="og:description" content="Essays on managing science, research infrastructure, and the AI paradigm shift.">
-    <meta property="og:url" content="https://yuyang.nl/blog/">
-    <meta property="og:type" content="website">
+    <meta property="og:title" content="Lab Operations in the AI Era — Yuyang Wang">
+    <meta property="og:description" content="The operational layer where autonomous instrumentation, AI-driven analysis, and human researchers intersect. The equipment is the easy part.">
+    <meta property="og:url" content="https://yuyang.nl/projects/lab-operations/">
+    <meta property="og:type" content="article">
     <meta property="og:site_name" content="Yuyang Wang">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Blog — Yuyang Wang">
-    <meta name="twitter:description" content="Essays on managing science, research infrastructure, and the AI paradigm shift.">
-    <title>Blog — Yuyang Wang</title>
-    <meta name="description" content="Blog posts by Yuyang Wang on research infrastructure, AI for science, and strategy.">
+    <meta name="twitter:title" content="Lab Operations in the AI Era — Yuyang Wang">
+    <meta name="twitter:description" content="The operational layer where autonomous instrumentation, AI-driven analysis, and human researchers intersect. The equipment is the easy part.">
+    <title>Lab Operations in the AI Era — Yuyang Wang</title>
+    <meta name="description" content="The operational layer where autonomous instrumentation, AI-driven analysis, and human researchers intersect. The equipment is the easy part.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -32,61 +32,25 @@
         })();
     </script>
     <style>
-        .page-heading {
+        .post-header {
             padding: 64px 0 8px;
         }
-        .page-heading h1 {
-            font-size: 40px;
-            font-weight: 700;
-            line-height: 1.10;
-            letter-spacing: -1.5px;
-            margin-bottom: 12px;
-        }
-        .page-heading p {
-            font-size: 16px;
-            font-weight: 400;
-            color: var(--text-secondary);
-        }
-        .posts { padding: 40px 0 64px; }
-        .posts .empty {
-            padding: 48px 0;
-            color: var(--text-muted);
-            font-size: 15px;
-            font-weight: 400;
-        }
-        .post-item {
-            padding: 24px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .post-item:first-child { border-top: 1px solid var(--border); }
-        .post-item .date {
+        .post-header .date {
             font-size: 14px;
             font-weight: 500;
             color: var(--text-muted);
-            margin-bottom: 4px;
+            margin-bottom: 12px;
         }
-        .post-item h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 6px;
+        .post-header h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            text-wrap: balance;
         }
-        .post-item h2 a {
-            color: var(--text);
-        }
-        .post-item h2 a:hover { color: var(--link); border-bottom: none; }
-        .post-item p {
-            font-size: 15px;
-            font-weight: 400;
-            color: var(--text-secondary);
-            line-height: 1.50;
-        }
-        .post-item .tags {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-            margin-top: 8px;
-        }
-        .post-item .tag {
+        .post-header .category {
             display: inline-block;
             font-size: 12px;
             font-weight: 600;
@@ -96,9 +60,47 @@
             border-radius: 9999px;
             letter-spacing: 0.125px;
         }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body blockquote {
+            border-left: 3px solid var(--link);
+            margin: 24px 0;
+            padding: 12px 24px;
+            background: var(--bg-alt);
+            border-radius: 4px;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+        .post-body blockquote p:last-child { margin-bottom: 0; }
+        .post-nav {
+            padding: 24px 0 0;
+            border-top: 1px solid var(--border);
+        }
+        .post-nav a {
+            font-size: 15px;
+            font-weight: 500;
+        }
         @media (max-width: 600px) {
-            .page-heading h1 { font-size: 32px; letter-spacing: -0.8px; }
-            nav .links { gap: 16px; }
+            .post-header h1 { font-size: 32px; letter-spacing: -0.3px; }
+            .post-body { font-size: 17px; }
         }
     </style>
 </head>
@@ -108,9 +110,9 @@
             <a href="/" class="logo">Hypomnemata</a>
             <div class="links">
                 <a href="/">Home</a>
-                <a href="/projects/">Projects</a>
-                <a href="/blog/" class="active">Blog</a>
-                <a href="/zh/blog/" class="lang">中文</a>
+                <a href="/projects/" class="active">Projects</a>
+                <a href="/blog/">Blog</a>
+                <a href="/zh/" class="lang">中文</a>
                 </div>
             <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
                     <span class="toggle-track">
@@ -121,25 +123,34 @@
             <button class="nav-hamburger" aria-label="Menu"><span></span></button>
         </nav>
 
-        <div class="page-heading">
-            <h1>Blog</h1>
-            <p>Essays and observations on managing science, the AI paradigm shift, research infrastructure, and what it means to create the conditions for discovery.</p>
-        </div>
+        <article>
+            <header class="post-header">
+                <div class="date">Ongoing · Daily work</div>
+                <h1>Lab Operations in the AI Era</h1>
+                <span class="category">Lab Operations</span>
+            </header>
 
-        <div class="posts">
-            <div class="post-item">
-                <div class="date">26 May 2026</div>
-                <h2><a href="/blog/what-does-it-mean-to-manage-science/">What Does It Mean to Manage Science?</a></h2>
-                <p>Science management is not administration. It is not grant chasing. It is creating the conditions for discovery that would not otherwise exist. A first attempt at articulating the practice.</p>
-                <div class="tags">
-                    <span class="tag">Managing Science</span>
-                    <span class="tag">Infrastructure</span>
-                </div>
+            <div class="post-body">
+                <p>Managing the operational layer where autonomous instrumentation, AI-driven analysis pipelines, and human researchers intersect. Procurement of advanced microscopy and robotics systems. Integration of machine-learning workflows into experimental design. The quiet redesign of what a lab technician's career looks like when half the bench work is done by models.</p>
+
+                <h2>The equipment is the easy part</h2>
+
+                <p>Procurement is logistically demanding but conceptually solvable. The hard part is what happens after the instrument lands on the floor: who runs it, how it is shared, how data flows from it into pipelines that nobody on the original purchase order anticipated, how the people who used to do the manual version of this work find a new role that is not a demotion.</p>
+
+                <h2>Redesigning the bench</h2>
+
+                <p>An autonomous lab is not a human lab with a robot bolted on. The roles change. The skill mix changes. The decision rights change. Most labs underestimate how much organisational design work this requires, then end up with expensive equipment underused because no one redesigned the workflow around it.</p>
+
+                <p>Most of my time goes into the human and organisational adaptation. The equipment vendors handle the equipment.</p>
             </div>
-        </div>
+
+            <div class="post-nav">
+                <a href="/projects/">&larr; Back to Projects</a>
+            </div>
+        </article>
 
         <footer>
-            <p>&copy; 2026 Yuyang Wang &middot; <a href="/">yuyang.nl</a></p>
+            <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
         </footer>
     </div>
     <script>
