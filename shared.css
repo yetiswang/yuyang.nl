@@ -347,12 +347,12 @@
         @media (max-width: 600px) {
             .hero { padding: 40px 24px; padding-top: 92px; height: 100dvh; margin-top: -42px; }
             .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
-            nav .links { gap: 12px; }
-            nav .links a { font-size: 14px; }
-            .theme-toggle { padding: 2px; }
-            .toggle-track { width: 36px; height: 18px; }
-            .toggle-indicator { width: 12px; height: 12px; left: 2px; }
-            [data-theme='dark'] .toggle-indicator { left: calc(100% - 14px); }
+            nav .links { gap: 8px; }
+            nav .links a { font-size: 13px; }
+            .theme-toggle { padding: 1px; }
+            .toggle-track { width: 32px; height: 16px; }
+            .toggle-indicator { width: 10px; height: 10px; left: 2px; }
+            [data-theme='dark'] .toggle-indicator { left: calc(100% - 12px); }
             section { padding: 40px 0; }
         }
     
