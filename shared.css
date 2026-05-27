@@ -55,6 +55,21 @@
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { transition: none !important; animation: none !important; }
         }
+        /* Static mode: white bg, no video, no animations, no grain */
+        .static-mode .hero-bg video { display: none; }
+        .static-mode .hero-bg {
+            background: #ffffff;
+        }
+        .static-mode body::after { display: none; }
+        .static-mode body { background-color: #ffffff; }
+        .static-mode .hero .eyebrow,
+        .static-mode .hero h1,
+        .static-mode .hero .blurb,
+        .static-mode .hero .links-row { animation: none; }
+        .static-mode *, .static-mode *::before, .static-mode *::after {
+            transition: none !important;
+            animation: none !important;
+        }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
         @keyframes hero-fade-in {
             from { opacity: 0; transform: translateY(12px); }

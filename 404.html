@@ -145,6 +145,13 @@
                     });
                 }
             })();
+
+            /* Static mode: ?static in URL disables video + animations, white background */
+            (function(){
+                if (window.location.search.indexOf('static') > -1) {
+                    document.documentElement.classList.add('static-mode');
+                }
+            })();
 </script>
 </body>
 </html>
