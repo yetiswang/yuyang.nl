@@ -191,8 +191,12 @@
                 var t = html.getAttribute('data-theme');
                 btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
             }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
 
             html.classList.remove('preload');
+            syncBodyTheme();
             updateLabel();
 
             btn.addEventListener('click', function() {
@@ -200,6 +204,7 @@
                 var next = cur === 'dark' ? 'light' : 'dark';
                 html.classList.add('preload');
                 html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
                 try { localStorage.setItem('theme', next); } catch(e) {}
                 updateLabel();
                 void html.offsetWidth;
@@ -212,7 +217,9 @@
                 try {
                     if (!localStorage.getItem('theme')) {
                         html.classList.add('preload');
-                        html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
                         updateLabel();
                         void html.offsetWidth;
                         requestAnimationFrame(function() {
