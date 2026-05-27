@@ -130,6 +130,7 @@
         }
         nav .links a:hover { border-bottom-color: var(--text); color: var(--text); }
         nav .links a.lang { font-size: 13px; letter-spacing: 0.05em; }
+        .nav-hamburger { display: none; }
 
         /* Hero */
         .hero {
