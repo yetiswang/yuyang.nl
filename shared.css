@@ -525,6 +525,14 @@
     font-weight: 400;
     color: var(--text-muted);
 }
+.section-more {
+    margin-top: 20px;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+.section-more a { color: var(--text-muted); }
+.section-more a:hover { color: var(--link); border-bottom: none; }
 
 /* Colophon */
 .colophon {
