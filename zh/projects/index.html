@@ -3,20 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <script>
-        (function() {
-            try {
-                var saved = localStorage.getItem('theme');
-                var theme = (saved === 'dark' || saved === 'light')
-                    ? saved
-                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                document.documentElement.setAttribute('data-theme', theme);
-            } catch(e) {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
-        })();
-    </script>
     <meta property="og:title" content="項目 — 王昱揚">
     <meta property="og:description" content="研究基礎設施、機構協調與實驗室運營，科學背後的工作。">
     <meta property="og:url" content="https://yuyang.nl/zh/projects/">
@@ -31,7 +17,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/shared.css">    <style>
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>    <style>
         :root { --body-font: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif; --heading-font: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif; }
     <style>
         .page-heading {

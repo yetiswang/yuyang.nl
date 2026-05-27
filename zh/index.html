@@ -3,20 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <script>
-        (function() {
-            try {
-                var saved = localStorage.getItem('theme');
-                var theme = (saved === 'dark' || saved === 'light')
-                    ? saved
-                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                document.documentElement.setAttribute('data-theme', theme);
-            } catch(e) {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
-        })();
-    </script>
     <meta property="og:title" content="王昱揚 · 瞻彼闋者，虛室生白，吉祥止止">
     <meta property="og:description" content="王昱揚 (Yuyang Wang) 的個人網站。瞻彼闋者，虛室生白，吉祥止止。ICMS / TU/e">
     <meta property="og:url" content="https://yuyang.nl/zh/">
@@ -46,7 +32,20 @@
                 background: var(--bg);
             }
         }
-    </style>    <style>
+    </style>
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>    <style>
         :root { --body-font: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif; --heading-font: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif; }
     <style>
         .post-header h1 {

@@ -3,20 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
-    <script>
-        (function() {
-            try {
-                var saved = localStorage.getItem('theme');
-                var theme = (saved === 'dark' || saved === 'light')
-                    ? saved
-                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-                document.documentElement.setAttribute('data-theme', theme);
-            } catch(e) {
-                document.documentElement.setAttribute('data-theme', 'light');
-            }
-        })();
-    </script>
     <meta property="og:title" content="AI 時代的實驗室運營 — 王昱揚">
     <meta property="og:description" content="自主儀器、AI 驅動分析與人類研究者交會的運營層。設備是最簡單的部分。">
     <meta property="og:url" content="https://yuyang.nl/zh/projects/lab-operations/">
@@ -32,6 +18,19 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
     <style>
         :root { --body-font: 'Songti TC', 'Noto Serif TC', 'STSong', 'PingFang TC', serif; --heading-font: 'Songti TC', 'Noto Serif TC', 'STSong', 'PingFang TC', serif; }
 
