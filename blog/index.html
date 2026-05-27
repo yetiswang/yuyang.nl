@@ -116,6 +116,7 @@
                         <span class="toggle-indicator"></span>
                     </span>
                 </button>
+                <button class="nav-hamburger" aria-label="Menu"><span></span></button>
             </div>
         </nav>
 
@@ -188,6 +189,16 @@
                 } catch(err) {}
             });
         })();
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        l.classList.toggle('open');
+                    });
+                }
+            })();
 </script>
 </body>
 </html>

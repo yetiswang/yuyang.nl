@@ -347,8 +347,46 @@
         @media (max-width: 600px) {
             .hero { padding: 40px 24px; padding-top: 92px; height: 100dvh; margin-top: -42px; }
             .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
-            nav .links { gap: 8px; }
-            nav .links a { font-size: 13px; }
+            nav { flex-wrap: wrap; }
+            nav .links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 4px;
+                padding: 12px 0 0 0;
+                border-top: 1px solid var(--border);
+                margin-top: 12px;
+            }
+            nav .links.open { display: flex; }
+            nav .links a { font-size: 15px; padding: 8px 0; }
+            .nav-hamburger {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 4px;
+                order: 1;
+            }
+            .nav-hamburger span {
+                display: block;
+                width: 20px;
+                height: 1.5px;
+                background: var(--text);
+                position: relative;
+            }
+            .nav-hamburger span::before,
+            .nav-hamburger span::after {
+                content: '';
+                position: absolute;
+                width: 20px;
+                height: 1.5px;
+                background: var(--text);
+                left: 0;
+            }
+            .nav-hamburger span::before { top: -6px; }
+            .nav-hamburger span::after { top: 6px; }
             .theme-toggle { padding: 1px; }
             .toggle-track { width: 32px; height: 16px; }
             .toggle-indicator { width: 10px; height: 10px; left: 2px; }
