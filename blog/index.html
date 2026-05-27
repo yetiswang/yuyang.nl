@@ -142,26 +142,24 @@
             }
             updateLabel();
 
-            var clicks = 0;
+            var lastClick = 0;
             btn.addEventListener('click', function() {
-                clicks++;
-                if (clicks === 1) {
-                    setTimeout(function() {
-                        if (clicks === 1) {
-                            var cur = getEffective();
-                            var next = cur === 'dark' ? 'light' : 'dark';
-                            html.setAttribute('data-theme', next);
-                            localStorage.setItem('theme', next);
-                            updateLabel();
-                        }
-                        clicks = 0;
-                    }, 300);
-                } else {
+                var now = Date.now();
+                var gap = now - lastClick;
+                if (lastClick > 0 && gap < 50) return;
+                var isDouble = lastClick > 0 && gap < 400;
+                lastClick = now;
+                if (isDouble) {
                     html.removeAttribute('data-theme');
-                    localStorage.removeItem('theme');
-                    updateLabel();
-                    clicks = 0;
+                    try { localStorage.removeItem('theme'); } catch(e) {}
+                    lastClick = 0;
+                } else {
+                    var cur = getEffective();
+                    var next = cur === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', next);
+                    try { localStorage.setItem('theme', next); } catch(e) {}
                 }
+                updateLabel();
             });
 
             sysDark.addEventListener('change', function() {
