@@ -349,8 +349,9 @@
             .hero { padding: 40px 24px; padding-top: 92px; height: 100dvh; margin-top: -42px; }
             .hero h1 { font-size: 40px; letter-spacing: -1.5px; }
             nav { flex-wrap: wrap; }
-            nav .links {
-                display: none;
+            nav .links { display: none; }
+            nav .links.open {
+                display: flex;
                 width: 100%;
                 flex-direction: column;
                 gap: 4px;
@@ -358,7 +359,6 @@
                 border-top: 1px solid var(--border);
                 margin-top: 12px;
             }
-            nav .links.open { display: flex; }
             nav .links a { font-size: 15px; padding: 8px 0; }
             .nav-hamburger {
                 display: flex;
