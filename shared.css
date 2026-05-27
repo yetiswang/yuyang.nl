@@ -534,6 +534,29 @@
 .section-more a { color: var(--text-muted); }
 .section-more a:hover { color: var(--link); border-bottom: none; }
 
+/* Bulleted lists inside post bodies (reading page, etc.) */
+.post-body ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 24px;
+}
+.post-body ul li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 14px;
+    line-height: 1.55;
+}
+.post-body ul li::before {
+    content: '›';
+    position: absolute;
+    left: 4px;
+    top: -2px;
+    color: var(--text-muted);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+
 /* Colophon */
 .colophon {
     font-size: 13px;
