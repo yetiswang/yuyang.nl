@@ -15,22 +15,6 @@
             --link: #0066c8;
             --link-hover: #004d99;
         }
-        @media (prefers-color-scheme: dark) {
-            :root:not([data-theme='light']) {
-                --text: rgba(235,230,220,0.93);
-                --text-secondary: #a89888;
-                --text-muted: #7a7068;
-                --bg: #1c1a18;
-                --bg-alt: #262422;
-                --border: rgba(255,255,255,0.07);
-                --btn-bg: rgba(255,255,255,0.06);
-                --btn-hover: rgba(255,255,255,0.10);
-                --tag-bg: #1a2635;
-                --tag-text: #7ab8ff;
-                --link: #5ba0e0;
-                --link-hover: #7ab8ff;
-            }
-        }
         [data-theme='dark'] {
             --text: rgba(235,230,220,0.93);
             --text-secondary: #a89888;

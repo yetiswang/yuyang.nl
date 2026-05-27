@@ -8,7 +8,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/shared.css">    <style>
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>    <style>
         :root { --body-font: 'Noto Serif TC', 'Songti SC', 'SimSun', serif; --heading-font: 'Noto Serif TC', 'Songti SC', 'SimSun', serif; }
     <style>
         .post-header h1 {
@@ -114,49 +127,29 @@
             var html = document.documentElement;
             var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-            function getEffective() {
-                if (html.hasAttribute('data-theme')) {
-                    return html.getAttribute('data-theme');
-                }
-                return sysDark.matches ? 'dark' : 'light';
-            }
             function updateLabel() {
-                var t = getEffective();
+                var t = html.getAttribute('data-theme');
                 btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
             }
 
             html.classList.remove('preload');
-
-            var saved = localStorage.getItem('theme');
-            if (saved === 'dark' || saved === 'light') {
-                html.setAttribute('data-theme', saved);
-            }
             updateLabel();
 
-            var lastClick = 0;
             btn.addEventListener('click', function() {
-                var now = Date.now();
-                var gap = now - lastClick;
-                if (lastClick > 0 && gap < 50) return;
-                var isDouble = lastClick > 0 && gap < 400;
-                lastClick = now;
-                if (isDouble) {
-                    html.removeAttribute('data-theme');
-                    try { localStorage.removeItem('theme'); } catch(e) {}
-                    lastClick = 0;
-                } else {
-                    var cur = getEffective();
-                    var next = cur === 'dark' ? 'light' : 'dark';
-                    html.setAttribute('data-theme', next);
-                    try { localStorage.setItem('theme', next); } catch(e) {}
-                }
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
                 updateLabel();
             });
 
-            sysDark.addEventListener('change', function() {
-                if (!localStorage.getItem('theme')) {
-                    updateLabel();
-                }
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+                        updateLabel();
+                    }
+                } catch(err) {}
             });
         })();
 </script>
