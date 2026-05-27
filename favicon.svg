@@ -7,7 +7,7 @@
     }
     text {
       fill: rgba(0,0,0,0.92);
-      font-family: 'Songti SC', 'STSong', 'Noto Serif CJK SC', 'SimSun', 'Source Serif 4', Georgia, serif;
+      font-family: 'Songti TC', 'STSong', 'Noto Serif CJK SC', 'SimSun', 'Source Serif 4', Georgia, serif;
       font-weight: 700;
     }
     .bg { fill: #f4ede5; }
