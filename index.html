@@ -19,163 +19,159 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/shared.css">
     <style>
-        .hero-bg .blob {
+        .hero-bg {
+            opacity: 0.55;
+        }
+        .hero-bg .mountain {
             position: absolute;
-            border-radius: 50%;
+            bottom: -5%;
+            left: -5%;
+            right: -5%;
+            height: 75%;
             pointer-events: none;
             will-change: transform, opacity;
         }
-        .hero-bg .wash-1 {
-            width: 60%; height: 60%;
-            background: rgba(147, 168, 132, 0.40);
-            filter: blur(70px);
-            top: 10%; left: 0%;
-            animation: monet-wash-1 18s ease-in-out infinite;
+        .hero-bg .mountain-far {
+            background: rgba(0,0,0,0.12);
+            clip-path: polygon(0% 100%, 0% 45%, 5% 50%, 12% 30%, 20% 42%, 30% 28%, 42% 40%, 55% 22%, 68% 38%, 80% 25%, 92% 42%, 100% 35%, 100% 100%);
+            animation: mountain-breathe 14s ease-in-out infinite;
         }
-        .hero-bg .wash-2 {
-            width: 55%; height: 55%;
-            background: rgba(180, 150, 180, 0.35);
-            filter: blur(65px);
-            top: 30%; right: -5%;
-            animation: monet-wash-2 20s ease-in-out infinite;
+        .hero-bg .mountain-mid-far {
+            background: rgba(0,0,0,0.16);
+            clip-path: polygon(0% 100%, 3% 55%, 10% 45%, 18% 58%, 28% 40%, 38% 52%, 50% 35%, 62% 48%, 72% 32%, 85% 48%, 95% 38%, 100% 52%, 100% 100%);
+            animation: mountain-breathe 16s ease-in-out 2s infinite;
         }
-        .hero-bg .wash-3 {
-            width: 50%; height: 50%;
-            background: rgba(200, 175, 145, 0.38);
-            filter: blur(75px);
-            bottom: 5%; left: 20%;
-            animation: monet-wash-3 22s ease-in-out infinite;
+        .hero-bg .mountain-mid {
+            background: rgba(0,0,0,0.20);
+            clip-path: polygon(0% 100%, 5% 62%, 15% 50%, 25% 58%, 35% 42%, 48% 55%, 58% 38%, 70% 50%, 82% 36%, 92% 48%, 100% 42%, 100% 100%);
+            animation: mountain-breathe 18s ease-in-out 4s infinite;
         }
-        .hero-bg .wash-4 {
-            width: 45%; height: 45%;
-            background: rgba(140, 170, 200, 0.32);
-            filter: blur(60px);
-            top: 45%; left: 45%;
-            animation: monet-wash-4 19s ease-in-out infinite;
+        .hero-bg .mountain-near {
+            background: rgba(0,0,0,0.25);
+            clip-path: polygon(0% 100%, 8% 72%, 18% 58%, 30% 68%, 42% 50%, 55% 62%, 65% 48%, 78% 58%, 88% 45%, 100% 55%, 100% 100%);
+            animation: mountain-breathe 20s ease-in-out 6s infinite;
         }
-        .hero-bg .wash-5 {
-            width: 40%; height: 40%;
-            background: rgba(210, 190, 140, 0.30);
-            filter: blur(55px);
-            top: 15%; right: 20%;
-            animation: monet-wash-5 21s ease-in-out infinite;
+        .hero-bg .mountain-fore {
+            background: rgba(0,0,0,0.30);
+            clip-path: polygon(0% 100%, 12% 80%, 25% 68%, 38% 75%, 50% 60%, 62% 70%, 75% 58%, 88% 68%, 100% 60%, 100% 100%);
+            animation: mountain-breathe 22s ease-in-out 8s infinite;
         }
-        .hero-bg .wash-6 {
-            width: 50%; height: 50%;
-            background: rgba(160, 180, 170, 0.28);
-            filter: blur(80px);
-            bottom: 10%; right: 15%;
-            animation: monet-wash-6 23s ease-in-out infinite;
-        }
-        .hero-bg .stroke {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            will-change: transform;
-            filter: blur(18px);
-        }
-        .hero-bg .stroke-1 {
-            width: 12%; height: 12%;
-            background: rgba(190, 140, 130, 0.45);
-            top: 25%; left: 30%;
-            animation: monet-stroke-1 10s ease-in-out infinite;
-        }
-        .hero-bg .stroke-2 {
-            width: 10%; height: 10%;
-            background: rgba(130, 160, 180, 0.42);
-            top: 55%; right: 25%;
-            animation: monet-stroke-2 12s ease-in-out infinite;
-        }
-        .hero-bg .stroke-3 {
-            width: 14%; height: 14%;
-            background: rgba(210, 185, 120, 0.40);
-            bottom: 20%; left: 55%;
-            animation: monet-stroke-3 11s ease-in-out infinite;
-        }
-        .hero-bg .stroke-4 {
-            width: 8%; height: 8%;
-            background: rgba(220, 200, 200, 0.38);
-            top: 40%; left: 15%;
-            animation: monet-stroke-4 9s ease-in-out infinite;
-        }
-        @keyframes monet-wash-1 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            25% { transform: translate(8%, -5%) scale(1.10) rotate(2deg); }
-            50% { transform: translate(-4%, 7%) scale(0.92) rotate(-1deg); }
-            75% { transform: translate(5%, -3%) scale(1.05) rotate(3deg); }
-        }
-        @keyframes monet-wash-2 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            25% { transform: translate(-7%, 4%) scale(1.08) rotate(-2deg); }
-            50% { transform: translate(5%, -6%) scale(0.90) rotate(1deg); }
-            75% { transform: translate(-3%, 6%) scale(1.04) rotate(-3deg); }
-        }
-        @keyframes monet-wash-3 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            25% { transform: translate(6%, 3%) scale(1.06) rotate(2deg); }
-            50% { transform: translate(-5%, -4%) scale(0.94) rotate(-2deg); }
-            75% { transform: translate(3%, -5%) scale(1.07) rotate(1deg); }
-        }
-        @keyframes monet-wash-4 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(-6%, -4%) scale(1.09) rotate(-3deg); }
-            66% { transform: translate(4%, 5%) scale(0.91) rotate(2deg); }
-        }
-        @keyframes monet-wash-5 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(5%, 6%) scale(1.07) rotate(1deg); }
-            66% { transform: translate(-4%, -3%) scale(0.93) rotate(-1deg); }
-        }
-        @keyframes monet-wash-6 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(-5%, 3%) scale(1.05) rotate(-2deg); }
-            66% { transform: translate(3%, -5%) scale(0.95) rotate(2deg); }
-        }
-        @keyframes monet-stroke-1 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            25% { transform: translate(12%, -8%) scale(1.15) rotate(5deg); }
-            50% { transform: translate(-8%, 10%) scale(0.88) rotate(-4deg); }
-            75% { transform: translate(6%, -5%) scale(1.10) rotate(3deg); }
-        }
-        @keyframes monet-stroke-2 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            25% { transform: translate(-10%, 6%) scale(1.12) rotate(-5deg); }
-            50% { transform: translate(7%, -9%) scale(0.85) rotate(4deg); }
-            75% { transform: translate(-5%, 8%) scale(1.08) rotate(-3deg); }
-        }
-        @keyframes monet-stroke-3 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(9%, 5%) scale(1.10) rotate(6deg); }
-            66% { transform: translate(-7%, -8%) scale(0.90) rotate(-5deg); }
-        }
-        @keyframes monet-stroke-4 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            25% { transform: translate(8%, -7%) scale(1.18) rotate(7deg); }
-            50% { transform: translate(-6%, 5%) scale(0.82) rotate(-6deg); }
-            75% { transform: translate(10%, 3%) scale(1.12) rotate(4deg); }
-        }
-        [data-theme='dark'] .hero-bg .wash-1 { background: rgba(147, 168, 132, 0.16); }
-        [data-theme='dark'] .hero-bg .wash-2 { background: rgba(160, 130, 160, 0.14); }
-        [data-theme='dark'] .hero-bg .wash-3 { background: rgba(180, 155, 125, 0.15); }
-        [data-theme='dark'] .hero-bg .wash-4 { background: rgba(120, 150, 180, 0.13); }
-        [data-theme='dark'] .hero-bg .wash-5 { background: rgba(170, 150, 110, 0.12); }
-        [data-theme='dark'] .hero-bg .wash-6 { background: rgba(130, 155, 145, 0.11); }
-        [data-theme='dark'] .hero-bg .stroke-1 { background: rgba(170, 120, 110, 0.20); }
-        [data-theme='dark'] .hero-bg .stroke-2 { background: rgba(110, 140, 160, 0.18); }
-        [data-theme='dark'] .hero-bg .stroke-3 { background: rgba(180, 155, 100, 0.17); }
-        [data-theme='dark'] .hero-bg .stroke-4 { background: rgba(190, 175, 175, 0.15); }
-        .hero-bg .grain {
+        .hero-bg .mist {
             position: absolute;
             inset: 0;
             pointer-events: none;
-            opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-            background-size: 256px 256px;
+            will-change: background-position;
+            background:
+                radial-gradient(ellipse 80% 30% at 20% 50%, rgba(180,180,180,0.25), transparent 55%),
+                radial-gradient(ellipse 60% 25% at 65% 40%, rgba(170,170,170,0.20), transparent 55%),
+                radial-gradient(ellipse 50% 20% at 40% 65%, rgba(190,190,190,0.18), transparent 50%),
+                radial-gradient(ellipse 70% 15% at 55% 75%, rgba(200,200,200,0.12), transparent 45%);
+            animation: mist-drift 16s ease-in-out infinite;
         }
-        [data-theme='dark'] .hero-bg .grain { opacity: 0.06; }
+
+        /* Birds — synchronized with hero reveal (0-0.9s) */
+        .hero-bg .bird {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+        .hero-bg .bird svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: rgba(0,0,0,0.35);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .hero-bg .bird-1 {
+            width: 40px; height: 18px;
+            top: 15%; left: -5%;
+            animation: bird-fly-1 5s 0.2s ease-out infinite;
+        }
+        .hero-bg .bird-2 {
+            width: 28px; height: 13px;
+            top: 22%; left: -5%;
+            animation: bird-fly-2 6s 0.8s ease-out infinite;
+        }
+        .hero-bg .bird-3 {
+            width: 34px; height: 15px;
+            top: 10%; left: -5%;
+            animation: bird-fly-3 7s 1.4s ease-out infinite;
+        }
+        .hero-bg .bird-4 {
+            width: 22px; height: 10px;
+            top: 18%; left: -5%;
+            animation: bird-fly-4 4.5s 0.5s ease-out infinite;
+        }
+
+        @keyframes mountain-breathe {
+            0%, 100% { opacity: 0.7; transform: translateY(0) translateX(0); }
+            25% { opacity: 1; transform: translateY(-6px) translateX(2px); }
+            50% { opacity: 0.8; transform: translateY(-3px) translateX(-3px); }
+            75% { opacity: 0.9; transform: translateY(-8px) translateX(1px); }
+        }
+        @keyframes mist-drift {
+            0%, 100% { background-position: 20% 50%, 65% 40%, 40% 65%, 55% 75%; }
+            25% { background-position: 30% 45%, 55% 45%, 35% 60%, 60% 70%; }
+            50% { background-position: 15% 55%, 70% 35%, 45% 70%, 50% 80%; }
+            75% { background-position: 25% 48%, 60% 42%, 38% 62%, 58% 72%; }
+        }
+        @keyframes bird-fly-1 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0; }
+            5% { opacity: 1; }
+            15% { transform: translate(120px, -15px) scale(1.1); }
+            30% { transform: translate(280px, -25px) scale(0.9); }
+            45% { transform: translate(420px, -18px) scale(1.05); }
+            60% { transform: translate(560px, -30px) scale(0.95); }
+            80% { opacity: 1; }
+            100% { transform: translate(800px, -10px) scale(0.8); opacity: 0; }
+        }
+        @keyframes bird-fly-2 {
+            0% { transform: translate(0, 5px) scale(0.9); opacity: 0; }
+            8% { opacity: 1; }
+            25% { transform: translate(150px, -10px) scale(1.0); }
+            50% { transform: translate(350px, -20px) scale(0.85); }
+            75% { transform: translate(550px, -12px) scale(0.95); }
+            90% { opacity: 1; }
+            100% { transform: translate(750px, 5px) scale(0.75); opacity: 0; }
+        }
+        @keyframes bird-fly-3 {
+            0% { transform: translate(0, -3px) scale(1.1); opacity: 0; }
+            6% { opacity: 1; }
+            20% { transform: translate(100px, -20px) scale(1.0); }
+            40% { transform: translate(250px, -30px) scale(0.9); }
+            60% { transform: translate(400px, -15px) scale(1.05); }
+            85% { opacity: 1; }
+            100% { transform: translate(650px, 0) scale(0.7); opacity: 0; }
+        }
+        @keyframes bird-fly-4 {
+            0% { transform: translate(0, 8px) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            30% { transform: translate(180px, -8px) scale(1.0); }
+            55% { transform: translate(400px, -22px) scale(0.85); }
+            80% { transform: translate(600px, -14px) scale(0.9); }
+            92% { opacity: 1; }
+            100% { transform: translate(850px, 2px) scale(0.7); opacity: 0; }
+        }
+
+        [data-theme='dark'] .hero-bg .mountain-far { background: rgba(255,255,255,0.06); }
+        [data-theme='dark'] .hero-bg .mountain-mid-far { background: rgba(255,255,255,0.08); }
+        [data-theme='dark'] .hero-bg .mountain-mid { background: rgba(255,255,255,0.10); }
+        [data-theme='dark'] .hero-bg .mountain-near { background: rgba(255,255,255,0.13); }
+        [data-theme='dark'] .hero-bg .mountain-fore { background: rgba(255,255,255,0.15); }
+        [data-theme='dark'] .hero-bg .mist {
+            background:
+                radial-gradient(ellipse 80% 30% at 20% 50%, rgba(255,255,255,0.08), transparent 55%),
+                radial-gradient(ellipse 60% 25% at 65% 40%, rgba(255,255,255,0.06), transparent 55%),
+                radial-gradient(ellipse 50% 20% at 40% 65%, rgba(255,255,255,0.05), transparent 50%);
+        }
+        [data-theme='dark'] .hero-bg .bird svg { stroke: rgba(255,255,255,0.20); }
         @media (prefers-reduced-motion: reduce) {
-            .hero-bg .blob,
-            .hero-bg .stroke { animation: none; }
+            .hero-bg .mountain,
+            .hero-bg .mist,
+            .hero-bg .bird { animation: none; opacity: 0; }
         }
     </style>
     <script>
@@ -213,17 +209,16 @@
 
         <header class="hero">
                         <div class="hero-bg">
-                <div class="blob wash-1"></div>
-                <div class="blob wash-2"></div>
-                <div class="blob wash-3"></div>
-                <div class="blob wash-4"></div>
-                <div class="blob wash-5"></div>
-                <div class="blob wash-6"></div>
-                <div class="stroke stroke-1"></div>
-                <div class="stroke stroke-2"></div>
-                <div class="stroke stroke-3"></div>
-                <div class="stroke stroke-4"></div>
-                <div class="grain"></div>
+                <div class="mountain mountain-far"></div>
+                <div class="mountain mountain-mid-far"></div>
+                <div class="mountain mountain-mid"></div>
+                <div class="mountain mountain-near"></div>
+                <div class="mountain mountain-fore"></div>
+                <div class="mist"></div>
+                <div class="bird bird-1"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
+                <div class="bird bird-2"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
+                <div class="bird bird-3"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
+                <div class="bird bird-4"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
             </div>
 
                 <div class="blob blob-2"></div>

@@ -68,18 +68,43 @@
                 radial-gradient(ellipse 70% 15% at 55% 75%, rgba(200,200,200,0.12), transparent 45%);
             animation: mist-drift 16s ease-in-out infinite;
         }
-        .hero-bg .scroll-line {
+
+        /* Birds — synchronized with hero reveal (0-0.9s) */
+        .hero-bg .bird {
             position: absolute;
-            left: 5%;
-            right: 5%;
-            height: 1px;
             pointer-events: none;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent);
-            animation: scroll-float 25s linear infinite;
+            opacity: 0;
+            will-change: transform, opacity;
         }
-        .hero-bg .scroll-line:nth-child(7) { top: 70%; animation-delay: 0s; }
-        .hero-bg .scroll-line:nth-child(8) { top: 50%; animation-delay: -8s; }
-        .hero-bg .scroll-line:nth-child(9) { top: 30%; animation-delay: -16s; }
+        .hero-bg .bird svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: rgba(0,0,0,0.35);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .hero-bg .bird-1 {
+            width: 40px; height: 18px;
+            top: 15%; left: -5%;
+            animation: bird-fly-1 5s 0.2s ease-out infinite;
+        }
+        .hero-bg .bird-2 {
+            width: 28px; height: 13px;
+            top: 22%; left: -5%;
+            animation: bird-fly-2 6s 0.8s ease-out infinite;
+        }
+        .hero-bg .bird-3 {
+            width: 34px; height: 15px;
+            top: 10%; left: -5%;
+            animation: bird-fly-3 7s 1.4s ease-out infinite;
+        }
+        .hero-bg .bird-4 {
+            width: 22px; height: 10px;
+            top: 18%; left: -5%;
+            animation: bird-fly-4 4.5s 0.5s ease-out infinite;
+        }
 
         @keyframes mountain-breathe {
             0%, 100% { opacity: 0.7; transform: translateY(0) translateX(0); }
@@ -93,11 +118,42 @@
             50% { background-position: 15% 55%, 70% 35%, 45% 70%, 50% 80%; }
             75% { background-position: 25% 48%, 60% 42%, 38% 62%, 58% 72%; }
         }
-        @keyframes scroll-float {
-            0% { transform: translateY(80px); opacity: 0; }
-            20% { opacity: 0.6; }
-            80% { opacity: 0.6; }
-            100% { transform: translateY(-80px); opacity: 0; }
+        @keyframes bird-fly-1 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0; }
+            5% { opacity: 1; }
+            15% { transform: translate(120px, -15px) scale(1.1); }
+            30% { transform: translate(280px, -25px) scale(0.9); }
+            45% { transform: translate(420px, -18px) scale(1.05); }
+            60% { transform: translate(560px, -30px) scale(0.95); }
+            80% { opacity: 1; }
+            100% { transform: translate(800px, -10px) scale(0.8); opacity: 0; }
+        }
+        @keyframes bird-fly-2 {
+            0% { transform: translate(0, 5px) scale(0.9); opacity: 0; }
+            8% { opacity: 1; }
+            25% { transform: translate(150px, -10px) scale(1.0); }
+            50% { transform: translate(350px, -20px) scale(0.85); }
+            75% { transform: translate(550px, -12px) scale(0.95); }
+            90% { opacity: 1; }
+            100% { transform: translate(750px, 5px) scale(0.75); opacity: 0; }
+        }
+        @keyframes bird-fly-3 {
+            0% { transform: translate(0, -3px) scale(1.1); opacity: 0; }
+            6% { opacity: 1; }
+            20% { transform: translate(100px, -20px) scale(1.0); }
+            40% { transform: translate(250px, -30px) scale(0.9); }
+            60% { transform: translate(400px, -15px) scale(1.05); }
+            85% { opacity: 1; }
+            100% { transform: translate(650px, 0) scale(0.7); opacity: 0; }
+        }
+        @keyframes bird-fly-4 {
+            0% { transform: translate(0, 8px) scale(0.8); opacity: 0; }
+            10% { opacity: 1; }
+            30% { transform: translate(180px, -8px) scale(1.0); }
+            55% { transform: translate(400px, -22px) scale(0.85); }
+            80% { transform: translate(600px, -14px) scale(0.9); }
+            92% { opacity: 1; }
+            100% { transform: translate(850px, 2px) scale(0.7); opacity: 0; }
         }
 
         [data-theme='dark'] .hero-bg .mountain-far { background: rgba(255,255,255,0.06); }
@@ -111,12 +167,11 @@
                 radial-gradient(ellipse 60% 25% at 65% 40%, rgba(255,255,255,0.06), transparent 55%),
                 radial-gradient(ellipse 50% 20% at 40% 65%, rgba(255,255,255,0.05), transparent 50%);
         }
-        [data-theme='dark'] .hero-bg .scroll-line { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent); }
-
+        [data-theme='dark'] .hero-bg .bird svg { stroke: rgba(255,255,255,0.20); }
         @media (prefers-reduced-motion: reduce) {
             .hero-bg .mountain,
             .hero-bg .mist,
-            .hero-bg .scroll-line { animation: none; }
+            .hero-bg .bird { animation: none; opacity: 0; }
         }
     </style>
     <script>
@@ -171,9 +226,10 @@
                 <div class="mountain mountain-near"></div>
                 <div class="mountain mountain-fore"></div>
                 <div class="mist"></div>
-                <div class="scroll-line"></div>
-                <div class="scroll-line"></div>
-                <div class="scroll-line"></div>
+                <div class="bird bird-1"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
+                <div class="bird bird-2"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
+                <div class="bird bird-3"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
+                <div class="bird bird-4"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
             </div>
 
                 <div class="mountain mountain-mid"></div>
