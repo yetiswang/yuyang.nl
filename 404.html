@@ -134,7 +134,14 @@
                 var l = document.querySelector('nav .links');
                 if (h && l) {
                     h.addEventListener('click', function(){
+                        h.classList.toggle('open');
                         l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
                     });
                 }
             })();
