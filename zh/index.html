@@ -22,54 +22,58 @@
         .hero-bg {
             opacity: 0.55;
         }
-        .hero-bg .mountain {
+        .hero-bg .shanshui-img {
             position: absolute;
-            bottom: -5%;
-            left: -5%;
-            right: -5%;
-            height: 75%;
+            width: 105%;
+            height: 105%;
+            top: -2.5%;
+            left: -2.5%;
+            object-fit: cover;
             pointer-events: none;
-            will-change: transform, opacity;
+            animation: boat-bob 7s ease-in-out infinite;
         }
-        .hero-bg .mountain-far {
-            background: rgba(0,0,0,0.12);
-            clip-path: polygon(0% 100%, 0% 45%, 5% 50%, 12% 30%, 20% 42%, 30% 28%, 42% 40%, 55% 22%, 68% 38%, 80% 25%, 92% 42%, 100% 35%, 100% 100%);
-            animation: mountain-breathe 14s ease-in-out infinite;
-        }
-        .hero-bg .mountain-mid-far {
-            background: rgba(0,0,0,0.16);
-            clip-path: polygon(0% 100%, 3% 55%, 10% 45%, 18% 58%, 28% 40%, 38% 52%, 50% 35%, 62% 48%, 72% 32%, 85% 48%, 95% 38%, 100% 52%, 100% 100%);
-            animation: mountain-breathe 16s ease-in-out 2s infinite;
-        }
-        .hero-bg .mountain-mid {
-            background: rgba(0,0,0,0.20);
-            clip-path: polygon(0% 100%, 5% 62%, 15% 50%, 25% 58%, 35% 42%, 48% 55%, 58% 38%, 70% 50%, 82% 36%, 92% 48%, 100% 42%, 100% 100%);
-            animation: mountain-breathe 18s ease-in-out 4s infinite;
-        }
-        .hero-bg .mountain-near {
-            background: rgba(0,0,0,0.25);
-            clip-path: polygon(0% 100%, 8% 72%, 18% 58%, 30% 68%, 42% 50%, 55% 62%, 65% 48%, 78% 58%, 88% 45%, 100% 55%, 100% 100%);
-            animation: mountain-breathe 20s ease-in-out 6s infinite;
-        }
-        .hero-bg .mountain-fore {
-            background: rgba(0,0,0,0.30);
-            clip-path: polygon(0% 100%, 12% 80%, 25% 68%, 38% 75%, 50% 60%, 62% 70%, 75% 58%, 88% 68%, 100% 60%, 100% 100%);
-            animation: mountain-breathe 22s ease-in-out 8s infinite;
-        }
-        .hero-bg .mist {
+        .hero-bg .mist-overlay {
             position: absolute;
             inset: 0;
             pointer-events: none;
-            will-change: background-position;
             background:
-                radial-gradient(ellipse 80% 30% at 20% 50%, rgba(180,180,180,0.25), transparent 55%),
-                radial-gradient(ellipse 60% 25% at 65% 40%, rgba(170,170,170,0.20), transparent 55%),
-                radial-gradient(ellipse 50% 20% at 40% 65%, rgba(190,190,190,0.18), transparent 50%),
-                radial-gradient(ellipse 70% 15% at 55% 75%, rgba(200,200,200,0.12), transparent 45%);
-            animation: mist-drift 16s ease-in-out infinite;
+                radial-gradient(ellipse 80% 20% at 20% 50%, rgba(255,255,255,0.18), transparent 50%),
+                radial-gradient(ellipse 60% 15% at 65% 45%, rgba(255,255,255,0.14), transparent 50%),
+                radial-gradient(ellipse 50% 10% at 40% 55%, rgba(255,255,255,0.10), transparent 45%);
+            animation: mist-breathe 16s ease-in-out infinite;
+        }
+        .hero-bg .water-ripple {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+            pointer-events: none;
+            opacity: 0.25;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 28px,
+                rgba(255,255,255,0.4) 28px,
+                rgba(255,255,255,0.4) 30px
+            );
+            animation: ripple-drift 10s linear infinite;
+        }
+        .hero-bg .water-ripple-2 {
+            bottom: 2%;
+            height: 28%;
+            opacity: 0.15;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 35px,
+                rgba(255,255,255,0.35) 35px,
+                rgba(255,255,255,0.35) 36px
+            );
+            animation: ripple-drift 14s linear 3s infinite reverse;
         }
 
-        /* Birds — synchronized with hero reveal (0-0.9s) */
+        /* Birds */
         .hero-bg .bird {
             position: absolute;
             pointer-events: none;
@@ -86,92 +90,90 @@
             stroke-linejoin: round;
         }
         .hero-bg .bird-1 {
-            width: 40px; height: 18px;
-            top: 15%; left: -5%;
-            animation: bird-fly-1 5s 0.2s ease-out infinite;
+            width: 36px; height: 16px;
+            top: 18%; left: -5%;
+            animation: bird-fly-1 5.5s 0.3s ease-out infinite;
         }
         .hero-bg .bird-2 {
-            width: 28px; height: 13px;
-            top: 22%; left: -5%;
-            animation: bird-fly-2 6s 0.8s ease-out infinite;
+            width: 24px; height: 11px;
+            top: 24%; left: -5%;
+            animation: bird-fly-2 6.5s 1.0s ease-out infinite;
         }
         .hero-bg .bird-3 {
-            width: 34px; height: 15px;
-            top: 10%; left: -5%;
-            animation: bird-fly-3 7s 1.4s ease-out infinite;
-        }
-        .hero-bg .bird-4 {
-            width: 22px; height: 10px;
-            top: 18%; left: -5%;
-            animation: bird-fly-4 4.5s 0.5s ease-out infinite;
+            width: 30px; height: 14px;
+            top: 12%; left: -5%;
+            animation: bird-fly-3 7s 1.8s ease-out infinite;
         }
 
-        @keyframes mountain-breathe {
-            0%, 100% { opacity: 0.7; transform: translateY(0) translateX(0); }
-            25% { opacity: 1; transform: translateY(-6px) translateX(2px); }
-            50% { opacity: 0.8; transform: translateY(-3px) translateX(-3px); }
-            75% { opacity: 0.9; transform: translateY(-8px) translateX(1px); }
+        @keyframes boat-bob {
+            0%, 100% { transform: translateY(0) scale(1); }
+            25% { transform: translateY(-4px) scale(1.005); }
+            50% { transform: translateY(1px) scale(0.998); }
+            75% { transform: translateY(-2px) scale(1.003); }
         }
-        @keyframes mist-drift {
-            0%, 100% { background-position: 20% 50%, 65% 40%, 40% 65%, 55% 75%; }
-            25% { background-position: 30% 45%, 55% 45%, 35% 60%, 60% 70%; }
-            50% { background-position: 15% 55%, 70% 35%, 45% 70%, 50% 80%; }
-            75% { background-position: 25% 48%, 60% 42%, 38% 62%, 58% 72%; }
+        @keyframes mist-breathe {
+            0%, 100% { background-position: 20% 50%, 65% 45%, 40% 55%; opacity: 0.7; }
+            33% { background-position: 30% 48%, 55% 48%, 35% 52%; opacity: 1; }
+            66% { background-position: 15% 52%, 70% 42%, 45% 58%; opacity: 0.8; }
+        }
+        @keyframes ripple-drift {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 60px; }
         }
         @keyframes bird-fly-1 {
             0% { transform: translate(0, 0) scale(1); opacity: 0; }
             5% { opacity: 1; }
-            15% { transform: translate(120px, -15px) scale(1.1); }
-            30% { transform: translate(280px, -25px) scale(0.9); }
-            45% { transform: translate(420px, -18px) scale(1.05); }
-            60% { transform: translate(560px, -30px) scale(0.95); }
-            80% { opacity: 1; }
-            100% { transform: translate(800px, -10px) scale(0.8); opacity: 0; }
+            15% { transform: translate(100px, -12px) scale(1.1); }
+            35% { transform: translate(250px, -22px) scale(0.9); }
+            55% { transform: translate(420px, -16px) scale(1.05); }
+            75% { transform: translate(580px, -28px) scale(0.95); }
+            85% { opacity: 1; }
+            100% { transform: translate(800px, -8px) scale(0.8); opacity: 0; }
         }
         @keyframes bird-fly-2 {
-            0% { transform: translate(0, 5px) scale(0.9); opacity: 0; }
+            0% { transform: translate(0, 4px) scale(0.85); opacity: 0; }
             8% { opacity: 1; }
-            25% { transform: translate(150px, -10px) scale(1.0); }
-            50% { transform: translate(350px, -20px) scale(0.85); }
-            75% { transform: translate(550px, -12px) scale(0.95); }
+            25% { transform: translate(140px, -8px) scale(1.0); }
+            50% { transform: translate(340px, -18px) scale(0.85); }
+            75% { transform: translate(560px, -10px) scale(0.95); }
             90% { opacity: 1; }
-            100% { transform: translate(750px, 5px) scale(0.75); opacity: 0; }
+            100% { transform: translate(780px, 3px) scale(0.75); opacity: 0; }
         }
         @keyframes bird-fly-3 {
-            0% { transform: translate(0, -3px) scale(1.1); opacity: 0; }
+            0% { transform: translate(0, -2px) scale(1.05); opacity: 0; }
             6% { opacity: 1; }
-            20% { transform: translate(100px, -20px) scale(1.0); }
-            40% { transform: translate(250px, -30px) scale(0.9); }
-            60% { transform: translate(400px, -15px) scale(1.05); }
-            85% { opacity: 1; }
-            100% { transform: translate(650px, 0) scale(0.7); opacity: 0; }
-        }
-        @keyframes bird-fly-4 {
-            0% { transform: translate(0, 8px) scale(0.8); opacity: 0; }
-            10% { opacity: 1; }
-            30% { transform: translate(180px, -8px) scale(1.0); }
-            55% { transform: translate(400px, -22px) scale(0.85); }
-            80% { transform: translate(600px, -14px) scale(0.9); }
-            92% { opacity: 1; }
-            100% { transform: translate(850px, 2px) scale(0.7); opacity: 0; }
+            20% { transform: translate(90px, -18px) scale(1.0); }
+            45% { transform: translate(280px, -28px) scale(0.9); }
+            65% { transform: translate(450px, -14px) scale(1.02); }
+            88% { opacity: 1; }
+            100% { transform: translate(700px, 2px) scale(0.7); opacity: 0; }
         }
 
-        [data-theme='dark'] .hero-bg .mountain-far { background: rgba(255,255,255,0.06); }
-        [data-theme='dark'] .hero-bg .mountain-mid-far { background: rgba(255,255,255,0.08); }
-        [data-theme='dark'] .hero-bg .mountain-mid { background: rgba(255,255,255,0.10); }
-        [data-theme='dark'] .hero-bg .mountain-near { background: rgba(255,255,255,0.13); }
-        [data-theme='dark'] .hero-bg .mountain-fore { background: rgba(255,255,255,0.15); }
-        [data-theme='dark'] .hero-bg .mist {
-            background:
-                radial-gradient(ellipse 80% 30% at 20% 50%, rgba(255,255,255,0.08), transparent 55%),
-                radial-gradient(ellipse 60% 25% at 65% 40%, rgba(255,255,255,0.06), transparent 55%),
-                radial-gradient(ellipse 50% 20% at 40% 65%, rgba(255,255,255,0.05), transparent 50%);
+        [data-theme='dark'] .hero-bg {
+            opacity: 0.40;
         }
-        [data-theme='dark'] .hero-bg .bird svg { stroke: rgba(255,255,255,0.20); }
+        [data-theme='dark'] .hero-bg .shanshui-img {
+            filter: brightness(0.6) saturate(0.3);
+        }
+        [data-theme='dark'] .hero-bg .mist-overlay {
+            background:
+                radial-gradient(ellipse 80% 20% at 20% 50%, rgba(255,255,255,0.06), transparent 50%),
+                radial-gradient(ellipse 60% 15% at 65% 45%, rgba(255,255,255,0.04), transparent 50%);
+        }
+        [data-theme='dark'] .hero-bg .water-ripple {
+            opacity: 0.12;
+        }
+        [data-theme='dark'] .hero-bg .water-ripple-2 {
+            opacity: 0.06;
+        }
+        [data-theme='dark'] .hero-bg .bird svg {
+            stroke: rgba(255,255,255,0.20);
+        }
         @media (prefers-reduced-motion: reduce) {
-            .hero-bg .mountain,
-            .hero-bg .mist,
-            .hero-bg .bird { animation: none; opacity: 0; }
+            .hero-bg .shanshui-img,
+            .hero-bg .mist-overlay,
+            .hero-bg .water-ripple,
+            .hero-bg .bird { animation: none; }
         }
     </style>
     <script>
@@ -219,19 +221,15 @@
         </nav>
 
         <header class="hero">
-                                    <div class="hero-bg">
-                <div class="mountain mountain-far"></div>
-                <div class="mountain mountain-mid-far"></div>
-                <div class="mountain mountain-mid"></div>
-                <div class="mountain mountain-near"></div>
-                <div class="mountain mountain-fore"></div>
-                <div class="mist"></div>
+                                                <div class="hero-bg">
+                <img src="/shanshui.webp" alt="" class="shanshui-img" loading="eager">
+                <div class="mist-overlay"></div>
+                <div class="water-ripple"></div>
+                <div class="water-ripple water-ripple-2"></div>
                 <div class="bird bird-1"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
                 <div class="bird bird-2"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
                 <div class="bird bird-3"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
-                <div class="bird bird-4"><svg viewBox="0 0 40 18" xmlns="http://www.w3.org/2000/svg"><path d="M2 14 Q10 4 20 8 Q30 4 38 14"/></svg></div>
             </div>
-
 <div class="eyebrow">在大學管理科學</div>
             <h1>王昱揚</h1>
             <p class="blurb">創造那些原本不可能出現的發現條件。在 AI 驅動研究時代的基礎設施、策略與機構協調。</p>
