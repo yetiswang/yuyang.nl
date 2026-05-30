@@ -198,11 +198,14 @@
 
                 <pre><code>plaudio transcribe meeting.mp3
 plaudio match meeting.mp3 meeting.plaud.json --threshold 0.55
+plaudio label meeting.mp3 meeting.plaud.json --enrol      # 起步：聲紋庫還是空的時候用
 plaudio enrol clean-30s-clip.mp3 --name "Alice Smith" --start 0 --end 30
 plaudio db ingest meeting.plaud.json --meeting-id 2026-05-30-team
 plaudio db search "deadline" --speaker "Alice Smith"</code></pre>
 
-                <p>另外還有一個聲紋庫管理工具、一個互動式的人工標記介面，以及一個 <code>doctor</code> 指令，會直接告訴你缺哪一個依賴。</p>
+                <p>這幾個指令裡最容易被忽略的是 <code>plaudio label</code>。第一次跑 Plaudio 的時候，你的聲紋庫是空的，所以每個群最後都會被標成 <code>Unknown</code>，根本沒有 profile 可以拿去匹配。互動式標記介面就是為這個情境做的：它從每個未知的群裡挑出最長的一段乾淨獨白，背景播放給你聽，請你輸入名字，把標籤寫回逐字稿，並在你加上 <code>--enrol</code> 的時候，順手把這個聲紋也登錄進庫裡。大概跑過十場左右的會議之後，常出現的人就都進庫了，這個互動步驟也自然就不需要了。如果你早就知道誰是誰，還可以用 <code>--batch-label "SPEAKER_00=Alice,SPEAKER_01=Bob"</code> 這個形式，完全跳過音訊播放。</p>
+
+                <p>另外還有一個聲紋庫管理工具（<code>plaudio voicebank list / export / import / migrate / remove</code>），以及一個 <code>doctor</code> 指令，會直接告訴你缺哪一個依賴。</p>
 
                 <p>技術棧上，ASR 用的是 <a href="https://github.com/ml-explore/mlx-examples/tree/main/whisper">mlx-whisper</a>（跑在 Neural Engine 與 GPU 上，在 M 系列晶片上大約有六倍即時的速度），嵌入模型來自 <a href="https://github.com/pyannote/pyannote-audio">pyannote-audio 3.1</a>，可搜尋的語料庫則是 SQLite 加上 FTS5 的 trigram 分詞器。trigram 分詞器是讓中英文混雜搜尋能順利運作的關鍵，這對我參與的會議很重要。</p>
 

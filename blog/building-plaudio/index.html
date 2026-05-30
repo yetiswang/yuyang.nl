@@ -198,11 +198,14 @@
 
                 <pre><code>plaudio transcribe meeting.mp3
 plaudio match meeting.mp3 meeting.plaud.json --threshold 0.55
+plaudio label meeting.mp3 meeting.plaud.json --enrol      # bootstrap: when the bank is empty
 plaudio enrol clean-30s-clip.mp3 --name "Alice Smith" --start 0 --end 30
 plaudio db ingest meeting.plaud.json --meeting-id 2026-05-30-team
 plaudio db search "deadline" --speaker "Alice Smith"</code></pre>
 
-                <p>Plus a voicebank manager, an interactive labelling CLI, and a <code>doctor</code> command that tells you exactly which dependency is missing.</p>
+                <p>The most overlooked of these is <code>plaudio label</code>. The first time you run Plaudio on a meeting, your bank is empty, so every cluster comes back as <code>Unknown</code> and you have no profiles to match against. The interactive labeller solves this: it picks the longest clean monologue from each unknown cluster, plays it through your speakers in the background, prompts you for a name, writes the label back to the transcript, and (with <code>--enrol</code>) adds the voice to the bank in a single pass. After ten or so meetings, the bank covers most of your regulars and the interactive step disappears. If you already know who is who, there is a <code>--batch-label "SPEAKER_00=Alice,SPEAKER_01=Bob"</code> form that skips audio playback entirely.</p>
+
+                <p>Plus a voicebank manager (<code>plaudio voicebank list / export / import / migrate / remove</code>) and a <code>doctor</code> command that tells you exactly which dependency is missing.</p>
 
                 <p>The stack is <a href="https://github.com/ml-explore/mlx-examples/tree/main/whisper">mlx-whisper</a> for ASR (it runs on the Neural Engine and GPU, around six times realtime on M-series chips), <a href="https://github.com/pyannote/pyannote-audio">pyannote-audio 3.1</a> for the embedding model, and SQLite with the FTS5 trigram tokeniser for the searchable corpus. The trigram tokeniser is what makes Chinese-English code-switched search work, which matters for the meetings I have.</p>
 
