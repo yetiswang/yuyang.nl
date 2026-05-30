@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Building Plaudio — Yuyang Wang">
+    <meta property="og:description" content="Why I wrote a voice-bank-first speaker labeller for the Plaud Note recorder family. v0.1 shipped today on PyPI.">
+    <meta property="og:url" content="https://yuyang.nl/blog/building-plaudio/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Building Plaudio — Yuyang Wang">
+    <meta name="twitter:description" content="Why I wrote a voice-bank-first speaker labeller for the Plaud Note recorder family. v0.1 shipped today on PyPI.">
+    <title>Building Plaudio — Yuyang Wang</title>
+    <meta name="description" content="Notes on building Plaudio, a small open-source tool that labels meeting speakers by voice instead of by cluster.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body blockquote {
+            margin: 40px 0;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-style: italic;
+            font-size: 24px;
+            line-height: 1.45;
+            color: var(--text);
+            text-align: center;
+            text-wrap: balance;
+        }
+        .post-body blockquote p { margin: 0; }
+        .post-body blockquote p:last-child { margin-bottom: 0; }
+        .post-body pre {
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.55;
+            margin: 24px 0;
+        }
+        .post-body code {
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.92em;
+            background: var(--tag-bg);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+        .post-body pre code {
+            background: transparent;
+            padding: 0;
+        }
+        .post-body a {
+            color: var(--link);
+        }
+        .post-nav {
+            padding: 24px 0 0;
+            border-top: 1px solid var(--border);
+        }
+        .post-nav a {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        @media (max-width: 600px) {
+            .post-header h1 { font-size: 32px; letter-spacing: -0.3px; }
+            .post-body { font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/" class="logo">Hypomnemata</a>
+            <div class="links">
+                <a href="/">Home</a>
+                <a href="/projects/">Projects</a>
+                <a href="/reading/">Reading</a>
+                <a href="/blog/">Blog</a>
+                <a href="/zh/blog/building-plaudio/" class="lang">中文</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">30 May 2026 · 6 min read</div>
+                <h1>Building Plaudio</h1>
+                <span class="category">Open Source</span>
+            </header>
+
+            <div class="post-body">
+                <p>Today I shipped a small thing called <a href="https://github.com/yetiswang/plaudio">Plaudio</a>. It is voice-bank-first speaker labelling for the Plaud Note recorder family, written in Python, AGPL-3.0, macOS Apple Silicon only. v0.1.0 went up on PyPI this morning.</p>
+
+                <p>This is a personal project, in the most literal sense. I built it for the specific shape of meetings I actually have. The recorder I use is a Plaud Note Pro. The transcription quality I need is high enough that knowing who said what matters as much as knowing what was said. The meetings I attend tend to have four to seven people, and many of them are colleagues whose voices sound similar to a diariser model that has never met any of them.</p>
+
+                <p>That last part is where existing tools failed me.</p>
+
+                <h2>The cluster-merger problem</h2>
+
+                <p>The standard local diarisation pipeline (pyannote-audio 3.1 in its default mode) clusters speakers into groups and assigns each group a label. When voices are sufficiently distinct, this works well. When four people in a meeting share similar pitch, accent, and meeting register, pyannote often collapses them into a single SPEAKER cluster. The model is confident. The output is confidently wrong. Every utterance gets attributed to one of the four. The other three vanish from the transcript.</p>
+
+                <p>I hit this exact failure mode on a meeting in late May. Four senior colleagues, similar registers, a fast conversation. The diarised transcript had three of them missing entirely and all of their content attributed to the fourth. The transcript looked correct at first glance. It was only when I read it back, knowing what was actually said, that I realised the labels were lying to me.</p>
+
+                <blockquote>
+                    <p>A confidently wrong transcript is worse than no transcript. It is a thing you might cite, summarise, or share.</p>
+                </blockquote>
+
+                <p>You might attribute a decision to someone who did not make it. The privacy story is fine, the failure story is not.</p>
+
+                <h2>The fix</h2>
+
+                <p>The Plaudio approach is different. Instead of clustering speakers and matching the cluster to a profile, Plaudio matches per window.</p>
+
+                <p>You enrol each frequent speaker once, with a clean 30-second clip and their knowledge. The enrolment produces a 256-dimensional embedding via pyannote's diarisation pipeline. Plaudio stores it in a local JSON file at mode 0600.</p>
+
+                <p>For every new meeting, Plaudio slides a 2-second window across the audio with a 1-second hop. Each window is embedded by pyannote and cosine-matched against every enrolled profile independently. The window picks its own match. Consecutive same-label windows coalesce into runs. Runs overlay onto the transcript segments.</p>
+
+                <p>Similar voices no longer get merged into one cluster, because there is no clustering step. Each window is its own decision. Unmatched windows stay as Unknown, which is the correct answer for someone you have not enrolled yet.</p>
+
+                <p>The implementation is small, a few hundred lines of Python, but the practical effect is large. The same four-colleague meeting now labels correctly because each colleague was already in my bank.</p>
+
+                <h2>What v0.1 ships</h2>
+
+                <p>The audio-in half of the pipeline:</p>
+
+                <pre><code>plaudio transcribe meeting.mp3
+plaudio match meeting.mp3 meeting.plaud.json --threshold 0.55
+plaudio enrol clean-30s-clip.mp3 --name "Alice Smith" --start 0 --end 30
+plaudio db ingest meeting.plaud.json --meeting-id 2026-05-30-team
+plaudio db search "deadline" --speaker "Alice Smith"</code></pre>
+
+                <p>Plus a voicebank manager, an interactive labelling CLI, and a <code>doctor</code> command that tells you exactly which dependency is missing.</p>
+
+                <p>The stack is <a href="https://github.com/ml-explore/mlx-examples/tree/main/whisper">mlx-whisper</a> for ASR (it runs on the Neural Engine and GPU, around six times realtime on M-series chips), <a href="https://github.com/pyannote/pyannote-audio">pyannote-audio 3.1</a> for the embedding model, and SQLite with the FTS5 trigram tokeniser for the searchable corpus. The trigram tokeniser is what makes Chinese-English code-switched search work, which matters for the meetings I have.</p>
+
+                <p>Plaud cloud sync arrives in v0.2. The full <a href="https://github.com/yetiswang/plaudio">README</a> and <a href="https://github.com/yetiswang/plaudio/blob/main/STACK.md">stack rationale</a> are on GitHub.</p>
+
+                <h2>What I am learning from building this</h2>
+
+                <p>Three observations.</p>
+
+                <p><strong>First, building for yourself first is a discipline, not a fallback.</strong> I had a clear test case from the start (my own meetings). I knew what success looked like (the right names appear in the transcript). I was the first user, the first bug reporter, and the first beneficiary. The temptation when shipping open source is to broaden too early. The discipline is to ship the narrow thing well first, and let other people's interest decide whether to broaden.</p>
+
+                <p><strong>Second, the audit gate matters more than the code.</strong> I have a private wordlist generated from my work vault: colleague surnames, project codes, internal acronyms. Every commit and CI build scans the diff against that wordlist. The pre-commit hook is mandatory; the <code>--no-verify</code> bypass is forbidden by personal rule. I built this audit infrastructure before I wrote any of the actual Plaudio code, because once code lives in a public repo it is published forever. A leak is harder to recover from than a missing feature.</p>
+
+                <p><strong>Third, vertical slices ship faster than horizontal layers.</strong> Each Plaudio subcommand was built end-to-end before the next one started: tests, implementation, CLI, all in one slice. The temptation in a library extraction is to build all the core algorithms first, then all the CLI wrappers. The discipline is to ship a single working command, end to end, and only then move to the next one.</p>
+
+                <h2>What's next</h2>
+
+                <p>v0.1 is live. v0.1.1 has a small backlog of known follow-ups: one default flag is wrong, one error path returns a raw exception instead of a friendly message, two deprecation warnings need cleaning up. v0.2 adds Plaud cloud sync.</p>
+
+                <p>If you have a Plaud Note Pro on an Apple Silicon Mac and the same cluster-merger problem, install with <code>pip install plaudio</code>. If you do not, this tool is probably not for you, and that is by design.</p>
+            </div>
+
+            <div class="post-nav">
+                <a href="/blog/">&larr; Back to Blog</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+        })();
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+
+            (function(){
+                if (window.location.search.indexOf('static') > -1) {
+                    document.documentElement.classList.add('static-mode');
+                }
+            })();
+</script>
+</body>
+</html>

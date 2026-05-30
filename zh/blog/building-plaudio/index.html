@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="建造 Plaudio — 王昱揚">
+    <meta property="og:description" content="為什麼我為 Plaud Note 錄音機系列寫了一個「聲紋庫優先」的說話人標記工具。v0.1 今天上架 PyPI。">
+    <meta property="og:url" content="https://yuyang.nl/zh/blog/building-plaudio/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="建造 Plaudio — 王昱揚">
+    <meta name="twitter:description" content="為什麼我為 Plaud Note 錄音機系列寫了一個「聲紋庫優先」的說話人標記工具。v0.1 今天上架 PyPI。">
+    <title>建造 Plaudio — 王昱揚</title>
+    <meta name="description" content="關於建造 Plaudio 的筆記：一個以說話人聲紋而非群集來為會議分配標籤的小型開源工具。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        :root { --body-font: 'Songti TC', 'Noto Serif TC', 'STSong', 'PingFang TC', serif; --heading-font: 'Songti TC', 'Noto Serif TC', 'STSong', 'PingFang TC', serif; }
+
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body blockquote {
+            margin: 40px 0;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-family: 'Noto Serif TC', 'Source Serif 4', Georgia, serif;
+            font-size: 24px;
+            line-height: 1.55;
+            color: var(--text);
+            text-align: center;
+            text-wrap: balance;
+        }
+        .post-body blockquote p { margin: 0; }
+        .post-body blockquote p:last-child { margin-bottom: 0; }
+        .post-body pre {
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.55;
+            margin: 24px 0;
+        }
+        .post-body code {
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.92em;
+            background: var(--tag-bg);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+        .post-body pre code {
+            background: transparent;
+            padding: 0;
+        }
+        .post-body a {
+            color: var(--link);
+        }
+        .post-nav {
+            padding: 24px 0 0;
+            border-top: 1px solid var(--border);
+        }
+        .post-nav a {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        @media (max-width: 600px) {
+            .post-header h1 { font-size: 28px; }
+            .post-body { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/zh/" class="logo">虛室</a>
+            <div class="links">
+                <a href="/zh/">首頁</a>
+                <a href="/zh/projects/">項目</a>
+                <a href="/zh/reading/">閱讀</a>
+                <a href="/zh/blog/">網誌</a>
+                <a href="/blog/building-plaudio/" class="lang">EN</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">2026 年 5 月 30 日 · 6 min read</div>
+                <h1>建造 Plaudio</h1>
+                <span class="category">開源</span>
+            </header>
+
+            <div class="post-body">
+                <p>今天我發佈了一個小東西，叫做 <a href="https://github.com/yetiswang/plaudio">Plaudio</a>。它是為 Plaud Note 錄音機系列設計的「聲紋庫優先」說話人標記工具，以 Python 撰寫，AGPL-3.0 授權，僅支援 macOS Apple Silicon。今早 v0.1.0 已上架 PyPI。</p>
+
+                <p>這是個極為私人的專案：我是為了自己實際參與的會議形狀而建造它的。我用的錄音機是 Plaud Note Pro。我需要的逐字稿品質高到「誰說了什麼」與「說了什麼」同樣重要。我參與的會議通常有四到七個人，其中許多是同事，而他們的聲音對一個從未見過他們的說話人分離模型來說，聽起來很相似。</p>
+
+                <p>最後這一點，是現有工具讓我失望的地方。</p>
+
+                <h2>群集合併的問題</h2>
+
+                <p>主流的本地說話人分離流程（pyannote-audio 3.1 預設模式）會把說話人分群，再為每個群組貼上標籤。當聲音差異足夠大時，這個方法很好用。但當會議裡有四個人共享相似的音高、口音與會議語域時，pyannote 經常會把他們塌縮成一個 SPEAKER 群集。模型很有信心。輸出充滿信心地錯了。每一段話都被歸給這四人中的一個。其餘三人從逐字稿中消失。</p>
+
+                <p>我在五月底的一場會議遇到了這個確切的失敗模式。四位資深同事、相似的語域、節奏快速的對話。分離後的逐字稿裡，其中三人完全消失了，他們的所有內容都被歸到第四人身上。第一眼看起來逐字稿是正確的。直到我憑藉自己當時的記憶回讀，才發現標籤在欺騙我。</p>
+
+                <blockquote>
+                    <p>一份充滿信心的錯誤逐字稿比沒有逐字稿更糟。它是你可能引用、轉述、分享的東西。</p>
+                </blockquote>
+
+                <p>你可能會把某個決定歸給一個並未做出該決定的人。隱私的故事還行，但失敗的故事不行。</p>
+
+                <h2>解法</h2>
+
+                <p>Plaudio 採取了不一樣的進路。它不去分群再把群配對到 profile，而是<strong>逐窗匹配</strong>。</p>
+
+                <p>你為每位常出現的說話人做一次「登錄」（enrolment）：用一段乾淨的 30 秒音檔，並徵得對方同意。登錄時 pyannote 的分離流程會產出一個 256 維的嵌入向量。Plaudio 將其存在一個本地的 JSON 檔案中，權限 0600。</p>
+
+                <p>對於每一場新會議，Plaudio 會用 2 秒視窗、1 秒位移在音訊上滑動。每個視窗都由 pyannote 嵌入，然後獨立地與所有已登錄的 profile 進行餘弦相似度匹配。視窗自己選擇匹配對象。連續同標籤的視窗合併成段。這些段套疊到原本的逐字稿區段之上。</p>
+
+                <p>相似的聲音不再被塌縮成一個群集，因為根本沒有分群這一步。每個視窗都是自己的決定。未匹配的視窗保留為 Unknown，這正是還未被登錄的人的正確答案。</p>
+
+                <p>實作很小（幾百行 Python），但實際效果很大。同樣四人同事的會議，現在能正確標記，因為這四人早已在我的聲紋庫裡。</p>
+
+                <h2>v0.1 ships 什麼</h2>
+
+                <p>整個「音訊進」的半邊管線：</p>
+
+                <pre><code>plaudio transcribe meeting.mp3
+plaudio match meeting.mp3 meeting.plaud.json --threshold 0.55
+plaudio enrol clean-30s-clip.mp3 --name "Alice Smith" --start 0 --end 30
+plaudio db ingest meeting.plaud.json --meeting-id 2026-05-30-team
+plaudio db search "deadline" --speaker "Alice Smith"</code></pre>
+
+                <p>加上聲紋庫管理工具、互動式標記 CLI，以及一個 <code>doctor</code> 指令會告訴你缺少哪一個相依套件。</p>
+
+                <p>技術棧是 <a href="https://github.com/ml-explore/mlx-examples/tree/main/whisper">mlx-whisper</a> 負責 ASR（運行在 Neural Engine 與 GPU 上，M 系列晶片約六倍即時速度）、<a href="https://github.com/pyannote/pyannote-audio">pyannote-audio 3.1</a> 提供嵌入模型，以及 SQLite 配上 FTS5 trigram 分詞器作為可搜尋語料庫。trigram 分詞器是讓中英文混合搜尋能順利運作的關鍵，這對我參與的會議來說很重要。</p>
+
+                <p>Plaud 雲端同步會在 v0.2 加入。完整的 <a href="https://github.com/yetiswang/plaudio">README</a> 與 <a href="https://github.com/yetiswang/plaudio/blob/main/STACK.md">技術棧理由</a> 都在 GitHub 上。</p>
+
+                <h2>我從建造這個過程中正在學到的</h2>
+
+                <p>三個觀察。</p>
+
+                <p><strong>第一，為自己而建是一種紀律，不是退路。</strong>我從一開始就有清晰的測試案例（我自己的會議）。我知道成功是什麼樣子（正確的名字出現在逐字稿裡）。我是第一個使用者、第一個 bug 回報者，也是第一個受益者。發佈開源時的誘惑是把範圍太早擴大。紀律是先把窄的事情做好，再讓其他人的興趣決定要不要擴大。</p>
+
+                <p><strong>第二，審計關卡比程式碼更重要。</strong>我有一份從工作 vault 自動生成的私人詞表：同事姓氏、計劃代號、內部縮寫。每一次 commit、每一次 CI build 都會掃描差異對照這份詞表。pre-commit hook 是強制的；<code>--no-verify</code> 旁路是被個人規則禁止的。在我寫任何 Plaudio 程式碼之前，我先建好了這套審計基礎設施，因為一旦程式碼進入公開倉庫，它就永遠被發佈了。洩漏比缺失功能更難回復。</p>
+
+                <p><strong>第三，垂直切片比水平層級更快出貨。</strong>Plaudio 每一個子指令都是端到端建造完才開始下一個：測試、實作、CLI 都在同一個切片裡。函式庫抽取時的誘惑是先建好所有核心演算法，再去包所有的 CLI。紀律是先把單一指令端到端做出來，再做下一個。</p>
+
+                <h2>接下來</h2>
+
+                <p>v0.1 已經上線。v0.1.1 有一份小型的已知後續修正清單：一個預設旗標錯了、一條錯誤路徑回傳原始例外而非友善訊息、兩個棄用警告需要清理。v0.2 加入 Plaud 雲端同步。</p>
+
+                <p>如果你有一台 Apple Silicon Mac 上的 Plaud Note Pro，且遇到同樣的群集合併問題，請用 <code>pip install plaudio</code> 安裝。如果沒有，這個工具大概不適合你，這是設計使然。</p>
+            </div>
+
+            <div class="post-nav">
+                <a href="/zh/blog/">&larr; 返回網誌</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 王昱揚 &middot; 荷蘭恩荷芬</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+        })();
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+
+            (function(){
+                if (window.location.search.indexOf('static') > -1) {
+                    document.documentElement.classList.add('static-mode');
+                }
+            })();
+</script>
+</body>
+</html>
