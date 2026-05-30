@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="建造 Plaudio — 王昱揚">
-    <meta property="og:description" content="為什麼我為 Plaud Note 錄音機系列寫了一個「聲紋庫優先」的說話人標記工具。v0.1 今天上架 PyPI。">
+    <meta property="og:title" content="做 Plaudio — 王昱揚">
+    <meta property="og:description" content="為什麼我為 Plaud Note 系列錄音機寫了一個「聲紋庫優先」的說話人辨識工具，v0.1 今天上架 PyPI。">
     <meta property="og:url" content="https://yuyang.nl/zh/blog/building-plaudio/">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Yuyang Wang">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="建造 Plaudio — 王昱揚">
-    <meta name="twitter:description" content="為什麼我為 Plaud Note 錄音機系列寫了一個「聲紋庫優先」的說話人標記工具。v0.1 今天上架 PyPI。">
-    <title>建造 Plaudio — 王昱揚</title>
-    <meta name="description" content="關於建造 Plaudio 的筆記：一個以說話人聲紋而非群集來為會議分配標籤的小型開源工具。">
+    <meta name="twitter:title" content="做 Plaudio — 王昱揚">
+    <meta name="twitter:description" content="為什麼我為 Plaud Note 系列錄音機寫了一個「聲紋庫優先」的說話人辨識工具，v0.1 今天上架 PyPI。">
+    <title>做 Plaudio — 王昱揚</title>
+    <meta name="description" content="關於做出 Plaudio 的筆記：一個用聲紋而不是群集來判斷會議中誰在說話的小型開源工具。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -157,44 +157,44 @@
         <article>
             <header class="post-header">
                 <div class="date">2026 年 5 月 30 日 · 6 min read</div>
-                <h1>建造 Plaudio</h1>
+                <h1>做 Plaudio</h1>
                 <span class="category">開源</span>
             </header>
 
             <div class="post-body">
-                <p>今天我發佈了一個小東西，叫做 <a href="https://github.com/yetiswang/plaudio">Plaudio</a>。它是為 Plaud Note 錄音機系列設計的「聲紋庫優先」說話人標記工具，以 Python 撰寫，AGPL-3.0 授權，僅支援 macOS Apple Silicon。今早 v0.1.0 已上架 PyPI。</p>
+                <p>今天我上架了一個叫 <a href="https://github.com/yetiswang/plaudio">Plaudio</a> 的小工具。它是為 Plaud Note 系列錄音機而寫的「聲紋庫優先」說話人辨識器，用 Python 寫成，採 AGPL-3.0 授權，只跑在 macOS 上的 Apple Silicon。今天早上 v0.1.0 已經放上 PyPI。</p>
 
-                <p>這是個極為私人的專案：我是為了自己實際參與的會議形狀而建造它的。我用的錄音機是 Plaud Note Pro。我需要的逐字稿品質高到「誰說了什麼」與「說了什麼」同樣重要。我參與的會議通常有四到七個人，其中許多是同事，而他們的聲音對一個從未見過他們的說話人分離模型來說，聽起來很相似。</p>
+                <p>這完全是個個人專案。我做它，是為了我自己平常開的那種會議。我用的錄音機是 Plaud Note Pro。我對逐字稿的要求高到一個程度：「誰說的」跟「說了什麼」一樣重要。我參與的會議通常有四到七個人，其中不少是同事，他們的聲音對一個從沒「認識」過他們的說話人分離模型來說，相當難以區分。</p>
 
-                <p>最後這一點，是現有工具讓我失望的地方。</p>
+                <p>正是這最後一點，現有的工具在我這裡失靈了。</p>
 
                 <h2>群集合併的問題</h2>
 
-                <p>主流的本地說話人分離流程（pyannote-audio 3.1 預設模式）會把說話人分群，再為每個群組貼上標籤。當聲音差異足夠大時，這個方法很好用。但當會議裡有四個人共享相似的音高、口音與會議語域時，pyannote 經常會把他們塌縮成一個 SPEAKER 群集。模型很有信心。輸出充滿信心地錯了。每一段話都被歸給這四人中的一個。其餘三人從逐字稿中消失。</p>
+                <p>現行的本地說話人分離流程（pyannote-audio 3.1 的預設模式）會先把說話人分成幾群，再為每群貼上標籤。如果聲音差別夠大，這套方法很有效。但當會議裡有四個人的音高、口音、語氣都相近時，pyannote 經常會把這四人合併成同一個 SPEAKER 群。模型很有把握。輸出也篤定地錯了。所有發言都被歸到這四人中的某一個身上，其餘三人從逐字稿裡消失。</p>
 
-                <p>我在五月底的一場會議遇到了這個確切的失敗模式。四位資深同事、相似的語域、節奏快速的對話。分離後的逐字稿裡，其中三人完全消失了，他們的所有內容都被歸到第四人身上。第一眼看起來逐字稿是正確的。直到我憑藉自己當時的記憶回讀，才發現標籤在欺騙我。</p>
+                <p>五月底某次會議裡，我正巧撞上這個失敗模式。四位資深同事、相近的語氣、節奏很快的對話。經過分離之後的逐字稿，其中三人完全消失了，他們說的話全部被歸到第四人身上。乍看之下沒有破綻。直到我憑當時的記憶回頭對讀，才意識到那些標籤一直在騙我。</p>
 
                 <blockquote>
-                    <p>一份充滿信心的錯誤逐字稿比沒有逐字稿更糟。它是你可能引用、轉述、分享的東西。</p>
+                    <p>錯得很有把握的逐字稿，比沒有逐字稿還糟。它是一份你可能會引用、轉述、或分享出去的東西。</p>
                 </blockquote>
 
-                <p>你可能會把某個決定歸給一個並未做出該決定的人。隱私的故事還行，但失敗的故事不行。</p>
+                <p>你可能會把某個決定歸到一個並未做出該決定的人頭上。從隱私的角度來說沒問題；從錯誤歸屬的角度來說，就不行了。</p>
 
-                <h2>解法</h2>
+                <h2>另一條路</h2>
 
-                <p>Plaudio 採取了不一樣的進路。它不去分群再把群配對到 profile，而是<strong>逐窗匹配</strong>。</p>
+                <p>Plaudio 的做法不一樣。它不去先分群再把整群配對到 profile，而是<strong>逐窗匹配</strong>。</p>
 
-                <p>你為每位常出現的說話人做一次「登錄」（enrolment）：用一段乾淨的 30 秒音檔，並徵得對方同意。登錄時 pyannote 的分離流程會產出一個 256 維的嵌入向量。Plaudio 將其存在一個本地的 JSON 檔案中，權限 0600。</p>
+                <p>你為每位經常出現的說話人「登錄」一次：給一段乾淨的 30 秒音檔，並徵得對方同意。登錄時 pyannote 的分離流程會吐出一段 256 維的嵌入向量。Plaudio 把它寫進本地的 JSON 檔，權限設為 0600。</p>
 
-                <p>對於每一場新會議，Plaudio 會用 2 秒視窗、1 秒位移在音訊上滑動。每個視窗都由 pyannote 嵌入，然後獨立地與所有已登錄的 profile 進行餘弦相似度匹配。視窗自己選擇匹配對象。連續同標籤的視窗合併成段。這些段套疊到原本的逐字稿區段之上。</p>
+                <p>處理新會議時，Plaudio 用 2 秒視窗、1 秒步幅在音訊上滑動。每個視窗交給 pyannote 算一段嵌入，再分別跟所有已登錄的 profile 算餘弦相似度。每個視窗自己挑出匹配的對象。連續同標籤的視窗合併成一段，再把這些段映射回原本的逐字稿區段。</p>
 
-                <p>相似的聲音不再被塌縮成一個群集，因為根本沒有分群這一步。每個視窗都是自己的決定。未匹配的視窗保留為 Unknown，這正是還未被登錄的人的正確答案。</p>
+                <p>相似的聲音再也不會被合併成同一群，因為這條流程裡根本沒有分群這一步。每個視窗各自決定。沒匹配上的視窗就停在 Unknown，這對於還沒登錄過的人來說，正是該有的答案。</p>
 
-                <p>實作很小（幾百行 Python），但實際效果很大。同樣四人同事的會議，現在能正確標記，因為這四人早已在我的聲紋庫裡。</p>
+                <p>實作不大，幾百行 Python，但實際效果很大。同樣那場四位同事的會議，現在標得對了，因為這四人早就在我的聲紋庫裡。</p>
 
-                <h2>v0.1 ships 什麼</h2>
+                <h2>v0.1 包含什麼</h2>
 
-                <p>整個「音訊進」的半邊管線：</p>
+                <p>從音訊出發的這半邊管線：</p>
 
                 <pre><code>plaudio transcribe meeting.mp3
 plaudio match meeting.mp3 meeting.plaud.json --threshold 0.55
@@ -202,27 +202,27 @@ plaudio enrol clean-30s-clip.mp3 --name "Alice Smith" --start 0 --end 30
 plaudio db ingest meeting.plaud.json --meeting-id 2026-05-30-team
 plaudio db search "deadline" --speaker "Alice Smith"</code></pre>
 
-                <p>加上聲紋庫管理工具、互動式標記 CLI，以及一個 <code>doctor</code> 指令會告訴你缺少哪一個相依套件。</p>
+                <p>另外還有一個聲紋庫管理工具、一個互動式的人工標記介面，以及一個 <code>doctor</code> 指令，會直接告訴你缺哪一個依賴。</p>
 
-                <p>技術棧是 <a href="https://github.com/ml-explore/mlx-examples/tree/main/whisper">mlx-whisper</a> 負責 ASR（運行在 Neural Engine 與 GPU 上，M 系列晶片約六倍即時速度）、<a href="https://github.com/pyannote/pyannote-audio">pyannote-audio 3.1</a> 提供嵌入模型，以及 SQLite 配上 FTS5 trigram 分詞器作為可搜尋語料庫。trigram 分詞器是讓中英文混合搜尋能順利運作的關鍵，這對我參與的會議來說很重要。</p>
+                <p>技術棧上，ASR 用的是 <a href="https://github.com/ml-explore/mlx-examples/tree/main/whisper">mlx-whisper</a>（跑在 Neural Engine 與 GPU 上，在 M 系列晶片上大約有六倍即時的速度），嵌入模型來自 <a href="https://github.com/pyannote/pyannote-audio">pyannote-audio 3.1</a>，可搜尋的語料庫則是 SQLite 加上 FTS5 的 trigram 分詞器。trigram 分詞器是讓中英文混雜搜尋能順利運作的關鍵，這對我參與的會議很重要。</p>
 
-                <p>Plaud 雲端同步會在 v0.2 加入。完整的 <a href="https://github.com/yetiswang/plaudio">README</a> 與 <a href="https://github.com/yetiswang/plaudio/blob/main/STACK.md">技術棧理由</a> 都在 GitHub 上。</p>
+                <p>Plaud 雲端同步留在 v0.2 再做。完整的 <a href="https://github.com/yetiswang/plaudio">README</a> 與 <a href="https://github.com/yetiswang/plaudio/blob/main/STACK.md">技術棧理由</a> 都放在 GitHub 上。</p>
 
-                <h2>我從建造這個過程中正在學到的</h2>
+                <h2>從這個過程中我學到的</h2>
 
                 <p>三個觀察。</p>
 
-                <p><strong>第一，為自己而建是一種紀律，不是退路。</strong>我從一開始就有清晰的測試案例（我自己的會議）。我知道成功是什麼樣子（正確的名字出現在逐字稿裡）。我是第一個使用者、第一個 bug 回報者，也是第一個受益者。發佈開源時的誘惑是把範圍太早擴大。紀律是先把窄的事情做好，再讓其他人的興趣決定要不要擴大。</p>
+                <p><strong>第一，先為自己做，是一種紀律，不是退而求其次的選擇。</strong>我從一開始就有清楚的測試情境（我自己開的會議）。我知道什麼叫做成功（正確的名字出現在逐字稿裡）。我是第一個使用者、第一個 bug 回報者，也是第一個受益者。發佈開源專案最大的誘惑就是太早把範圍擴大。紀律就是先把窄窄的事情做好，要不要擴大，留給後續別人感不感興趣去回答。</p>
 
-                <p><strong>第二，審計關卡比程式碼更重要。</strong>我有一份從工作 vault 自動生成的私人詞表：同事姓氏、計劃代號、內部縮寫。每一次 commit、每一次 CI build 都會掃描差異對照這份詞表。pre-commit hook 是強制的；<code>--no-verify</code> 旁路是被個人規則禁止的。在我寫任何 Plaudio 程式碼之前，我先建好了這套審計基礎設施，因為一旦程式碼進入公開倉庫，它就永遠被發佈了。洩漏比缺失功能更難回復。</p>
+                <p><strong>第二，審查關卡比程式碼本身更重要。</strong>我從工作的 vault 裡自動生出一份私人詞表：同事的姓氏、計劃代號、內部縮寫。每一次 commit、每一次 CI build 都會把差異拿去比對這份詞表。pre-commit hook 是強制執行的；我給自己定了規矩：不准用 <code>--no-verify</code> 繞過。在我寫任何一行 Plaudio 程式碼之前，我就先把這套審查工具搭好了，因為程式碼一旦進了公開倉庫，就等於永久發佈了。洩漏比缺一個功能還難回復。</p>
 
-                <p><strong>第三，垂直切片比水平層級更快出貨。</strong>Plaudio 每一個子指令都是端到端建造完才開始下一個：測試、實作、CLI 都在同一個切片裡。函式庫抽取時的誘惑是先建好所有核心演算法，再去包所有的 CLI。紀律是先把單一指令端到端做出來，再做下一個。</p>
+                <p><strong>第三，垂直切片比水平分層出貨快。</strong>Plaudio 的每一個子指令都是端到端做完才開始下一個：測試、實作、CLI 全部包在同一個切片裡。把一個函式庫抽出來時，誘惑是先把所有核心演算法寫好，再去包所有的 CLI。紀律是先讓單一個指令從頭到尾跑得起來，再去做下一個。</p>
 
                 <h2>接下來</h2>
 
-                <p>v0.1 已經上線。v0.1.1 有一份小型的已知後續修正清單：一個預設旗標錯了、一條錯誤路徑回傳原始例外而非友善訊息、兩個棄用警告需要清理。v0.2 加入 Plaud 雲端同步。</p>
+                <p>v0.1 已經上線。v0.1.1 已知還有一份小型的待辦清單：有個預設參數設錯了、某條錯誤路徑直接吐原始的例外而不是友善訊息、兩個棄用警告需要清掉。v0.2 會加上 Plaud 雲端同步。</p>
 
-                <p>如果你有一台 Apple Silicon Mac 上的 Plaud Note Pro，且遇到同樣的群集合併問題，請用 <code>pip install plaudio</code> 安裝。如果沒有，這個工具大概不適合你，這是設計使然。</p>
+                <p>如果你手邊有一台 Apple Silicon 的 Mac，用的也是 Plaud Note Pro，並且遇到同樣的群集合併問題，請用 <code>pip install plaudio</code> 安裝。如果不是，那這個工具大概不適合你，這也是有意為之。</p>
             </div>
 
             <div class="post-nav">
