@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&family=Ma+Shan+Zheng&family=Caveat:wght@400;600;700&family=Kalam:wght@400;700&family=Shadows+Into+Light&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/shared.css">
     <style>
         .hero-bg {
@@ -55,6 +55,133 @@
             line-height: 1.2;
             letter-spacing: 0;
             margin-bottom: 16px;
+        }
+    <style>
+        /* === Node Weaver Overlay === */
+        #node-weaver-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            z-index: 9999;
+            background-image: url(/assets/ink-splatters/bg_light.png);
+            background-size: cover;
+            background-position: center;
+            transition: opacity 0.9s ease, transform 0.9s ease;
+            opacity: 1;
+            font-family: 'Source Serif 4', serif;
+            cursor: default;
+            overflow: hidden;
+        }
+        [data-theme='dark'] #node-weaver-overlay {
+            background-image: url(/assets/ink-splatters/bg_dark.png);
+        }
+        #node-weaver-overlay.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.02);
+        }
+        #node-weaver-overlay .nw-hidden {
+            display: none !important;
+        }
+        #nw-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+        }
+        #node-weaver-overlay .nw-toolbar {
+            position: fixed;
+            top: 20px;
+            right: 24px;
+            z-index: 10000;
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        #node-weaver-overlay .nw-toolbar button {
+            background: none;
+            border: 1px solid transparent;
+            color: var(--text-muted, #8a847d);
+            font-family: 'Kaiti TC', 'STKaiti', 'BiauKai', 'Hannotate TC', 'Xingkai TC', 'DFKai-SB', 'Ma Shan Zheng', 'Noto Serif TC', 'Kalam', 'Shadows Into Light', 'Caveat', cursive;
+            font-size: 13px;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 999px;
+            transition: color 0.2s, background 0.2s, border-color 0.2s;
+        }
+        #node-weaver-overlay .nw-toolbar button:hover {
+            color: var(--text, #2c2c2c);
+            background: rgba(0,0,0,0.05);
+            border-color: rgba(0,0,0,0.1);
+        }
+        [data-theme='dark'] #node-weaver-overlay .nw-toolbar button:hover {
+            color: #e0d8cf;
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.12);
+        }
+        #node-weaver-overlay .nw-toolbar .active {
+            color: var(--text, #2c2c2c);
+            border-color: var(--text-muted, #8a847d);
+        }
+        [data-theme='dark'] #node-weaver-overlay .nw-toolbar .active {
+            color: #e0d8cf;
+            border-color: #a09888;
+        }
+        #node-weaver-overlay .nw-bottom {
+            position: absolute;
+            bottom: 6%;
+            left: 0;
+            width: 100%;
+            z-index: 10000;
+            text-align: center;
+            pointer-events: none;
+        }
+        #node-weaver-overlay .nw-intro-text {
+            font-size: 18px;
+            color: var(--text-muted, #8a847d);
+            letter-spacing: 0.5px;
+            opacity: 0.6;
+            transition: opacity 0.5s;
+            font-family: 'Kaiti TC', 'STKaiti', 'BiauKai', 'Hannotate TC', 'Xingkai TC', 'DFKai-SB', 'Ma Shan Zheng', 'Noto Serif TC', 'Kalam', 'Shadows Into Light', 'Caveat', cursive;
+            font-weight: 400;
+            margin: 0 0 6px 0;
+        }
+        #node-weaver-overlay .nw-intro-text.hidden {
+            opacity: 0;
+        }
+        #node-weaver-overlay .nw-complete {
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+        #node-weaver-overlay .nw-complete.show {
+            opacity: 1;
+        }
+        #node-weaver-overlay .nw-complete h2 {
+            font-family: 'Kaiti TC', 'STKaiti', 'BiauKai', 'Hannotate TC', 'Xingkai TC', 'DFKai-SB', 'Ma Shan Zheng', 'Noto Serif TC', 'Kalam', 'Shadows Into Light', 'Caveat', cursive;
+            font-weight: 600;
+            font-size: clamp(28px, 5vw, 48px);
+            color: var(--text, #2c2c2c);
+            margin: 0 0 8px 0;
+            letter-spacing: 1px;
+        }
+        #node-weaver-overlay .nw-complete p {
+            font-family: 'Kaiti TC', 'STKaiti', 'BiauKai', 'Hannotate TC', 'Xingkai TC', 'DFKai-SB', 'Ma Shan Zheng', 'Noto Serif TC', 'Kalam', 'Shadows Into Light', 'Caveat', cursive;
+            font-weight: 400;
+            font-size: clamp(16px, 2vw, 22px);
+            color: var(--text-muted, #8a847d);
+            letter-spacing: 0.5px;
+            margin: 0;
+        }
+        #node-weaver-overlay .nw-washi {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 10001;
+            opacity: var(--washi-opacity, 0.35);
+            mix-blend-mode: var(--washi-blend, normal);
         }
     </style>
 </head>
@@ -152,6 +279,61 @@
             <p>&copy; 2026 王昱揚 &middot; 荷蘭埃因霍溫</p>
         </footer>
     </div>
+<!-- Node Weaver Overlay -->
+<div id="node-weaver-overlay">
+    <div class="nw-toolbar">
+        <button id="nw-lang">CN</button>
+        <button id="nw-theme">&#x2600;&#xfe0f;</button>
+        <button id="nw-skip">&#x8df3;&#x904e; &rarr;</button>
+    </div>
+    <canvas id="nw-canvas"></canvas>
+    <div class="nw-bottom">
+        <div class="nw-intro-text" id="nw-intro">&#x9ede;&#x64ca;&#x7bc0;&#x9ede;&#xff0c;&#x7de8;&#x7e54;&#x7db2;&#x7d61;</div>
+        <div class="nw-complete" id="nw-complete">
+            <h2>&#x5275;&#x9020;&#x767c;&#x73fe;&#x7684;&#x689d;&#x4ef6;</h2>
+            <p>&#x2727;</p>
+        </div>
+    </div>
+    
+    <!-- Preloaded ink splatter images -->
+    <img src="/assets/ink-splatters/center.png" class="nw-hidden" id="nw-src-center">
+    <img src="/assets/ink-splatters/node-ren-dark.png" class="nw-hidden" id="nw-src-0">
+    <img src="/assets/ink-splatters/node-yi-dark.png" class="nw-hidden" id="nw-src-1">
+    <img src="/assets/ink-splatters/node-si-dark.png" class="nw-hidden" id="nw-src-2">
+    <img src="/assets/ink-splatters/node-zi-dark.png" class="nw-hidden" id="nw-src-3">
+    <img src="/assets/ink-splatters/node-yan-dark.png" class="nw-hidden" id="nw-src-4">
+    
+    <!-- Dark mode copies -->
+    <img src="/assets/ink-splatters/center-dark.png" class="nw-hidden" id="nw-src-center-dark">
+    <img src="/assets/ink-splatters/node-ren-light.png" class="nw-hidden" id="nw-src-0-dark">
+    <img src="/assets/ink-splatters/node-yi-light.png" class="nw-hidden" id="nw-src-1-dark">
+    <img src="/assets/ink-splatters/node-si-light.png" class="nw-hidden" id="nw-src-2-dark">
+    <img src="/assets/ink-splatters/node-zi-light.png" class="nw-hidden" id="nw-src-3-dark">
+    <img src="/assets/ink-splatters/node-yan-light.png" class="nw-hidden" id="nw-src-4-dark">
+    
+    <!-- Particles -->
+    <img src="/assets/ink-splatters/particles/particle-7.png" class="nw-hidden" id="nw-src-p0">
+    <img src="/assets/ink-splatters/particles/particle-8.png" class="nw-hidden" id="nw-src-p1">
+    <img src="/assets/ink-splatters/particles/particle-7-dark.png" class="nw-hidden" id="nw-src-p0-dark">
+    <img src="/assets/ink-splatters/particles/particle-8-dark.png" class="nw-hidden" id="nw-src-p1-dark">
+    
+    <!-- Brush stroke for connection lines -->
+    <img src="/assets/ink-splatters/brush-stroke.png" class="nw-hidden" id="nw-src-brush">
+    <img src="/assets/ink-splatters/brush-stroke-dark.png" class="nw-hidden" id="nw-src-brush-dark">
+    
+    <!-- Yu calligraphy character -->
+    <img src="/assets/ink-splatters/yu_light.png" class="nw-hidden" id="nw-src-yu">
+    <img src="/assets/ink-splatters/yu_dark_new.png" class="nw-hidden" id="nw-src-yu-dark">
+    
+    <!-- Washi grain overlay -->
+    <svg class="nw-washi" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <filter id="nw-washi-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+            <feColorMatrix type="saturate" values="0"/>
+        </filter>
+        <rect width="100" height="100" filter="url(#nw-washi-filter)" opacity="0.5"/>
+    </svg>
+</div>
     <script>
         (function() {
             var btn = document.getElementById('theme-toggle');
@@ -208,6 +390,383 @@
                 }
             })();
 
+    /* === Node Weaver Game Engine === */
+    (function() {
+        'use strict';
+        
+        // Always load on page visit (Skip suppresses per-session)
+        var overlay = document.getElementById('node-weaver-overlay');
+        var canvas = document.getElementById('nw-canvas');
+        var ctx = canvas.getContext('2d');
+        var intro = document.getElementById('nw-intro');
+        var completeEl = document.getElementById('nw-complete');
+        var skipBtn = document.getElementById('nw-skip');
+        var langBtn = document.getElementById('nw-lang');
+        var themeBtn = document.getElementById('nw-theme');
+        
+        // Language state — auto-detect from /zh/ path, but explicit save takes priority
+        var lang = 'en';
+        try {
+            var savedLang = localStorage.getItem('nw-lang');
+            if (savedLang === 'zh' || savedLang === 'en') {
+                lang = savedLang;
+            } else if (window.location.pathname.indexOf('/zh/') === 0) {
+                lang = 'zh';
+            }
+        } catch(e) {
+            if (window.location.pathname.indexOf('/zh/') === 0) lang = 'zh';
+        }
+        
+        // Translations
+        var T = {
+            en: {
+                labels: ['People', 'Tools', 'Ideas', 'Funding', 'Research'],
+                intro: 'Tap each node ✦',
+                complete: 'Creating the conditions for discovery'
+            },
+            zh: {
+                labels: ['\u4eba\u8108', '\u5100\u5668', '\u60f3\u6cd5', '\u8cc7\u91d1', '\u7814\u7a76'],
+                intro: '\u9ede\u64ca\u7bc0\u9ede\uff0c\u7de8\u7e54\u7db2\u7d61',
+                complete: '\u5275\u9020\u767c\u73fe\u7684\u689d\u4ef6'
+            }
+        };
+        
+        function updateTexts() {
+            var t = T[lang];
+            intro.textContent = t.intro;
+            completeEl.querySelector('h2').textContent = t.complete;
+            langBtn.textContent = (lang === 'en') ? 'CN' : 'EN';
+            skipBtn.textContent = (lang === 'en') ? 'Skip \u2192' : '\u8df3\u904e \u2192';
+        }
+        updateTexts();
+        
+        // Language toggle
+        langBtn.addEventListener('click', function() {
+            lang = (lang === 'en') ? 'zh' : 'en';
+            try { localStorage.setItem('nw-lang', lang); } catch(e) {}
+            updateTexts();
+        });
+        
+        // Theme toggle
+        function setTheme(t) {
+            document.documentElement.setAttribute('data-theme', t);
+            try { localStorage.setItem('theme', t); } catch(e) {}
+            overlay.style.backgroundImage = 'url(/assets/ink-splatters/bg_' + t + '.png)';
+            updateThemeBtn();
+        }
+        function toggleTheme() {
+            var cur = document.documentElement.getAttribute('data-theme');
+            setTheme(cur === 'dark' ? 'light' : 'dark');
+        }
+        function updateThemeBtn() {
+            var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            themeBtn.textContent = dark ? '\u2600\ufe0f' : '\ud83c\udf19';
+        }
+        themeBtn.addEventListener('click', toggleTheme);
+        updateThemeBtn();
+        
+        function isDark() {
+            return document.documentElement.getAttribute('data-theme') === 'dark';
+        }
+        
+        // Node images
+        var centerImg = document.getElementById('nw-src-center');
+        var centerImgDark = document.getElementById('nw-src-center-dark');
+        var nodeImgs = [];
+        var nodeImgsDark = [];
+        for (var i = 0; i < 5; i++) {
+            nodeImgs.push(document.getElementById('nw-src-' + i));
+            nodeImgsDark.push(document.getElementById('nw-src-' + i + '-dark'));
+        }
+        var particles = [
+            document.getElementById('nw-src-p0'), document.getElementById('nw-src-p1'),
+            document.getElementById('nw-src-p0-dark'), document.getElementById('nw-src-p1-dark')
+        ];
+        
+        var brushImg = document.getElementById('nw-src-brush');
+        var brushImgDark = document.getElementById('nw-src-brush-dark');
+        
+
+        function resize() {
+            var dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = window.innerWidth + 'px';
+            canvas.style.height = window.innerHeight + 'px';
+            ctx.scale(dpr, dpr);
+            w = window.innerWidth;
+            h = window.innerHeight;
+            updateLayout();
+        }
+        
+        var w, h, centerX, centerY, nodes = [], connected = [false,false,false,false,false];
+        var animatingLines = [], particlesList = [], gameComplete = false, fadeStarted = false, time = 0;
+
+        // Stroke profiles - each connection uses a unique brush slice for photorealistic variety
+        var strokeProfiles = [
+            { brushSlice: 0.00, baseThick: 0.006, taperStart: 0.55, taperEnd: 0.30, wobbleAmp: 0.012, wobbleFreq: 3.0 },
+            { brushSlice: 0.18, baseThick: 0.007, taperStart: 0.35, taperEnd: 0.55, wobbleAmp: 0.020, wobbleFreq: 2.0 },
+            { brushSlice: 0.36, baseThick: 0.006, taperStart: 0.65, taperEnd: 0.25, wobbleAmp: 0.010, wobbleFreq: 4.0 },
+            { brushSlice: 0.54, baseThick: 0.005, taperStart: 0.30, taperEnd: 0.45, wobbleAmp: 0.018, wobbleFreq: 2.5 },
+            { brushSlice: 0.72, baseThick: 0.007, taperStart: 0.45, taperEnd: 0.35, wobbleAmp: 0.015, wobbleFreq: 3.5 }
+        ];
+        
+        function updateLayout() {
+            centerX = w / 2; centerY = h / 2;
+            var minR = Math.min(w, h) * 0.28;
+            var maxR = Math.min(w, h) * 0.38;
+            var angles = [-Math.PI/2, -Math.PI/2+1.1, -Math.PI/2+2.4, -Math.PI/2+3.8, -Math.PI/2+5.0];
+            var radii = [minR, minR+18, minR-10, minR+28, minR+6];
+            for (var i = 0; i < 5; i++) {
+                var a = angles[i], r = radii[i];
+                nodes[i] = {x: centerX+Math.cos(a)*r, y: centerY+Math.sin(a)*r, angle: a, radius: r,
+                    orbitSpeed: 0.0003+i*0.0001, orbitOffset: i*0.8, scale: 1.0, pulse: 0};
+            }
+        }
+        
+        function animateConnection(idx) {
+            animatingLines.push({nodeIdx: idx, fromX: centerX, fromY: centerY,
+                toX: nodes[idx].x, toY: nodes[idx].y,
+                progress: 0, speed: 0.020+Math.random()*0.020, profile: strokeProfiles[idx]});
+        }
+        
+        function burstParticles() {
+            for (var i = 0; i < 80 + Math.random()*30; i++) {
+                var a = Math.random()*Math.PI*2, s = 0.8+Math.random()*2.5;
+                particlesList.push({x: centerX, y: centerY, vx: Math.cos(a)*s, vy: Math.sin(a)*s,
+                    size: 8+Math.random()*28, rotation: Math.random()*Math.PI*2,
+                    rotSpeed: (Math.random()-0.5)*0.04, alpha: 0.95, decay: 0.003+Math.random()*0.005,
+                    imgIdx: Math.floor(Math.random()*2)});
+            }
+        }
+        
+        function handleClick(px, py) {
+            if (gameComplete) return;
+            for (var i = 0; i < 5; i++) {
+                if (connected[i]) continue;
+                var dx = px-nodes[i].x, dy = py-nodes[i].y;
+                if (Math.sqrt(dx*dx+dy*dy) < Math.min(w, h)*0.16) {
+                    connected[i] = true; animateConnection(i); nodes[i].pulse = 1.0;
+                    var allDone = connected.every(function(v){return v;});
+                    if (allDone) {
+                        intro.classList.add('hidden');
+                        setTimeout(function(){gameComplete=true;completeEl.classList.add('show');burstParticles();setTimeout(dismissOverlay,2500);},600);
+                    }
+                    return;
+                }
+            }
+        }
+        
+        function dismissOverlay(skip) {
+            if (fadeStarted) return; fadeStarted = true;
+            overlay.classList.add('fade-out');
+            if (skip) { try { sessionStorage.setItem('nw-done', '1'); } catch(e) {} }
+            setTimeout(function() {
+                overlay.style.display = 'none';
+                var isZh = window.location.pathname.indexOf('/zh/') === 0;
+                if (lang === 'zh' && !isZh) window.location.href = '/zh/';
+                else if (lang === 'en' && isZh) window.location.href = '/';
+            }, 1000);
+        }
+        
+        // Mouse position tracking for hover ink splash
+        var mouseX = -1000, mouseY = -1000;
+        canvas.addEventListener('mousemove', function(e) {
+            var r = canvas.getBoundingClientRect();
+            mouseX = e.clientX - r.left;
+            mouseY = e.clientY - r.top;
+        });
+        canvas.addEventListener('mouseleave', function() {
+            mouseX = -1000; mouseY = -1000;
+        });
+        canvas.addEventListener('click', function(e) {
+            var r = canvas.getBoundingClientRect();
+            handleClick(e.clientX-r.left, e.clientY-r.top);
+        });
+        canvas.addEventListener('touchstart', function(e) {
+            var t = e.touches[0], r = canvas.getBoundingClientRect();
+            handleClick(t.clientX-r.left, t.clientY-r.top); e.preventDefault();
+        }, {passive: false});
+        
+        // Hover state — character scaling on hover (10% bigger)
+        var hoveredNode = -1;
+        function updateHoverState() {
+            hoveredNode = -1;
+            if (gameComplete) return;
+            for (var i = 0; i < 5; i++) {
+                var n = nodes[i];
+                var dx = mouseX - n.x, dy = mouseY - n.y;
+                if (Math.sqrt(dx*dx+dy*dy) < Math.min(w,h)*0.16 && !connected[i]) {
+                    hoveredNode = i;
+                    break;
+                }
+            }
+        }
+        
+        skipBtn.addEventListener('click', function(){ dismissOverlay(true); });
+        
+        var themeObserver = new MutationObserver(function() {
+            if (!fadeStarted) { updateThemeBtn(); draw(); }
+        });
+        themeObserver.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
+        window.addEventListener('resize', resize);
+        
+        function draw() {
+            var dark = isDark(), W = w, H = h, tr = T[lang];
+            ctx.clearRect(0, 0, W, H);
+            ctx.imageSmoothingQuality = 'high';
+            
+            var tc = dark ? '#e8ddd0' : '#1a1a1a';
+            var tm = dark ? '#b0a898' : '#4a443c';
+            var lc = dark ? 'rgba(200,190,175,0.20)' : 'rgba(40,35,30,0.15)';
+            var alc = dark ? 'rgba(230,215,190,0.55)' : 'rgba(40,35,30,0.45)';
+            var gc = dark ? 'rgba(220,200,170,0.08)' : 'rgba(0,0,0,0.04)';
+            
+            // Orbit hints
+            ctx.strokeStyle = lc; ctx.lineWidth = 1; ctx.setLineDash([4,8]);
+            for (var i = 0; i < 5; i++) if (!connected[i]) { ctx.beginPath(); ctx.arc(centerX, centerY, nodes[i].radius, 0, Math.PI*2); ctx.stroke(); }
+            ctx.setLineDash([]);
+            
+            // Completed + animating lines: photorealistic brush image stamping
+            function drawBrushLine(x1,y1,x2,y2,prog,pf) {
+                if (prog <= 0.02) return;
+                var dx = x2-x1, dy = y2-y1, dist = Math.sqrt(dx*dx+dy*dy);
+                if (dist < 5) return;
+                var angle = Math.atan2(dy,dx);
+                var brush = dark ? brushImgDark : brushImg;
+                if (!brush || !brush.complete) return;
+                var bw = brush.naturalWidth, bh = brush.naturalHeight;
+                // Unique brush slice per node connection
+                var sx = Math.round(bw * pf.brushSlice);
+                var sw = Math.round(bw * 0.22);
+                var thick = Math.min(W,H) * pf.baseThick * 5;
+                // Source advancement: show prog portion of the brush
+                var srcProgW = Math.round(sw * Math.min(1, prog));
+                var dstProgW = dist * Math.min(1, prog);
+                var wobbleFreqBase = pf.wobbleFreq;
+                // Ink bleed: wide, low opacity, slightly offset
+                ctx.save(); ctx.translate(x1,y1); ctx.rotate(angle); ctx.globalAlpha = 0.10;
+                ctx.drawImage(brush, sx, Math.round(bh*0.08), srcProgW, Math.round(bh*0.85),
+                    -thick*0.6, -thick*0.5, dstProgW+thick*0.3, thick*1.6);
+                ctx.restore();
+                // Main brush stroke
+                ctx.save(); ctx.translate(x1,y1); ctx.rotate(angle); ctx.globalAlpha = 0.72;
+                ctx.drawImage(brush, sx, Math.round(bh*0.12), srcProgW, Math.round(bh*0.76),
+                    0, -thick*0.45, dstProgW, thick*0.9);
+                ctx.restore();
+                // Taper overlay: stamp along the leading edge for organic ink-flow feel
+                if (prog < 1) {
+                    var stampCount = Math.max(2, Math.floor(prog * 12));
+                    for (var s = 0; s < stampCount; s++) {
+                        var t = 1 - (s/stampCount);
+                        var tt = Math.min(1, prog + t*0.06);
+                        var x = x1 + dx * tt;
+                        var y = y1 + dy * tt;
+                        var wobble = Math.sin(tt*Math.PI*wobbleFreqBase)*0.02;
+                        var taper = pf.taperStart + (pf.taperEnd-pf.taperStart)*tt;
+                        var h = thick * 0.7 * taper;
+                        var w2 = bw*0.06 * (thick*0.7*taper/(bh*0.76));
+                        ctx.save(); ctx.globalAlpha = 0.35 * (1-s/stampCount);
+                        ctx.translate(x,y); ctx.rotate(angle+wobble);
+                        ctx.drawImage(brush, sx+Math.round(sw*0.8), Math.round(bh*0.2),
+                            Math.round(bw*0.06), Math.round(bh*0.6), -w2/2, -h/2, w2, h);
+                        ctx.restore();
+                    }
+                }
+                // Core: dark narrow center line
+                ctx.save(); ctx.translate(x1,y1); ctx.rotate(angle); ctx.globalAlpha = 0.40;
+                ctx.drawImage(brush, sx+Math.round(sw*0.15), Math.round(bh*0.25),
+                    Math.round(srcProgW*0.7), Math.round(bh*0.5),
+                    0, -thick*0.15, dstProgW, thick*0.3);
+                ctx.restore();
+            }
+            // Draw completed lines (no longer animating)
+            function animatingIdx(i) { for (var a=0;a<animatingLines.length;a++) { if (animatingLines[a].nodeIdx===i) return true; } return false; }
+            for (var i = 0; i < 5; i++) if (connected[i] && !animatingIdx(i)) {
+                drawBrushLine(centerX,centerY,nodes[i].x,nodes[i].y,1,strokeProfiles[i]);
+            }
+            // Draw animating lines
+            for (var a = 0; a < animatingLines.length; a++) {
+                var line = animatingLines[a];
+                line.progress = Math.min(1, line.progress+line.speed);
+                drawBrushLine(line.fromX,line.fromY,line.toX,line.toY,line.progress,line.profile);
+                if (line.progress >= 1) { animatingLines.splice(a,1); a--; }
+            }
+            
+            // Particles
+            for (var p = particlesList.length-1; p >= 0; p--) {
+                var pt = particlesList[p]; pt.x += pt.vx; pt.y += pt.vy; pt.vx *= 0.985; pt.vy *= 0.985; pt.vy += 0.005; pt.alpha -= pt.decay; pt.rotation += pt.rotSpeed;
+                if (pt.alpha <= 0) { particlesList.splice(p,1); continue; }
+                var img = particles[pt.imgIdx + (dark ? 2 : 0)];
+                if (img && img.complete) { ctx.save(); ctx.globalAlpha=pt.alpha; ctx.translate(pt.x,pt.y); ctx.rotate(pt.rotation); var s=pt.size/200; ctx.drawImage(img,-img.naturalWidth*s/2,-img.naturalHeight*s/2,img.naturalWidth*s,img.naturalHeight*s); ctx.restore(); }
+            }
+            
+            // Update hover state for node character scaling
+            updateHoverState();
+            
+            // Center ink
+            var cImg = dark ? centerImgDark : centerImg;
+            if (cImg && cImg.complete) { var cs = Math.min(W,H)*0.26, cScale = cs/Math.max(cImg.naturalWidth,cImg.naturalHeight); ctx.drawImage(cImg, centerX-cImg.naturalWidth*cScale/2, centerY-cImg.naturalHeight*cScale/2, cImg.naturalWidth*cScale, cImg.naturalHeight*cScale); }
+            
+            // Yu character — using new RGBA files: yu_light (dark strokes) / yu_dark_new (cream strokes)
+            ctx.imageSmoothingQuality = 'high';
+            var useDarkYu = document.getElementById('nw-src-yu-dark');
+            var useLightYu = document.getElementById('nw-src-yu');
+            var yuSrc = dark ? useDarkYu : useLightYu;
+            if (yuSrc && yuSrc.complete && yuSrc.naturalWidth > 0) {
+                var yuSize = Math.min(W,H) * 0.22;
+                var yuScale = yuSize / Math.max(yuSrc.naturalWidth, yuSrc.naturalHeight);
+                var dx = centerX - yuSrc.naturalWidth * yuScale / 2;
+                var dy = centerY - yuSrc.naturalHeight * yuScale / 2;
+                ctx.save();
+                ctx.shadowColor = dark ? 'rgba(255,248,235,0.12)' : 'rgba(0,0,0,0.10)';
+                ctx.shadowBlur = dark ? 14 : 8;
+                ctx.drawImage(yuSrc, dx, dy, yuSrc.naturalWidth*yuScale, yuSrc.naturalHeight*yuScale);
+                ctx.restore();
+            } else {
+                // Fallback: render as text
+                ctx.save();
+                ctx.shadowColor = dark ? 'rgba(255,248,235,0.6)' : 'rgba(0,0,0,0.2)';
+                ctx.shadowBlur = 12;
+                ctx.fillStyle = dark ? '#fff8eb' : '#2c2418';
+                ctx.font = Math.round(Math.min(W,H)*0.085)+'px "Kaiti TC", "STKaiti", "BiauKai", "Hannotate TC", "Xingkai TC", "DFKai-SB", "Ma Shan Zheng", "Noto Serif TC", cursive';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('昱', centerX, centerY+Math.min(W,H)*0.005-Math.min(W,H)*0.02);
+                ctx.restore();
+            }
+            
+            // Nodes
+            time += 1;
+            for (var i = 0; i < 5; i++) {
+                var n = nodes[i];
+                // Hover scale: 10% bigger on hover
+                n.scale = (hoveredNode === i && !connected[i]) ? 1.1 : 1.0;
+                var imgEl = dark ? nodeImgsDark[i] : nodeImgs[i];
+                if (imgEl && imgEl.complete) { var ns = Math.min(W,H)*0.20*n.scale, nS = ns/Math.max(imgEl.naturalWidth,imgEl.naturalHeight);
+                    if (!connected[i]) { ctx.save(); ctx.shadowColor=gc; ctx.shadowBlur=12; ctx.drawImage(imgEl,n.x-imgEl.naturalWidth*nS/2,n.y-imgEl.naturalHeight*nS/2,imgEl.naturalWidth*nS,imgEl.naturalHeight*nS); ctx.restore(); }
+                    else { ctx.drawImage(imgEl,n.x-imgEl.naturalWidth*nS/2,n.y-imgEl.naturalHeight*nS/2,imgEl.naturalWidth*nS,imgEl.naturalHeight*nS); }
+                }
+                // Node label font stack: Chinese → Kaiti/Kai, English → handwriting cursive
+                var cnFont = '"Kaiti TC", "STKaiti", "BiauKai", "Hannotate TC", "Xingkai TC", "DFKai-SB", "Ma Shan Zheng", "Noto Serif TC", cursive';
+                var enFont = '"Kalam", "Shadows Into Light", "Caveat", "Kaiti TC", "STKaiti", "BiauKai", "Hannotate TC", "Xingkai TC", "DFKai-SB", "Ma Shan Zheng", "Noto Serif TC", cursive';
+                var labelFont = (lang === 'zh') ? cnFont : enFont;
+                ctx.save(); ctx.fillStyle = connected[i] ? tc : tm;
+                var fs = Math.round(Math.min(W,H)*0.025);
+                ctx.font = fs + 'px ' + labelFont;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                ctx.fillText(tr.labels[i], n.x, n.y+Math.min(W,H)*0.055*n.scale);
+                // No pulse dot — replaced by hover ink splash
+                ctx.restore();
+            }
+            
+            if (!gameComplete || particlesList.length > 0) requestAnimationFrame(draw);
+        }
+        
+        resize();
+        Promise.all([document.fonts.load('1em "Ma Shan Zheng"'), document.fonts.load('1em "Kalam"'), document.fonts.load('1em "Caveat"'), document.fonts.load('1em "Shadows Into Light"'), document.fonts.load('1em "Hannotate TC"'), document.fonts.load('1em "Xingkai TC"'), document.fonts.load('1em "Noto Serif TC"'), document.fonts.load('1em "Kaiti TC"'), document.fonts.load('1em "BiauKai"')])
+            .then(function(){draw();}).catch(function(){setTimeout(draw,2000);});
+        setTimeout(draw, 2000);
+    })();
             /* Static mode: ?static in URL disables video + animations, white background */
             (function(){
                 if (window.location.search.indexOf('static') > -1) {
