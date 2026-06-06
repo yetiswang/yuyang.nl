@@ -388,11 +388,7 @@
     (function() {
         'use strict';
         
-        // Only show once per session
-        try {
-            if (sessionStorage.getItem('nw-done')) return;
-        } catch(e) {}
-        
+        // Always load on page visit (Skip suppresses per-session)
         var overlay = document.getElementById('node-weaver-overlay');
         var canvas = document.getElementById('nw-canvas');
         var ctx = canvas.getContext('2d');
@@ -555,10 +551,10 @@
             }
         }
         
-        function dismissOverlay() {
+        function dismissOverlay(skip) {
             if (fadeStarted) return; fadeStarted = true;
             overlay.classList.add('fade-out');
-            try { sessionStorage.setItem('nw-done', '1'); } catch(e) {}
+            if (skip) { try { sessionStorage.setItem('nw-done', '1'); } catch(e) {} }
             setTimeout(function() {
                 overlay.style.display = 'none';
                 var isZh = window.location.pathname.indexOf('/zh/') === 0;
@@ -601,7 +597,7 @@
             }
         }
         
-        skipBtn.addEventListener('click', dismissOverlay);
+        skipBtn.addEventListener('click', function(){ dismissOverlay(true); });
         
         var themeObserver = new MutationObserver(function() {
             if (!fadeStarted) { updateThemeBtn(); draw(); }
