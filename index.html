@@ -43,11 +43,16 @@
             background-image: url(/assets/ink-splatters/bg_light.png);
             background-size: cover;
             background-position: center;
-            transition: opacity 0.9s ease, transform 0.9s ease;
-            opacity: 1;
+            transition: opacity 0.5s ease, transform 0.9s ease;
+            opacity: 0;
+            pointer-events: none;
             font-family: 'Source Serif 4', serif;
             cursor: default;
             overflow: hidden;
+        }
+        #node-weaver-overlay.nw-active {
+            opacity: 1;
+            pointer-events: auto;
         }
         [data-theme='dark'] #node-weaver-overlay {
             background-image: url(/assets/ink-splatters/bg_dark.png);
@@ -77,26 +82,41 @@
             align-items: center;
         }
         #node-weaver-overlay .nw-toolbar button {
-            background: none;
-            border: 1px solid transparent;
-            color: var(--text-muted, #8a847d);
+            background: rgba(255,250,242,0.72);
+            border: 1px solid rgba(60,50,40,0.45);
+            color: var(--text, #2c2c2c);
             font-family: 'Kaiti TC', 'STKaiti', 'BiauKai', 'Hannotate TC', 'Xingkai TC', 'DFKai-SB', 'Ma Shan Zheng', 'Noto Serif TC', 'Kalam', 'Shadows Into Light', 'Caveat', cursive;
-            font-size: 13px;
+            font-size: 14px;
+            font-weight: 600;
             letter-spacing: 0.3px;
             cursor: pointer;
-            padding: 6px 14px;
+            padding: 7px 16px;
             border-radius: 999px;
-            transition: color 0.2s, background 0.2s, border-color 0.2s;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+            transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.15s;
+        }
+        [data-theme='dark'] #node-weaver-overlay .nw-toolbar button {
+            background: rgba(28,24,20,0.65);
+            border-color: rgba(220,210,195,0.50);
+            color: #f0e6d6;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.35);
         }
         #node-weaver-overlay .nw-toolbar button:hover {
-            color: var(--text, #2c2c2c);
-            background: rgba(0,0,0,0.05);
-            border-color: rgba(0,0,0,0.1);
+            color: var(--text, #1a1a1a);
+            background: rgba(255,250,242,0.95);
+            border-color: rgba(60,50,40,0.75);
+            transform: translateY(-1px);
         }
         [data-theme='dark'] #node-weaver-overlay .nw-toolbar button:hover {
-            color: #e0d8cf;
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.12);
+            color: #fff8eb;
+            background: rgba(40,36,30,0.85);
+            border-color: rgba(240,230,215,0.75);
+        }
+        #node-weaver-overlay .nw-toolbar button:focus-visible {
+            outline: 2px solid var(--text, #1a1a1a);
+            outline-offset: 2px;
         }
         #node-weaver-overlay .nw-toolbar .active {
             color: var(--text, #2c2c2c);
@@ -116,14 +136,19 @@
             pointer-events: none;
         }
         #node-weaver-overlay .nw-intro-text {
-            font-size: 18px;
-            color: var(--text-muted, #8a847d);
+            font-size: 22px;
+            color: var(--text, #1a1a1a);
             letter-spacing: 0.5px;
-            opacity: 0.6;
+            opacity: 0.95;
             transition: opacity 0.5s;
             font-family: 'Kaiti TC', 'STKaiti', 'BiauKai', 'Hannotate TC', 'Xingkai TC', 'DFKai-SB', 'Ma Shan Zheng', 'Noto Serif TC', 'Kalam', 'Shadows Into Light', 'Caveat', cursive;
-            font-weight: 400;
-            margin: 0 0 6px 0;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(255,250,240,0.55);
+            margin: 0 0 10px 0;
+        }
+        [data-theme='dark'] #node-weaver-overlay .nw-intro-text {
+            color: #f0e6d6;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.55);
         }
         #node-weaver-overlay .nw-intro-text.hidden {
             opacity: 0;
@@ -159,6 +184,13 @@
             z-index: 10001;
             opacity: var(--washi-opacity, 0.35);
             mix-blend-mode: var(--washi-blend, normal);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            #node-weaver-overlay,
+            #node-weaver-overlay .nw-intro-text,
+            #node-weaver-overlay .nw-complete {
+                transition: opacity 0.2s ease !important;
+            }
         }
     </style>
     <script>
@@ -387,9 +419,18 @@
     /* === Node Weaver Game Engine === */
     (function() {
         'use strict';
-        
-        // Always load on page visit (Skip suppresses per-session)
+
         var overlay = document.getElementById('node-weaver-overlay');
+
+        // P0: session-suppression read guard. Both Skip and game completion
+        // write sessionStorage.nw-done; this is where we honour it.
+        try {
+            if (sessionStorage.getItem('nw-done') === '1') {
+                overlay.style.display = 'none';
+                return;
+            }
+        } catch(e) {}
+
         var canvas = document.getElementById('nw-canvas');
         var ctx = canvas.getContext('2d');
         var intro = document.getElementById('nw-intro');
@@ -443,7 +484,10 @@
         
         // Theme toggle
         function setTheme(t) {
+            // Propagate to both html and body so /shared.css selectors that target
+            // either ancestor pick it up — matches what the page-level theme button does.
             document.documentElement.setAttribute('data-theme', t);
+            if (document.body) document.body.setAttribute('data-theme', t);
             try { localStorage.setItem('theme', t); } catch(e) {}
             overlay.style.backgroundImage = 'url(/assets/ink-splatters/bg_' + t + '.png)';
             updateThemeBtn();
@@ -544,7 +588,7 @@
                     var allDone = connected.every(function(v){return v;});
                     if (allDone) {
                         intro.classList.add('hidden');
-                        setTimeout(function(){gameComplete=true;completeEl.classList.add('show');burstParticles();setTimeout(dismissOverlay,2500);},600);
+                        setTimeout(function(){gameComplete=true;completeEl.classList.add('show');burstParticles();setTimeout(function(){dismissOverlay(true);},2500);},600);
                     }
                     return;
                 }
@@ -598,7 +642,12 @@
         }
         
         skipBtn.addEventListener('click', function(){ dismissOverlay(true); });
-        
+
+        // P2: Esc-to-skip for keyboard users.
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !fadeStarted) dismissOverlay(true);
+        });
+
         var themeObserver = new MutationObserver(function() {
             if (!fadeStarted) { updateThemeBtn(); draw(); }
         });
@@ -756,6 +805,20 @@
             if (!gameComplete || particlesList.length > 0) requestAnimationFrame(draw);
         }
         
+        // P1: reveal overlay now that the read guard has passed (CSS starts at opacity:0).
+        overlay.classList.add('nw-active');
+
+        // P2: reduced-motion fallback. Show the title card, skip the canvas animation,
+        // auto-dismiss after 4s. Skip / Esc / language toggle all still work.
+        var reducedMotion = false;
+        try { reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+        if (reducedMotion) {
+            intro.classList.add('hidden');
+            completeEl.classList.add('show');
+            setTimeout(function(){ dismissOverlay(true); }, 4000);
+            return;
+        }
+
         resize();
         Promise.all([document.fonts.load('1em "Ma Shan Zheng"'), document.fonts.load('1em "Kalam"'), document.fonts.load('1em "Caveat"'), document.fonts.load('1em "Shadows Into Light"'), document.fonts.load('1em "Hannotate TC"'), document.fonts.load('1em "Xingkai TC"'), document.fonts.load('1em "Noto Serif TC"'), document.fonts.load('1em "Kaiti TC"'), document.fonts.load('1em "BiauKai"')])
             .then(function(){draw();}).catch(function(){setTimeout(draw,2000);});
