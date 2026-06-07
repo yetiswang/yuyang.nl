@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Mapping the Self-Driving Lab Landscape — Yuyang Wang">
+    <meta property="og:description" content="A hand-curated interactive map of where self-driving lab work is happening worldwide. 74 entries across national programmes, academic groups, commercial vendors, and lab-OS platforms.">
+    <meta property="og:url" content="https://yuyang.nl/blog/mapping-the-sdl-landscape/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Mapping the Self-Driving Lab Landscape — Yuyang Wang">
+    <meta name="twitter:description" content="A hand-curated interactive map of where self-driving lab work is happening worldwide. 74 entries across national programmes, academic groups, commercial vendors, and lab-OS platforms.">
+    <title>Mapping the Self-Driving Lab Landscape — Yuyang Wang</title>
+    <meta name="description" content="Notes on building a hand-curated interactive map of self-driving lab initiatives worldwide, and what it reveals about the field.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body blockquote {
+            margin: 40px 0;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-style: italic;
+            font-size: 24px;
+            line-height: 1.45;
+            color: var(--text);
+            text-align: center;
+            text-wrap: balance;
+        }
+        .post-body blockquote p { margin: 0; }
+        .post-body blockquote p:last-child { margin-bottom: 0; }
+        .post-body pre {
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.55;
+            margin: 24px 0;
+        }
+        .post-body code {
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.92em;
+            background: var(--tag-bg);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+        .post-body pre code {
+            background: transparent;
+            padding: 0;
+        }
+        .post-body a {
+            color: var(--link);
+        }
+        .post-nav {
+            padding: 24px 0 0;
+            border-top: 1px solid var(--border);
+        }
+        .post-nav a {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        @media (max-width: 600px) {
+            .post-header h1 { font-size: 32px; letter-spacing: -0.3px; }
+            .post-body { font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/" class="logo">Hypomnemata</a>
+            <div class="links">
+                <a href="/">Home</a>
+                <a href="/projects/">Projects</a>
+                <a href="/reading/">Reading</a>
+                <a href="/blog/">Blog</a>
+                <a href="/zh/blog/mapping-the-sdl-landscape/" class="lang">中文</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">7 June 2026 · 2 min read</div>
+                <h1>Mapping the Self-Driving Lab Landscape</h1>
+                <span class="category">Self-Driving Labs</span>
+            </header>
+
+            <div class="post-body">
+                <p>For the last six months I've been tracking who is building self-driving labs, the AI-driven, robotically operated science platforms that promise to close the loop between hypothesis and experiment. The result is a hand-curated interactive map at <a href="https://sdl-map.discoverylabs.nl">sdl-map.discoverylabs.nl</a>. 74 entries across four tiers: national programmes, academic groups, commercial vendors, and lab-OS platforms.</p>
+
+                <p>This is not a search-indexed listing. It captures the landscape as I read it. Which countries are putting public money behind autonomous discovery (Canada's Acceleration Consortium, Korea's MOTIE 500-lab plan, France's PEPR DIADEM, the EU's BIG-MAP / FULL-MAP). Which academic groups are actually running platforms (A-Lab, Cooper, Cronin, Jensen, Abolhasani, Jun Jiang). Which companies moved past pitch decks into operating facilities (Lila Sciences, Medra, XtalPi, Cusp AI). And which OS layers quietly orchestrate everything underneath (Automata LINQ, Benchling, Artificial, Atinary).</p>
+
+                <p>I built it because the strategic question "where is this field clustering, and where are the gaps?" was not answerable from any single source. Funding announcements live in press releases; group capabilities live in their websites; vendor footprints live in industry reports. The map fuses them. The repository is open at <a href="https://github.com/yetiswang/sdl-map">github.com/yetiswang/sdl-map</a>. Every entry's metadata, location, funding label, and sources are in the JSON, free to fork.</p>
+
+                <p>What I see when I step back: characterisation-in-loop is still the rarest capability. Most operating SDLs do synthesis well and characterise crudely. Only a handful integrate advanced multimodal characterisation into the autonomous loop. That's the gap worth watching.</p>
+            </div>
+
+            <div class="post-nav">
+                <a href="/blog/">&larr; Back to Blog</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+        })();
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+
+            (function(){
+                if (window.location.search.indexOf('static') > -1) {
+                    document.documentElement.classList.add('static-mode');
+                }
+            })();
+</script>
+</body>
+</html>

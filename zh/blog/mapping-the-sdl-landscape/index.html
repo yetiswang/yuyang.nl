@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="自驅動實驗室全球版圖 — 王昱揚">
+    <meta property="og:description" content="一張手工策展的互動地圖：自驅動實驗室的全球分佈。74 個條目，涵蓋國家計畫、學術組、商業公司、實驗室作業系統平台。">
+    <meta property="og:url" content="https://yuyang.nl/zh/blog/mapping-the-sdl-landscape/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="自驅動實驗室全球版圖 — 王昱揚">
+    <meta name="twitter:description" content="一張手工策展的互動地圖：自驅動實驗室的全球分佈。74 個條目，涵蓋國家計畫、學術組、商業公司、實驗室作業系統平台。">
+    <title>自驅動實驗室全球版圖 — 王昱揚</title>
+    <meta name="description" content="關於做一張自驅動實驗室全球版圖的筆記，以及這張圖讀出來的東西。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        :root { --body-font: 'Songti TC', 'Noto Serif TC', 'STSong', 'PingFang TC', serif; --heading-font: 'Songti TC', 'Noto Serif TC', 'STSong', 'PingFang TC', serif; }
+
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body blockquote {
+            margin: 40px 0;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-family: 'Noto Serif TC', 'Source Serif 4', Georgia, serif;
+            font-size: 24px;
+            line-height: 1.55;
+            color: var(--text);
+            text-align: center;
+            text-wrap: balance;
+        }
+        .post-body blockquote p { margin: 0; }
+        .post-body blockquote p:last-child { margin-bottom: 0; }
+        .post-body pre {
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.55;
+            margin: 24px 0;
+        }
+        .post-body code {
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.92em;
+            background: var(--tag-bg);
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+        .post-body pre code {
+            background: transparent;
+            padding: 0;
+        }
+        .post-body a {
+            color: var(--link);
+        }
+        .post-nav {
+            padding: 24px 0 0;
+            border-top: 1px solid var(--border);
+        }
+        .post-nav a {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        @media (max-width: 600px) {
+            .post-header h1 { font-size: 28px; }
+            .post-body { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/zh/" class="logo">虛室</a>
+            <div class="links">
+                <a href="/zh/">首頁</a>
+                <a href="/zh/projects/">項目</a>
+                <a href="/zh/reading/">閱讀</a>
+                <a href="/zh/blog/">網誌</a>
+                <a href="/blog/mapping-the-sdl-landscape/" class="lang">EN</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">2026 年 6 月 7 日 · 2 min read</div>
+                <h1>自驅動實驗室全球版圖</h1>
+                <span class="category">自驅動實驗室</span>
+            </header>
+
+            <div class="post-body">
+                <p>過去半年，我一直在追蹤誰在建構自驅動實驗室，那些以 AI 驅動、機器人運作、試圖閉合「假設到實驗」迴路的科學平台。這份整理的結果是一張手工策展的互動地圖：<a href="https://sdl-map.discoverylabs.nl">sdl-map.discoverylabs.nl</a>。74 個條目，分為四層：國家計畫、學術組、商業公司，以及實驗室作業系統平台。</p>
+
+                <p>它不是搜尋索引出來的清單，而是我讀到的版圖。哪些國家正把公共資金投向自主發現（加拿大 Acceleration Consortium、韓國 MOTIE 的 500 實驗室計畫、法國 PEPR DIADEM、歐盟 BIG-MAP / FULL-MAP），哪些學術組在真正跑平台（A-Lab、Cooper、Cronin、Jensen、Abolhasani、江俊），哪些公司已經從故事走到營運設施（Lila Sciences、Medra、晶泰科技、Cusp AI），哪些作業系統層在底下默默調度一切（Automata LINQ、Benchling、Artificial、Atinary）。</p>
+
+                <p>之所以做這張圖，是因為「這個領域在哪裡聚集、哪裡有斷點？」這個戰略問題，單一來源回答不了。資助公告在新聞稿裡，組的能力散落在各自的網頁上，供應商版圖埋在產業報告裡。這張圖把它們匯到一處。儲存庫公開在 <a href="https://github.com/yetiswang/sdl-map">github.com/yetiswang/sdl-map</a>，每個條目的元資料、座標、資金標籤與來源都寫在 JSON 裡，可自由 fork。</p>
+
+                <p>退一步看：表徵嵌入迴路（characterisation-in-loop）依然是最稀缺的能力。多數已營運的 SDL 合成做得不錯，表徵做得粗糙。只有少數真正把先進的多模態表徵整合進了自主迴路。這是值得持續關注的斷點。</p>
+            </div>
+
+            <div class="post-nav">
+                <a href="/zh/blog/">&larr; 返回網誌</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 王昱揚 &middot; 荷蘭恩荷芬</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+        })();
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+
+            (function(){
+                if (window.location.search.indexOf('static') > -1) {
+                    document.documentElement.classList.add('static-mode');
+                }
+            })();
+</script>
+</body>
+</html>
