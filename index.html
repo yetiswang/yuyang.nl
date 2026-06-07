@@ -609,14 +609,18 @@
             try { reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
 
             // Game completion gets the full paper-curl reveal.
-            // Skip + reduced-motion get a quick opacity fade — different intent.
-            var useCurl = !skip && !reducedMotion && gameComplete;
+            // Skip button + reduced-motion get a quick opacity fade.
+            // `skip` is true in BOTH the Skip path AND the completion path
+            // (we use it to write nw-done), so it can't distinguish intent on
+            // its own. `gameComplete` is the right discriminator.
+            var userSkipped = skip && !gameComplete;
+            var useCurl = gameComplete && !reducedMotion;
 
             if (useCurl) {
                 startPaperCurl(finalizeDismiss);
             } else {
                 overlay.classList.add('fade-out');
-                setTimeout(finalizeDismiss, skip ? 380 : 600);
+                setTimeout(finalizeDismiss, userSkipped ? 380 : 600);
             }
 
             function finalizeDismiss() {
