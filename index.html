@@ -35,6 +35,11 @@
     </style>
     <style>
         /* === Node Weaver Overlay === */
+        /* 3D context for the page-turn dismiss animation. Perspective on body
+           only affects descendants with transform-style: preserve-3d, so the
+           rest of the layout stays flat. */
+        body { perspective: 1800px; perspective-origin: 50% 50%; }
+
         #node-weaver-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -49,6 +54,11 @@
             font-family: 'Source Serif 4', serif;
             cursor: default;
             overflow: hidden;
+            /* Spine on the right edge: page lifts and turns leftward (Chinese book). */
+            transform-origin: 100% 50%;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
         #node-weaver-overlay.nw-active {
             opacity: 1;
@@ -58,9 +68,14 @@
             background-image: url(/assets/ink-splatters/bg_dark.png);
         }
         #node-weaver-overlay.fade-out {
-            opacity: 0;
+            /* Page-turn: rotate around the right edge. Backface-visibility:hidden
+               handles the visual fade — once we pass 90°, the back of the page is
+               invisible, so the home page underneath becomes fully revealed. */
+            transform: rotateY(-180deg);
+            opacity: 1;
             pointer-events: none;
-            transform: scale(1.02);
+            transition: transform 1.3s cubic-bezier(0.65, 0, 0.35, 1), filter 1.3s ease;
+            filter: drop-shadow(-18px 0 24px rgba(0,0,0,0.28));
         }
         #node-weaver-overlay .nw-hidden {
             display: none !important;
@@ -190,6 +205,12 @@
             #node-weaver-overlay .nw-intro-text,
             #node-weaver-overlay .nw-complete {
                 transition: opacity 0.2s ease !important;
+            }
+            /* No page-turn for motion-sensitive users — simple opacity fade instead. */
+            #node-weaver-overlay.fade-out {
+                transform: none !important;
+                opacity: 0 !important;
+                filter: none !important;
             }
         }
     </style>
@@ -599,12 +620,13 @@
             if (fadeStarted) return; fadeStarted = true;
             overlay.classList.add('fade-out');
             if (skip) { try { sessionStorage.setItem('nw-done', '1'); } catch(e) {} }
+            // Matches the 1.3s page-turn transition with a small buffer.
             setTimeout(function() {
                 overlay.style.display = 'none';
                 var isZh = window.location.pathname.indexOf('/zh/') === 0;
                 if (lang === 'zh' && !isZh) window.location.href = '/zh/';
                 else if (lang === 'en' && isZh) window.location.href = '/';
-            }, 1000);
+            }, 1400);
         }
         
         // Mouse position tracking for hover ink splash
