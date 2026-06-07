@@ -172,13 +172,9 @@
 
                 <p>The standard local diarisation pipeline (pyannote-audio 3.1 in its default mode) clusters speakers into groups and assigns each group a label. When voices are sufficiently distinct, this works well. When four people in a meeting share similar pitch, accent, and meeting register, pyannote often collapses them into a single SPEAKER cluster. The model is confident. The output is confidently wrong. Every utterance gets attributed to one of the four. The other three vanish from the transcript.</p>
 
-                <p>I hit this exact failure mode on a meeting in late May. Four senior colleagues, similar registers, a fast conversation. The diarised transcript had three of them missing entirely and all of their content attributed to the fourth. The transcript looked correct at first glance. It was only when I read it back, knowing what was actually said, that I realised the labels were lying to me.</p>
-
                 <blockquote>
-                    <p>A confidently wrong transcript is worse than no transcript. It is a thing you might cite, summarise, or share.</p>
+                    <p>A confidently wrong transcript is worse than no transcript. It is a thing you might cite, summarise, or share — and then attribute a decision to someone who did not make it.</p>
                 </blockquote>
-
-                <p>You might attribute a decision to someone who did not make it. The privacy story is fine, the failure story is not.</p>
 
                 <h2>The fix</h2>
 
@@ -190,7 +186,7 @@
 
                 <p>Similar voices no longer get merged into one cluster, because there is no clustering step. Each window is its own decision. Unmatched windows stay as Unknown, which is the correct answer for someone you have not enrolled yet.</p>
 
-                <p>The implementation is small, a few hundred lines of Python, but the practical effect is large. The same four-colleague meeting now labels correctly because each colleague was already in my bank.</p>
+                <p>The implementation is small, a few hundred lines of Python, but the practical effect is large. Once the bank covers your regulars, a meeting where four similar voices would otherwise collapse into one cluster gets labelled window by window, correctly.</p>
 
                 <h2>What v0.1 ships</h2>
 
