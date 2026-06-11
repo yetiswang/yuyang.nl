@@ -429,9 +429,9 @@
         var overlay = document.getElementById('node-weaver-overlay');
 
         // P0: session-suppression read guard. Both Skip and game completion
-        // write sessionStorage.nw-done; this is where we honour it.
+        // write localStorage.nw-done; this is where we honour it.
         try {
-            if (sessionStorage.getItem('nw-done') === '1') {
+            if (localStorage.getItem('nw-done') === '1' || sessionStorage.getItem('nw-done') === '1') {
                 overlay.style.display = 'none';
                 return;
             }
@@ -545,6 +545,7 @@
         
         var w, h, centerX, centerY, nodes = [], connected = [false,false,false,false,false];
         var animatingLines = [], particlesList = [], gameComplete = false, fadeStarted = false, time = 0;
+        var drips = [], dripTimer = 0;
 
         // Stroke profiles - each connection uses a unique brush slice for photorealistic variety
         var strokeProfiles = [
@@ -593,6 +594,7 @@
                     connected[i] = true; animateConnection(i); nodes[i].pulse = 1.0;
                     var allDone = connected.every(function(v){return v;});
                     if (allDone) {
+                        try { localStorage.setItem('nw-done', '1'); } catch(e) {}
                         intro.classList.add('hidden');
                         setTimeout(function(){gameComplete=true;completeEl.classList.add('show');burstParticles();setTimeout(function(){dismissOverlay(true);},2500);},600);
                     }
@@ -603,7 +605,7 @@
         
         function dismissOverlay(skip) {
             if (fadeStarted) return; fadeStarted = true;
-            if (skip) { try { sessionStorage.setItem('nw-done', '1'); } catch(e) {} }
+            if (skip) { try { localStorage.setItem('nw-done', '1'); } catch(e) {} }
 
             var reducedMotion = false;
             try { reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
@@ -797,8 +799,39 @@
             handleClick(t.clientX-r.left, t.clientY-r.top); e.preventDefault();
         }, {passive: false});
         
-        // Hover state — character scaling on hover (10% bigger)
+        // Hover state — character scaling on hover + ink drips
         var hoveredNode = -1;
+        function spawnDrip() {
+            var n = nodes[hoveredNode], dark = isDark();
+            drips.push({
+                x: n.x + (Math.random()-0.5)*8,
+                y: n.y + Math.min(W,H)*0.06,
+                vy: 0.3 + Math.random()*0.5,
+                size: 1.5 + Math.random()*2.5,
+                alpha: 0.6 + Math.random()*0.3,
+                decay: 0.008 + Math.random()*0.01
+            });
+        }
+        function updateDrips() {
+            if (hoveredNode >= 0 && !connected[hoveredNode] && dripTimer++ % 4 === 0) spawnDrip();
+            else if (hoveredNode < 0) dripTimer = 0;
+        }
+        function drawDrips() {
+            var dark = isDark(), col = dark ? '#e8ddd0' : '#2c2c2c';
+            for (var d = drips.length-1; d >= 0; d--) {
+                var dp = drips[d];
+                dp.y += dp.vy;
+                dp.alpha -= dp.decay;
+                if (dp.alpha <= 0) { drips.splice(d,1); continue; }
+                ctx.save();
+                ctx.globalAlpha = dp.alpha;
+                ctx.fillStyle = col;
+                ctx.beginPath();
+                ctx.arc(dp.x, dp.y, dp.size * (0.5 + Math.random()*0.5), 0, Math.PI*2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
         function updateHoverState() {
             hoveredNode = -1;
             if (gameComplete) return;
@@ -917,6 +950,8 @@
             
             // Update hover state for node character scaling
             updateHoverState();
+            updateDrips();
+            drawDrips();
             
             // Center ink
             var cImg = dark ? centerImgDark : centerImg;
