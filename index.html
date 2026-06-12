@@ -218,6 +218,19 @@
     <meta property="og:image" content="https://yuyang.nl/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+
+    <style>
+    /* Theme switch: circular reveal from the toggle, identical in Chrome + Safari */
+    .vt-theme::view-transition-old(root) { animation: none; }
+    .vt-theme::view-transition-new(root) {
+        animation: vt-theme-reveal 0.55s ease-in-out both;
+    }
+    @keyframes vt-theme-reveal {
+        from { clip-path: circle(0px at var(--vt-x, 90%) var(--vt-y, 24px)); }
+        to   { clip-path: circle(160vmax at var(--vt-x, 90%) var(--vt-y, 24px)); }
+    }
+    .vt-instant * { transition: none !important; }
+    </style>
 </head>
 <body>
 
@@ -419,10 +432,21 @@
             btn.addEventListener('click', function() {
                 var cur = html.getAttribute('data-theme');
                 var next = cur === 'dark' ? 'light' : 'dark';
-                html.setAttribute('data-theme', next);
-                syncBodyTheme(next);
-                try { localStorage.setItem('theme', next); } catch(e) {}
-                updateLabel();
+                var apply = function() {
+                    html.setAttribute('data-theme', next);
+                    syncBodyTheme(next);
+                    try { localStorage.setItem('theme', next); } catch(e) {}
+                    updateLabel();
+                };
+                var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (document.startViewTransition && !reduced) {
+                    var r = btn.getBoundingClientRect();
+                    html.style.setProperty('--vt-x', (r.left + r.width / 2) + 'px');
+                    html.style.setProperty('--vt-y', (r.top + r.height / 2) + 'px');
+                    html.classList.add('vt-theme', 'vt-instant');
+                    var vt = document.startViewTransition(apply);
+                    vt.finished.finally(function() { html.classList.remove('vt-theme', 'vt-instant'); });
+                } else { apply(); }
             });
 
             sysDark.addEventListener('change', function(e) {
@@ -672,6 +696,7 @@
         // edge. The portion right of the curl boundary is left transparent,
         // revealing the home page sitting in the DOM below us.
         function startPaperCurl(onComplete) {
+            if (window.__inkCurl) { window.__inkCurl(onComplete); return; }
             var dark = isDark();
             var W = w, H = h;
             var dpr = window.devicePixelRatio || 1;
@@ -1071,5 +1096,299 @@
                 }
             })();
 </script>
+
+    <canvas id="ink-gl" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10000;mix-blend-mode:multiply;"></canvas>
+    <script type="module">
+    try {
+
+    const THREE = await import('/vendor/three.module.min.js');
+
+    const canvas = document.getElementById('ink-gl');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, preserveDrawingBuffer: true });
+    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    function size() { renderer.setSize(innerWidth, innerHeight, false); renderer.setPixelRatio(DPR); }
+    size(); addEventListener('resize', size);
+
+    const MAX = 10;
+    const uniforms = {
+        uTime: { value: 0 },
+        uAspect: { value: innerWidth / innerHeight },
+        uInk: { value: new THREE.Color(0x030404) },
+        uBlots: { value: Array.from({ length: MAX }, () => new THREE.Vector4(-10, -10, -1000, 0)) },
+        uStrokes: { value: Array.from({ length: 8 }, () => new THREE.Vector4(-10, -10, -10, -10)) },
+        uStrokeMeta: { value: Array.from({ length: 8 }, () => new THREE.Vector4(-1000, 0, 0, 0)) }
+    };
+    addEventListener('resize', () => { uniforms.uAspect.value = innerWidth / innerHeight; });
+
+    const frag = `
+    precision highp float;
+    varying vec2 vUv;
+    uniform float uTime, uAspect;
+    uniform vec3 uInk;
+    uniform vec4 uBlots[${MAX}];
+    uniform vec4 uStrokes[8];
+    uniform vec4 uStrokeMeta[8];
+    const float PI = 3.141592653;
+
+    float hash(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+    float vnoise(vec2 p){
+        vec2 i = floor(p), f = fract(p);
+        vec2 u = f * f * (3.0 - 2.0 * f);
+        return mix(mix(hash(i), hash(i + vec2(1, 0)), u.x),
+                   mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), u.x), u.y);
+    }
+    float fbm(vec2 p){
+        float v = 0.0, a = 0.5;
+        for (int i = 0; i < 4; i++) { v += a * vnoise(p); p = p * 2.13 + 7.7; a *= 0.5; }
+        return v;
+    }
+
+    void main() {
+        vec2 uv = vUv; uv.x *= uAspect;
+        float ink = 0.0;
+        for (int i = 0; i < ${MAX}; i++) {
+            vec4 b = uBlots[i];
+            float age = uTime - b.z;
+            if (age < 0.0 || b.z < -100.0) continue;
+            vec2 c = b.xy; c.x *= uAspect;
+            float d = distance(uv, c);
+            // breathing edge: domain-warped fbm, slow ambient drift
+            vec2 q = uv * 7.0 + b.w * 19.0;
+            float warp = fbm(q + fbm(q * 1.7 + uTime * 0.05) * 1.4);
+            // core blooms fast then settles (ink in water)
+            float r = 0.042 * (1.0 - exp(-age * 1.8)) + 0.007 * sqrt(max(age, 0.0));
+            float edgeR = r * (0.55 + 0.9 * warp);
+            float core = smoothstep(edgeR, edgeR * 0.45, d);
+            core *= smoothstep(r * 0.12, r * 0.55, d);   // hollow centre: the wash spreads around what is already inked
+            // wispy halo: slower, fainter, noisier
+            float r2 = r * 2.6 * (1.0 - exp(-age * 0.45));
+            float edge2 = r2 * (0.35 + 1.3 * warp);
+            float halo = smoothstep(edge2, edge2 * 0.45, d) * 0.14;
+            halo *= smoothstep(r * 0.2, r * 0.7, d);     // keep the centre clear here too
+            // granular interior
+            float grain = 0.62 + 0.38 * fbm(uv * 26.0 + b.w * 31.0);
+            // slow drying: ink lightens a touch as it ages
+            float dry = mix(1.0, 0.82, clamp(age / 14.0, 0.0, 1.0));
+            ink += (core * grain + halo) * dry;
+        }
+        // --- ink brush strokes: drawn head, tapered dry-brush body, bleed ---
+        for (int i = 0; i < 8; i++) {
+            vec4 sg = uStrokes[i];
+            vec4 mt = uStrokeMeta[i];
+            float age = uTime - mt.x;
+            if (age < 0.0 || mt.x < -100.0) continue;
+            vec2 a = sg.xy; a.x *= uAspect;
+            vec2 b = sg.zw; b.x *= uAspect;
+            vec2 ab = b - a;
+            float len = max(length(ab), 1e-4);
+            float drawn = clamp(age * 1.5, 0.0, 1.0);
+            drawn = 1.0 - pow(1.0 - drawn, 2.2);            // brush decelerates as it arrives
+            float t = clamp(dot(uv - a, ab) / (len * len), 0.0, drawn);
+            // curved centreline: a brush arm sweeps an arc, not a ruler line
+            vec2 perp = normalize(vec2(-ab.y, ab.x));
+            float bow = (fract(mt.y * 0.731) - 0.5) * 0.16 * len;
+            vec2 proj = a + ab * t + perp * (bow * sin(t * PI));
+            float d = distance(uv, proj);
+            float wob = fbm(vec2(t * 9.0 + mt.y * 13.0, mt.y * 7.0));
+            float width = 0.013 * (0.55 + 0.9 * wob);
+            width *= 1.0 + 0.55 * exp(-t * 10.0);                    // entry press
+            width *= 1.0 - smoothstep(0.68, 1.0, t) * 0.95;          // tapering flick exit
+            // dry-brush: fibres strongest mid-stroke where the brush moves fastest
+            float fibreAmp = 0.30 + 0.42 * sin(t * PI);
+            float streak = (1.0 - fibreAmp) + fibreAmp * fbm(vec2(t * 40.0 + mt.y * 5.0, d * 130.0));
+            float sInk = smoothstep(width, width * 0.3, d) * streak;
+            sInk += smoothstep(width * 2.4, width * 0.7, d) * 0.06;  // paper bleed
+            // ink pools where the brush first touches down
+            sInk += smoothstep(0.030, 0.006, distance(uv, a)) * 0.22;
+            if (drawn < 1.0) {                                        // wet moving tip
+                float hd = distance(uv, a + ab * drawn + perp * (bow * sin(drawn * PI)));
+                sInk += smoothstep(0.016, 0.0, hd) * 0.45;
+            }
+            float sdry = mix(1.0, 0.85, clamp(age / 14.0, 0.0, 1.0));
+            ink += sInk * sdry;
+        }
+        ink = clamp(ink, 0.0, 0.78);
+        gl_FragColor = vec4(uInk, ink);
+    }`;
+
+    const mat = new THREE.ShaderMaterial({
+        uniforms, transparent: true,
+        vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }',
+        fragmentShader: frag
+    });
+    const scene = new THREE.Scene();
+    scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat));
+    const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+    // theme-aware ink colour
+    function syncInk() {
+        const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        uniforms.uInk.value.set(dark ? 0xe8ddd0 : 0x030404);
+        canvas.style.mixBlendMode = dark ? 'screen' : 'multiply';
+    }
+    syncInk();
+    new MutationObserver(syncInk).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    let slot = 0, strokeSlot = 0;
+    const t0 = performance.now();
+    // the shader stroke replaces the static PNG brush: blank it out
+    const BLANK = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+    ['nw-src-brush', 'nw-src-brush-dark'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.removeAttribute('data-src'); el.src = BLANK; }
+    });
+    function spawnStroke(x, y) {
+        // stop short of the node so the stroke meets the character without covering it
+        const bx = 0.5 + (x - 0.5) * 0.86, by = 0.5 + (y - 0.5) * 0.86;
+        uniforms.uStrokes.value[strokeSlot].set(0.5, 0.5, bx, by);
+        uniforms.uStrokeMeta.value[strokeSlot].set((performance.now() - t0) / 1000, Math.random() * 100, 0, 0);
+        strokeSlot = (strokeSlot + 1) % 8;
+    }
+    addEventListener('pointerdown', (e) => {
+        const ov = document.getElementById('node-weaver-overlay');
+        if (!ov) return;
+        const ovs = getComputedStyle(ov);
+        if (ovs.display === 'none' || +ovs.opacity < 0.5) return; // ink belongs to the visible intro page only
+        const u = uniforms.uBlots.value[slot];
+        const nx = e.clientX / innerWidth, ny = 1.0 - e.clientY / innerHeight;
+        u.set(nx, ny, (performance.now() - t0) / 1000, Math.random() * 100);
+        slot = (slot + 1) % MAX;
+        spawnStroke(nx, ny);
+    }, true);
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        renderer.setAnimationLoop(() => {
+            uniforms.uTime.value = (performance.now() - t0) / 1000;
+            renderer.render(scene, cam);
+        });
+    }
+
+
+    // skip-path fade: the ink page is abandoned, clear the live layer
+    const ovEl = document.getElementById('node-weaver-overlay');
+    if (ovEl) {
+        new MutationObserver(() => {
+            if (ovEl.classList.contains('fade-out') || ovEl.style.display === 'none') {
+                uniforms.uBlots.value.forEach(v => v.set(-10, -10, -1000, 0));
+                uniforms.uStrokes.value.forEach(v => v.set(-10, -10, -10, -10));
+                uniforms.uStrokeMeta.value.forEach(v => v.set(-1000, 0, 0, 0));
+            }
+        }).observe(ovEl, { attributes: true, attributeFilter: ['class', 'style'] });
+    }
+
+    // === WebGL page curl: the intro page (paper + network + YOUR ink) rolls
+    //     away around a cylinder, backside showing, shadow falling ahead. ===
+    window.__inkCurl = function(onComplete) {
+        const overlay = document.getElementById('node-weaver-overlay');
+        const nwCanvas = document.getElementById('nw-canvas');
+        const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+        const snap = document.createElement('canvas');
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        snap.width = innerWidth * dpr; snap.height = innerHeight * dpr;
+        const sctx = snap.getContext('2d');
+
+        const bg = new Image();
+        bg.onload = bg.onerror = build;
+        bg.src = '/assets/ink-splatters/bg_' + (dark ? 'dark' : 'light') + '.webp';
+
+        function build() {
+            // paper
+            if (bg.complete && bg.naturalWidth > 0) {
+                const br = bg.naturalWidth / bg.naturalHeight, cr = snap.width / snap.height;
+                let dw, dh;
+                if (cr > br) { dw = snap.width; dh = snap.width / br; } else { dh = snap.height; dw = snap.height * br; }
+                sctx.drawImage(bg, (snap.width - dw) / 2, (snap.height - dh) / 2, dw, dh);
+            } else { sctx.fillStyle = dark ? '#1a1612' : '#f4ece0'; sctx.fillRect(0, 0, snap.width, snap.height); }
+            // the network as drawn
+            sctx.drawImage(nwCanvas, 0, 0, snap.width, snap.height);
+            // YOUR ink leaves with the page
+            sctx.drawImage(canvas, 0, 0, snap.width, snap.height);
+            // ink layer is now part of the page: clear the live layer
+            uniforms.uBlots.value.forEach(v => v.set(-10, -10, -1000, 0));
+            uniforms.uStrokes.value.forEach(v => v.set(-10, -10, -10, -10));
+            uniforms.uStrokeMeta.value.forEach(v => v.set(-1000, 0, 0, 0));
+
+            const tex = new THREE.CanvasTexture(snap);
+            tex.colorSpace = THREE.SRGBColorSpace;
+            const cu = {
+                uTex: { value: tex },
+                uProg: { value: 0 },
+                uAspect: { value: innerWidth / innerHeight }
+            };
+            const curlMat = new THREE.ShaderMaterial({
+                uniforms: cu, transparent: true,
+                vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }',
+                fragmentShader: `
+                precision highp float;
+                varying vec2 vUv;
+                uniform sampler2D uTex;
+                uniform float uProg, uAspect;
+                const float PI = 3.141592653;
+                void main() {
+                    float r = 0.10;                                  // roll radius
+                    vec2 n = normalize(vec2(1.0, 0.22));             // peel direction
+                    vec2 uv = vec2(vUv.x * uAspect, vUv.y);
+                    float span = uAspect * 1.25 + PI * r;            // full sweep
+                    float axis = span * (1.0 - uProg);               // curl line position
+                    float s = dot(uv, n) - axis;
+                    vec4 col;
+                    if (s <= 0.0) {
+                        col = texture2D(uTex, vUv);
+                        // cast shadow of the roll on the still-flat page
+                        col.rgb *= 1.0 - 0.32 * exp(s * 9.0);
+                    } else if (s < PI * r) {
+                        // rolled-over part: backside of the page (mirrored)
+                        float theta = s / r;
+                        vec2 src = uv - n * (2.0 * s);
+                        vec2 suv = vec2(src.x / uAspect, src.y);
+                        if (suv.x < 0.0 || suv.x > 1.0 || suv.y < 0.0 || suv.y > 1.0) {
+                            col = vec4(0.0);
+                        } else {
+                            col = texture2D(uTex, suv);
+                            // backside: paper shows through faded ink
+                            col.rgb = mix(col.rgb, vec3(0.94, 0.90, 0.83), 0.72);
+                            // cylinder shading: darker near the fold, sheen on top of roll
+                            float shade = 0.78 + 0.22 * sin(theta);
+                            col.rgb *= shade;
+                            col.a *= smoothstep(PI, PI - 0.5, theta); // tip softens
+                        }
+                    } else {
+                        col = vec4(0.0);                              // turned: content beneath
+                    }
+                    gl_FragColor = col;
+                }`
+            });
+            const curlScene = new THREE.Scene();
+            curlScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), curlMat));
+
+            // overlay DOM disappears; the WebGL page takes its place
+            renderer.setAnimationLoop(null); // pause the ink loop during the curl
+            overlay.style.display = 'none';
+            canvas.style.mixBlendMode = 'normal';
+            canvas.style.zIndex = '10000';
+
+            const start = performance.now(), DUR = 2600;
+            (function frame() {
+                const p = Math.min(1, (performance.now() - start) / DUR);
+                cu.uProg.value = p < 0.5 ? 4*p*p*p : 1 - Math.pow(-2*p + 2, 3) / 2; // easeInOutCubic
+                renderer.render(curlScene, cam);
+                if (p < 1) requestAnimationFrame(frame);
+                else {
+                    tex.dispose(); curlMat.dispose();
+                    renderer.clear();
+                    canvas.style.mixBlendMode = dark ? 'screen' : 'multiply';
+                    renderer.setAnimationLoop(() => {   // resume the ink loop
+                        uniforms.uTime.value = (performance.now() - t0) / 1000;
+                        renderer.render(scene, cam);
+                    });
+                    onComplete();
+                }
+            })();
+        }
+    };
+
+    } catch (e) { /* no WebGL: the PNG brush and static splats remain */ }
+    </script>
 </body>
 </html>
