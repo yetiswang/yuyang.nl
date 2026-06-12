@@ -10,7 +10,8 @@
     <meta property="og:url" content="https://yuyang.nl/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Yuyang Wang">
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://yuyang.nl/og-image.jpg">
     <meta name="twitter:title" content="Yuyang Wang · Managing Science at a Dutch University">
     <meta name="twitter:description" content="Personal site of Yuyang Wang. Managing science at a Dutch university · ICMS / TU/e Eindhoven.">
     <title>Yuyang Wang · Managing Science at a Dutch University</title>
@@ -40,9 +41,9 @@
         #node-weaver-overlay {
             position: fixed;
             top: 0; left: 0;
-            width: 100vw; height: 100vh;
+            width: 100%; height: 100vh;
             z-index: 9999;
-            background-image: url(/assets/ink-splatters/bg_light.png);
+            background-image: url(/assets/ink-splatters/bg_light.webp);
             background-size: cover;
             background-position: center;
             transition: opacity 0.5s ease;
@@ -57,7 +58,7 @@
             pointer-events: auto;
         }
         [data-theme='dark'] #node-weaver-overlay {
-            background-image: url(/assets/ink-splatters/bg_dark.png);
+            background-image: url(/assets/ink-splatters/bg_dark.webp);
         }
         #node-weaver-overlay.fade-out {
             opacity: 0;
@@ -214,6 +215,9 @@
             }
         })();
     </script>
+    <meta property="og:image" content="https://yuyang.nl/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
 </head>
 <body>
 
@@ -234,35 +238,63 @@
     </div>
     
     <!-- Preloaded ink splatter images -->
-    <img src="/assets/ink-splatters/center.png" class="nw-hidden" id="nw-src-center">
-    <img src="/assets/ink-splatters/node-ren-dark.png" class="nw-hidden" id="nw-src-0">
-    <img src="/assets/ink-splatters/node-yi-dark.png" class="nw-hidden" id="nw-src-1">
-    <img src="/assets/ink-splatters/node-si-dark.png" class="nw-hidden" id="nw-src-2">
-    <img src="/assets/ink-splatters/node-zi-dark.png" class="nw-hidden" id="nw-src-3">
-    <img src="/assets/ink-splatters/node-yan-dark.png" class="nw-hidden" id="nw-src-4">
+    <img data-src="/assets/ink-splatters/center.webp" class="nw-hidden" id="nw-src-center">
+    <img data-src="/assets/ink-splatters/node-ren-dark.webp" class="nw-hidden" id="nw-src-0">
+    <img data-src="/assets/ink-splatters/node-yi-dark.webp" class="nw-hidden" id="nw-src-1">
+    <img data-src="/assets/ink-splatters/node-si-dark.webp" class="nw-hidden" id="nw-src-2">
+    <img data-src="/assets/ink-splatters/node-zi-dark.webp" class="nw-hidden" id="nw-src-3">
+    <img data-src="/assets/ink-splatters/node-yan-dark.webp" class="nw-hidden" id="nw-src-4">
     
     <!-- Dark mode copies -->
-    <img src="/assets/ink-splatters/center-dark.png" class="nw-hidden" id="nw-src-center-dark">
-    <img src="/assets/ink-splatters/node-ren-light.png" class="nw-hidden" id="nw-src-0-dark">
-    <img src="/assets/ink-splatters/node-yi-light.png" class="nw-hidden" id="nw-src-1-dark">
-    <img src="/assets/ink-splatters/node-si-light.png" class="nw-hidden" id="nw-src-2-dark">
-    <img src="/assets/ink-splatters/node-zi-light.png" class="nw-hidden" id="nw-src-3-dark">
-    <img src="/assets/ink-splatters/node-yan-light.png" class="nw-hidden" id="nw-src-4-dark">
+    <img data-src="/assets/ink-splatters/center-dark.webp" class="nw-hidden" id="nw-src-center-dark">
+    <img data-src="/assets/ink-splatters/node-ren-light.webp" class="nw-hidden" id="nw-src-0-dark">
+    <img data-src="/assets/ink-splatters/node-yi-light.webp" class="nw-hidden" id="nw-src-1-dark">
+    <img data-src="/assets/ink-splatters/node-si-light.webp" class="nw-hidden" id="nw-src-2-dark">
+    <img data-src="/assets/ink-splatters/node-zi-light.webp" class="nw-hidden" id="nw-src-3-dark">
+    <img data-src="/assets/ink-splatters/node-yan-light.webp" class="nw-hidden" id="nw-src-4-dark">
     
     <!-- Particles -->
-    <img src="/assets/ink-splatters/particles/particle-7.png" class="nw-hidden" id="nw-src-p0">
-    <img src="/assets/ink-splatters/particles/particle-8.png" class="nw-hidden" id="nw-src-p1">
-    <img src="/assets/ink-splatters/particles/particle-7-dark.png" class="nw-hidden" id="nw-src-p0-dark">
-    <img src="/assets/ink-splatters/particles/particle-8-dark.png" class="nw-hidden" id="nw-src-p1-dark">
+    <img data-src="/assets/ink-splatters/particles/particle-7.webp" class="nw-hidden" id="nw-src-p0">
+    <img data-src="/assets/ink-splatters/particles/particle-8.webp" class="nw-hidden" id="nw-src-p1">
+    <img data-src="/assets/ink-splatters/particles/particle-7-dark.webp" class="nw-hidden" id="nw-src-p0-dark">
+    <img data-src="/assets/ink-splatters/particles/particle-8-dark.webp" class="nw-hidden" id="nw-src-p1-dark">
     
     <!-- Brush stroke for connection lines -->
-    <img src="/assets/ink-splatters/brush-stroke.png" class="nw-hidden" id="nw-src-brush">
-    <img src="/assets/ink-splatters/brush-stroke-dark.png" class="nw-hidden" id="nw-src-brush-dark">
+    <img data-src="/assets/ink-splatters/brush-stroke.webp" class="nw-hidden" id="nw-src-brush">
+    <img data-src="/assets/ink-splatters/brush-stroke-dark.webp" class="nw-hidden" id="nw-src-brush-dark">
     
     <!-- Yu calligraphy character -->
-    <img src="/assets/ink-splatters/yu_light.png" class="nw-hidden" id="nw-src-yu">
-    <img src="/assets/ink-splatters/yu_dark_new.png" class="nw-hidden" id="nw-src-yu-dark">
+    <img data-src="/assets/ink-splatters/yu_light.webp" class="nw-hidden" id="nw-src-yu">
+    <img data-src="/assets/ink-splatters/yu_dark_new.webp" class="nw-hidden" id="nw-src-yu-dark">
     
+
+    <script>
+    /* Theme-conditional asset loading: only the active theme's ink set blocks
+       first paint; the other set loads in idle time so toggling still works. */
+    (function() {
+        // the head script has already resolved and applied the theme
+        var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        var imgs = document.querySelectorAll('img[data-src][id^="nw-src-"]');
+        var later = [];
+        imgs.forEach(function(img) {
+            var isDarkAsset = /-dark$/.test(img.id);
+            // ids ending in -dark hold the OTHER theme's art (naming is inverted for nodes)
+            var neededNow = dark ? isDarkAsset : !isDarkAsset;
+            if (neededNow) { img.src = img.getAttribute('data-src'); }
+            else { later.push(img); }
+        });
+        function loadRest() { later.forEach(function(img) { if (!img.src) img.src = img.getAttribute('data-src'); }); }
+        if ('requestIdleCallback' in window) {
+            window.addEventListener('load', function() { requestIdleCallback(loadRest, { timeout: 4000 }); });
+        } else {
+            window.addEventListener('load', function() { setTimeout(loadRest, 1500); });
+        }
+        // a theme toggle needs the other set NOW
+        document.addEventListener('click', function(e) {
+            if (e.target.closest && e.target.closest('#nw-theme, #theme-toggle')) loadRest();
+        }, true);
+    })();
+    </script>
     <!-- Washi grain overlay -->
     <svg class="nw-washi" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <filter id="nw-washi-filter">
@@ -496,7 +528,7 @@
             document.documentElement.setAttribute('data-theme', t);
             if (document.body) document.body.setAttribute('data-theme', t);
             try { localStorage.setItem('theme', t); } catch(e) {}
-            overlay.style.backgroundImage = 'url(/assets/ink-splatters/bg_' + t + '.png)';
+            overlay.style.backgroundImage = 'url(/assets/ink-splatters/bg_' + t + '.webp)';
             updateThemeBtn();
         }
         function toggleTheme() {
@@ -647,7 +679,7 @@
             var bgImg = new Image();
             bgImg.onload = composeAndAnimate;
             bgImg.onerror = composeAndAnimate;
-            bgImg.src = '/assets/ink-splatters/bg_' + (dark ? 'dark' : 'light') + '.png';
+            bgImg.src = '/assets/ink-splatters/bg_' + (dark ? 'dark' : 'light') + '.webp';
 
             function composeAndAnimate() {
                 // 1. Composite final state into the live canvas.

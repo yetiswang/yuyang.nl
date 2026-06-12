@@ -61,7 +61,8 @@
             background: #ffffff;
         }
         .static-mode body::after { display: none; }
-        .static-mode body { background-color: #ffffff; }
+        .static-mode body {
+            overflow-x: hidden; background-color: #ffffff; }
         .static-mode .hero .eyebrow,
         .static-mode .hero h1,
         .static-mode .hero .blurb,
