@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="AI for Science and Research Infrastructure — Yuyang Wang">
+    <meta property="og:description" content="AI for science is two different things: models of nature and systems that do research. Both are limited by data, and the data they most lack is the tacit, multimodal record of how science is actually done. That record is produced in laboratories, which makes research infrastructure the apparatus AI for science depends on, and a real opening for Europe.">
+    <meta property="og:url" content="https://yuyang.nl/blog/ai-for-science-and-research-infrastructure/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://yuyang.nl/og-image.jpg">
+    <meta name="twitter:title" content="AI for Science and Research Infrastructure — Yuyang Wang">
+    <meta name="twitter:description" content="Models of nature and systems that do research both run short of the tacit, multimodal record of how science is actually done. That record is made in the lab, which puts research infrastructure on the critical path.">
+    <title>AI for Science and Research Infrastructure — Yuyang Wang</title>
+    <meta name="description" content="Why AI for science depends on research infrastructure: the two layers of scientific AI, the layered data bottleneck, and the European opportunity in the physical practice of science.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body .standfirst {
+            font-size: 20px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+        .post-body a {
+            color: var(--text);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: var(--border);
+        }
+        .post-body a:hover { text-decoration-color: var(--text); }
+        .post-body sup a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0 1px;
+        }
+        .post-body .references {
+            margin-top: 16px;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .post-body .references li {
+            margin-bottom: 10px;
+        }
+        .post-body .references a { word-break: break-word; }
+    </style>
+    <meta property="og:image" content="https://yuyang.nl/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/" class="logo">Hypomnemata</a>
+            <div class="links">
+                <a href="/">Home</a>
+                <a href="/projects/">Projects</a>
+                <a href="/reading/">Reading</a>
+                <a href="/blog/">Blog</a>
+                <a href="/zh/blog/" class="lang">中文</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">27 June 2026 · 6 min read</div>
+                <h1>AI for Science and Research Infrastructure</h1>
+                <span class="category">AI for Science</span>
+            </header>
+
+            <div class="post-body">
+                <p class="standfirst">This essay began with a report I read recently from the ARQ Foundation, <a href="https://www.arq.foundation/research/what-we-talk-about-when-we-talk-about-ai-for-science"><em>What we talk about when we talk about AI for science</em></a>.<sup><a href="#ref1">1</a></sup> It makes a distinction I have not stopped thinking about, because it lands close to the question I work on every day: what kind of research infrastructure does AI for science actually need? What follows is my attempt to take that thread to its end.</p>
+
+                <p>"AI for science" has become one of those phrases that everyone uses and few define. It covers systems that do completely different things, and the confusion is not harmless. When governments decide what to fund, imprecision turns into misallocated money. So it is worth being clear about what we are actually talking about.</p>
+
+                <h2>Two kinds of system</h2>
+
+                <p>There are two kinds of system hiding under the one name.</p>
+
+                <p>The first models nature. <a href="https://doi.org/10.1038/s41586-021-03819-2">AlphaFold</a><sup><a href="#ref2">2</a></sup> predicts protein structures, <a href="https://doi.org/10.1126/science.adi2336">GraphCast</a><sup><a href="#ref3">3</a></sup> forecasts the weather, <a href="https://doi.org/10.1038/s41586-023-06735-9">GNoME</a><sup><a href="#ref4">4</a></sup> proposes new materials. These models learn the behaviour of a physical system from data, and once trained they let us see or predict things that were out of reach before. They are cheap to run, and they behave like new instruments. They open doors that were closed.</p>
+
+                <p>The second does not model nature. It organises the work of doing research. Built on top of large language models, these systems read the literature, propose hypotheses, plan experiments, call tools, and gather evidence across many steps. They do not produce a new measurement. They coordinate the process of getting one. They are less like an instrument and more like a tireless junior colleague who runs the investigation.</p>
+
+                <p>These are not two versions of the same thing. They differ in architecture, in the data they need, in cost, and in purpose. Treating them as one is the first mistake.</p>
+
+                <p>The two belong together. Picture them in a single loop. A research system reads the literature and proposes a candidate material. It calls a foundation model to simulate that material's properties. If the simulation looks promising, it proposes an experiment to run in the real world. The foundation model is the precision instrument. The research system decides when and how to use it. Neither is much use alone: a model of nature with nobody to question it, or a tireless investigator with no instruments and no laboratory, reasoning in a vacuum.</p>
+
+                <h2>The bottleneck is data, and it is layered</h2>
+
+                <p>What limits both is data, but not the same data, and this is where it gets interesting.</p>
+
+                <p>Foundation models need large, specialised datasets: the output of observatories, national laboratories, long measurement campaigns. That data is expensive and scattered, so the difficulty is mostly coordination and standards. Hard, but familiar.</p>
+
+                <p>The systems that organise research are short of something stranger. They are trained on the published record of science, and the published record holds results, not the road to them. The judgment, the dead ends, the decision to trust a number or throw it out, the feel for when a clean result is quietly wrong: none of it is written down. It is the part of science learned at the bench, passed on by working next to someone, not the part that reaches a paper.</p>
+
+                <p>This is why a bigger model will not, on its own, become a scientist. The recent evidence is sobering and encouraging at once. The strongest current models are more capable at discovery than many expected, and on some tasks they match or beat systems built specifically for the job.<sup><a href="#ref5">5</a></sup> But they share systematic blind spots on real scientific work, and making them larger returns less and less. Where they improve is not through size. It is through being connected to the tools and checks that scientists already use, and through searching for the right direction rather than recalling a fact.</p>
+
+                <p>So the honest version of the claim is this. AI for science is not a smarter model. It is a capable model joined to the instruments, the validators, and the recorded judgment of how science is actually practised. The first two we know how to build. The third we have barely begun to collect.</p>
+
+                <h2>The laboratory is the apparatus</h2>
+
+                <p>That third thing is the hardest kind of knowledge to capture. It is tacit, living in habits and hands more than in documents. It is multimodal and messy: instrument readouts, half-failed runs, images and spectra, the texture of a signal that turns out to be noise. And it is hard to coordinate, spread across instruments and laboratories and institutions, expensive to record, and recorded by almost no one, because no career was ever advanced by carefully documenting a failure.</p>
+
+                <p>But there is a place where this knowledge is produced all the time, as a byproduct of ordinary work. The laboratory. A research infrastructure that runs self-driving experiments and advanced, multimodal characterisation generates both kinds of missing data at once: the large specialised datasets the foundation models need, and the messy, process-level record the research systems need. The instrument and the experiment are how the tacit becomes recorded. If we want AI that knows how science is done, we have to build the places that do science and capture what happens in them.</p>
+
+                <p>This reverses the usual order. We tend to think of research infrastructure as something that will benefit from AI, a consumer of these new tools. It is the other way around. Even the roadmaps toward more capable AI now name experimental data and real-world interaction as a hard limit on further progress. One recent report from a frontier lab put it plainly: AI is not an armchair science.<sup><a href="#ref6">6</a></sup> The laboratory is not downstream of AI for science. It is on its critical path.</p>
+
+                <h2>The European opportunity</h2>
+
+                <p>This is the part that should interest Europe.</p>
+
+                <p>Europe is not winning the race for frontier language models. That contest rewarded enormous compute and capital, and it was settled elsewhere. But the layer this argument points to, the physical practice of science, rewards a different set of strengths, and they are ones Europe holds. As Max Welling has argued, Europe lost the language-model race, but the physical side of AI is the larger prize, and one it can still win.<sup><a href="#ref7">7</a></sup> This is not a consolation. It is the part that turns models into discoveries, and it runs on instruments, domain depth, experimental data, and a willingness to coordinate.</p>
+
+                <p>What would it take. Three industries would have to work together, and to do it robustly. The makers of scientific instruments, where Europe has real depth. The software that runs and orchestrates them. And the laboratories and research infrastructures that use them and produce the data. The hard part is not any single one. It is getting them to work as one system, so that an experiment can be planned, run, measured, and learned from without rebuilding the connections each time.</p>
+
+                <p>That connecting layer is being defined right now, and not in Europe. The two serious published proposals for it, one for how an automated agent talks to an instrument,<sup><a href="#ref8">8</a></sup> one for describing a laboratory in a portable way,<sup><a href="#ref9">9</a></sup> come from China and from Spain. There is an opening here, and an equal risk of the standard being written without us.</p>
+
+                <p>Building it does not mean starting over. Europe already has shared materials-data efforts: <a href="https://nomad-lab.eu">NOMAD</a>,<sup><a href="#ref10">10</a></sup> the <a href="https://www.optimade.org">OPTIMADE</a> standard,<sup><a href="#ref11">11</a></sup> the federated materials-data commons taking shape across the continent. The work is to connect to them and to add what they lack. These commons hold computational and structural data; what is missing is the experimental record from real instruments. The layer worth building is the one that lets that experimental data flow into the commons that already exist, so a measurement made in one laboratory becomes knowledge across the system. Connecting the new to the existing, instead of building another island, is the difference between adding capacity and adding fragmentation.</p>
+
+                <p>Europe's weakness was never the quality of its laboratories or its companies. It is that they do not work together. Closing that gap is the task, and it is one private money will not take on. Companies will build the models and capture the value; they will not sustain shared, open infrastructure for the whole research system, or fund the unglamorous work of recording process and failure. Public funding can. It can set the standards, fund the shared data and workflow systems as infrastructure rather than as scattered projects, connect them to what already exists, and build the simple awareness that this data is worth keeping.</p>
+
+                <p>For now, AI for science is augmentation, not automation. It becomes powerful when a capable model is joined to instruments and to the tacit, multimodal record of how science is really done. Producing that record is the work of laboratories and research infrastructure. Making it shared, open, and connected is the work of public funding. Europe has the laboratories and the instruments. What it can still build is the connective tissue that turns them into the place where the next way of doing science is invented.</p>
+
+                <h2>References</h2>
+                <ol class="references">
+                    <li id="ref1">B. Özcan, <em>What we talk about when we talk about AI for science</em>, ARQ Foundation, 2026. <a href="https://www.arq.foundation/research/what-we-talk-about-when-we-talk-about-ai-for-science">arq.foundation</a></li>
+                    <li id="ref2">J. Jumper et al., "Highly accurate protein structure prediction with AlphaFold," <em>Nature</em> 596 (2021). <a href="https://doi.org/10.1038/s41586-021-03819-2">doi:10.1038/s41586-021-03819-2</a></li>
+                    <li id="ref3">R. Lam et al., "Learning skillful medium-range global weather forecasting" (GraphCast), <em>Science</em> 382 (2023). <a href="https://doi.org/10.1126/science.adi2336">doi:10.1126/science.adi2336</a></li>
+                    <li id="ref4">A. Merchant et al., "Scaling deep learning for materials discovery" (GNoME), <em>Nature</em> 624 (2023). <a href="https://doi.org/10.1038/s41586-023-06735-9">doi:10.1038/s41586-023-06735-9</a></li>
+                    <li id="ref5">Z. Song et al., "Evaluating Large Language Models in Scientific Discovery," arXiv:2512.15567 (2025). <a href="https://arxiv.org/abs/2512.15567">arxiv.org/abs/2512.15567</a></li>
+                    <li id="ref6">T. Genewein et al., "From AGI to ASI," Google DeepMind, arXiv:2606.12683 (2026). <a href="https://arxiv.org/abs/2606.12683">arxiv.org/abs/2606.12683</a></li>
+                    <li id="ref7">M. Welling, "The future of materials science with AI," interview, Hannover Messe (2025). <a href="https://www.hannovermesse.de/en/news/news-articles/the-future-of-materials-science-with-ai-max-welling-and-cusp-ai">hannovermesse.de</a></li>
+                    <li id="ref8">L. Zhu et al., "LAP: An Agent-to-Instrument Protocol for Autonomous Science," arXiv:2606.03755 (2026). <a href="https://arxiv.org/abs/2606.03755">arxiv.org/abs/2606.03755</a></li>
+                    <li id="ref9">S. Pablo-García et al., "A foundational representation for an orchestrated lab," <em>Device</em> (Cell Press), 2026. <a href="https://doi.org/10.1016/j.device.2026.101202">doi:10.1016/j.device.2026.101202</a></li>
+                    <li id="ref10">NOMAD, the FAIR materials-data infrastructure. <a href="https://nomad-lab.eu">nomad-lab.eu</a></li>
+                    <li id="ref11">OPTIMADE, an API standard for interoperable materials databases. <a href="https://www.optimade.org">optimade.org</a></li>
+                </ol>
+            </div>
+
+            <div class="post-nav">
+                <a href="/blog/">&larr; Back to Blog</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+        })();
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+
+            (function(){
+                if (window.location.search.indexOf('static') > -1) {
+                    document.documentElement.classList.add('static-mode');
+                }
+            })();
+</script>
+</body>
+</html>
