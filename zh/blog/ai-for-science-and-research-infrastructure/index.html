@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="AI for Science 與科研基礎設施 — 王昱揚">
+    <meta property="og:description" content="AI for science 其實是兩種不同的東西：為自然建模的模型，與替你做研究的系統。兩者都受限於資料，而它們最缺的，是「科學究竟是怎麼做的」那份默會而多模態的記錄。那份記錄產生於實驗室，這讓科研基礎設施成為 AI for science 所依賴的那台裝置，也是歐洲真正的機會。">
+    <meta property="og:url" content="https://yuyang.nl/zh/blog/ai-for-science-and-research-infrastructure/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="AI for Science 與科研基礎設施 — 王昱揚">
+    <meta name="twitter:description" content="為自然建模的模型與替你做研究的系統，都缺「科學是怎麼做的」那份默會記錄。那份記錄產生於實驗室，這把科研基礎設施放上了關鍵路徑。">
+    <title>AI for Science 與科研基礎設施 — 王昱揚</title>
+    <meta name="description" content="為什麼 AI for science 依賴科研基礎設施：科學 AI 的兩個層次、分層的資料瓶頸，以及歐洲在科學的物理實作上的機會。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 38px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 18px;
+            line-height: 1.9;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body .standfirst {
+            font-size: 19px;
+            line-height: 1.85;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+        .post-body a {
+            color: var(--text);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: var(--border);
+        }
+        .post-body a:hover { text-decoration-color: var(--text); }
+        .post-body sup a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0 1px;
+        }
+        .post-body .references {
+            margin-top: 16px;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+        .post-body .references li {
+            margin-bottom: 10px;
+        }
+        .post-body .references a { word-break: break-word; }
+    </style>
+    <meta property="og:image" content="https://yuyang.nl/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/zh/" class="logo">虛室</a>
+            <div class="links">
+                <a href="/zh/">首頁</a>
+                <a href="/zh/projects/">項目</a>
+                <a href="/zh/reading/">閱讀</a>
+                <a href="/zh/blog/">網誌</a>
+                <a href="/blog/ai-for-science-and-research-infrastructure/" class="lang">EN</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">2026 年 6 月 27 日 · 6 min read</div>
+                <h1>AI for Science 與科研基礎設施</h1>
+                <span class="category">AI for Science</span>
+            </header>
+
+            <div class="post-body">
+                <p class="standfirst">這篇文章的起點，是我最近讀到的一份 ARQ 基金會的報告，<a href="https://www.arq.foundation/research/what-we-talk-about-when-we-talk-about-ai-for-science"><em>What we talk about when we talk about AI for science</em></a>。<sup><a href="#ref1">1</a></sup>它提出的一個區分讓我一直在想，因為它恰好貼近我每天在處理的問題：AI for science 究竟需要什麼樣的科研基礎設施？以下是我順著這條線索想到底的結果。</p>
+
+                <p>「AI for science」已經變成那種人人都在用、卻很少有人定義清楚的說法。它涵蓋了一些做著完全不同事情的系統，而這種混淆並非無害。當政府決定要資助什麼，含糊就會變成錢花錯地方。所以值得把我們真正在談的東西講清楚。</p>
+
+                <h2>兩種系統</h2>
+
+                <p>同一個名字底下，藏著兩種系統。</p>
+
+                <p>第一種為自然建模。<a href="https://doi.org/10.1038/s41586-021-03819-2">AlphaFold</a><sup><a href="#ref2">2</a></sup>預測蛋白質結構，<a href="https://doi.org/10.1126/science.adi2336">GraphCast</a><sup><a href="#ref3">3</a></sup>預報天氣，<a href="https://doi.org/10.1038/s41586-023-06735-9">GNoME</a><sup><a href="#ref4">4</a></sup>提出新材料。這些模型從資料中學會一個物理系統的行為，一旦訓練好，就能讓我們看見或預測過去無法企及的東西。它們執行成本低，行為上像是新的儀器。它們打開了原本關著的門。</p>
+
+                <p>第二種不為自然建模。它組織「做研究」這件事本身。這類系統建立在大型語言模型之上，會閱讀文獻、提出假說、規劃實驗、呼叫工具、跨多個步驟蒐集證據。它們不產生新的測量，而是協調取得測量的過程。它們不太像儀器，更像一位不知疲倦、替你跑完整個調查的年輕同事。</p>
+
+                <p>這不是同一件事的兩個版本。它們在架構、所需的資料、成本與目的上都不同。把兩者當成一回事，是第一個錯誤。</p>
+
+                <p>但兩者本就該在一起。把它們放進同一個迴圈來看。一個研究系統閱讀文獻、提出一個候選材料，呼叫一個基礎模型去模擬這個材料的性質；如果模擬看來有希望，它再提出一個要在真實世界裡做的實驗。基礎模型是精密儀器，研究系統決定何時、如何使用它。兩者單獨都用處不大：一個沒有人去提問的自然模型，或是一個沒有儀器、沒有實驗室、只能憑空推理的不知疲倦的調查者。</p>
+
+                <h2>瓶頸是資料，而且是分層的</h2>
+
+                <p>限制這兩者的都是資料，但不是同一種資料，這正是有意思的地方。</p>
+
+                <p>基礎模型需要龐大、專門的資料集：天文台、國家實驗室、長期測量計畫的產出。這類資料昂貴而分散，所以難處主要在協調與標準。困難，但是熟悉的困難。</p>
+
+                <p>組織研究的那類系統，缺的是更奇怪的東西。它們是在已發表的科學記錄上訓練的，而已發表的記錄只有結果，沒有通往結果的那條路。那些判斷、那些走不通的死路、決定要相信還是丟掉一個數字、對一個看似乾淨其實有問題的結果的直覺：這些都沒有被寫下來。那是在實驗台邊學到、靠著與人並肩工作傳下去的那部分科學，不是進到論文裡的那部分。</p>
+
+                <p>這就是為什麼一個更大的模型，光靠自己不會變成科學家。最近的證據既令人清醒又令人鼓舞。目前最強的模型在發現任務上比許多人預期的更有能力，在某些任務上甚至追平或勝過專門為該任務打造的系統。<sup><a href="#ref5">5</a></sup>但它們在真實的科學工作上有著系統性的盲點，而把它們做得更大，回報越來越少。它們進步的地方不是體量，而是被連上科學家本來就在用的工具與檢核，以及靠著去搜尋正確的方向，而不是去回憶一個事實。</p>
+
+                <p>所以這個主張誠實的版本是這樣：AI for science 不是一個更聰明的模型，而是一個有能力的模型，接上儀器、接上驗證工具、接上「科學究竟是怎麼被實作出來的」那份被記錄下來的判斷。前兩者我們知道怎麼造，第三者我們才剛剛開始蒐集。</p>
+
+                <h2>實驗室就是那台裝置</h2>
+
+                <p>那第三樣東西，是最難擷取的一種知識。它是默會的，活在習慣與雙手裡，多過活在文件裡。它是多模態而雜亂的：儀器讀數、半失敗的實驗、影像與光譜、一個最後證明是雜訊的訊號的那種質地。它也難以協調，分散在各種儀器、實驗室與機構之間，記錄成本高，而且幾乎沒有人去記，因為從來沒有人因為仔細記錄一次失敗而升遷。</p>
+
+                <p>但有一個地方，這種知識一直在被生產出來，作為日常工作的副產品。那就是實驗室。一個運轉著自驅動實驗與先進多模態表徵的科研基礎設施，會同時生成兩種缺失的資料：基礎模型需要的那種龐大專門資料集，以及研究系統需要的那種雜亂的、過程層面的記錄。儀器與實驗，正是默會變成被記錄的方式。如果我們想要懂得「科學是怎麼做的」的 AI，我們就得去建造那些做科學、並擷取其中所發生之事的地方。</p>
+
+                <p>這把通常的次序顛倒了過來。我們傾向把科研基礎設施想成將會受益於 AI 的東西，是這些新工具的消費者。其實正好相反。連通往更強 AI 的那些路線圖，如今都把實驗資料與真實世界互動列為對進一步進展的硬限制。一份來自前沿實驗室的報告把話講得很白：AI 不是一門扶手椅上的科學。<sup><a href="#ref6">6</a></sup>實驗室不在 AI for science 的下游，它在它的關鍵路徑上。</p>
+
+                <h2>歐洲的機會</h2>
+
+                <p>這是歐洲該感興趣的地方。</p>
+
+                <p>歐洲沒有在前沿語言模型的競賽裡領先。那場競賽獎勵的是龐大的算力與資本，勝負在別處已定。但這篇文章指向的那一層，也就是科學的物理實作，獎勵的是另一組長處，而那些長處恰好握在歐洲手上。正如 Max Welling 所論，歐洲輸掉了語言模型的競賽，但 AI 的物理那一側才是更大的獎賞，而且是它仍然能贏的一場。<sup><a href="#ref7">7</a></sup>這不是安慰。那是把模型轉化為發現的一層，它靠的是儀器、領域的深度、實驗資料，以及願意協作。</p>
+
+                <p>要做到需要什麼。三個產業得一起合作，而且要合作得穩固。科學儀器的製造者，歐洲在這方面有真正的深度；驅動與編排這些儀器的軟體；以及使用它們、產生資料的實驗室與科研基礎設施。難的不是其中任何一個，而是讓它們作為一個整體運作，使得一個實驗可以被規劃、執行、測量、並從中學習，而不必每次都重建這些連接。</p>
+
+                <p>那個把它們連起來的層，此刻正在被定義，而且不在歐洲。目前兩份認真的、已發表的提案，一份是關於一個自動化代理如何與儀器溝通，<sup><a href="#ref8">8</a></sup>一份是關於如何以可移植的方式描述一座實驗室，<sup><a href="#ref9">9</a></sup>分別來自中國與西班牙。這裡有一個機會，也有一個同等的風險：標準在沒有我們的情況下被寫定。</p>
+
+                <p>去建造它，並不意味著從零開始。歐洲已經有共享的材料資料計畫：<a href="https://nomad-lab.eu">NOMAD</a>、<sup><a href="#ref10">10</a></sup><a href="https://www.optimade.org">OPTIMADE</a> 標準、<sup><a href="#ref11">11</a></sup>以及正在這片大陸上成形的聯邦式材料資料共享庫。要做的事，是去連接它們、補上它們所缺的部分。這些共享庫裝的是計算與結構資料，缺的是來自真實儀器的實驗記錄。值得建造的那一層，是讓實驗資料能流入既有共享庫的那一層，好讓在一間實驗室做出的一次測量，變成整個系統都能用的知識。把新的接上既有的，而不是再蓋一座孤島，這就是「增添能力」與「增添碎片化」之間的差別。</p>
+
+                <p>歐洲的弱點從來不是它的實驗室或公司的素質，而是它們彼此不合作。把這道縫隙補起來，就是任務，而這是私人的錢不會去做的。公司會造模型、攫取價值；它們不會去維持整個研究體系所需的、共享而開放的基礎設施，也不會去資助那些不討喜的工作：記錄過程與失敗。公共資金可以。它可以訂立標準、把共享的資料與工作流系統當作基礎設施來資助（而不是當作零散的專案），把它們連到已經存在的東西上，並建立起那份樸素的認知：這些資料值得被留下來。</p>
+
+                <p>就目前而言，AI for science 是增強，不是自動化。當一個有能力的模型，接上儀器、接上「科學究竟是怎麼做的」那份默會而多模態的記錄，它才會變得強大。生產那份記錄，是實驗室與科研基礎設施的工作；讓它共享、開放、互相連通，是公共資金的工作。歐洲有實驗室，也有儀器。它仍然能建造的，是那個把它們轉化為「下一種做科學的方式」被發明出來之所在的連接組織。</p>
+
+                <h2>參考文獻</h2>
+                <ol class="references">
+                    <li id="ref1">B. Özcan, <em>What we talk about when we talk about AI for science</em>, ARQ Foundation, 2026. <a href="https://www.arq.foundation/research/what-we-talk-about-when-we-talk-about-ai-for-science">arq.foundation</a></li>
+                    <li id="ref2">J. Jumper et al., "Highly accurate protein structure prediction with AlphaFold," <em>Nature</em> 596 (2021). <a href="https://doi.org/10.1038/s41586-021-03819-2">doi:10.1038/s41586-021-03819-2</a></li>
+                    <li id="ref3">R. Lam et al., "Learning skillful medium-range global weather forecasting" (GraphCast), <em>Science</em> 382 (2023). <a href="https://doi.org/10.1126/science.adi2336">doi:10.1126/science.adi2336</a></li>
+                    <li id="ref4">A. Merchant et al., "Scaling deep learning for materials discovery" (GNoME), <em>Nature</em> 624 (2023). <a href="https://doi.org/10.1038/s41586-023-06735-9">doi:10.1038/s41586-023-06735-9</a></li>
+                    <li id="ref5">Z. Song et al., "Evaluating Large Language Models in Scientific Discovery," arXiv:2512.15567 (2025). <a href="https://arxiv.org/abs/2512.15567">arxiv.org/abs/2512.15567</a></li>
+                    <li id="ref6">T. Genewein et al., "From AGI to ASI," Google DeepMind, arXiv:2606.12683 (2026). <a href="https://arxiv.org/abs/2606.12683">arxiv.org/abs/2606.12683</a></li>
+                    <li id="ref7">M. Welling, "The future of materials science with AI," interview, Hannover Messe (2025). <a href="https://www.hannovermesse.de/en/news/news-articles/the-future-of-materials-science-with-ai-max-welling-and-cusp-ai">hannovermesse.de</a></li>
+                    <li id="ref8">L. Zhu et al., "LAP: An Agent-to-Instrument Protocol for Autonomous Science," arXiv:2606.03755 (2026). <a href="https://arxiv.org/abs/2606.03755">arxiv.org/abs/2606.03755</a></li>
+                    <li id="ref9">S. Pablo-García et al., "A foundational representation for an orchestrated lab," <em>Device</em> (Cell Press), 2026. <a href="https://doi.org/10.1016/j.device.2026.101202">doi:10.1016/j.device.2026.101202</a></li>
+                    <li id="ref10">NOMAD，FAIR 材料資料基礎設施。<a href="https://nomad-lab.eu">nomad-lab.eu</a></li>
+                    <li id="ref11">OPTIMADE，材料資料庫互操作的 API 標準。<a href="https://www.optimade.org">optimade.org</a></li>
+                </ol>
+            </div>
+
+            <div class="post-nav">
+                <a href="/zh/blog/">&larr; 回到網誌</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 王昱揚 &middot; 荷蘭 埃因霍温</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+        })();
+    </script>
+</body>
+</html>
