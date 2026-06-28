@@ -85,8 +85,8 @@ Rounded `9999px`, `--tag-bg` fill, `--tag-text` text, Inter 12px/600. For catego
 ### References (optional, for sourced essays)
 `<ol class="references">` at the end of `.post-body`. Inter 14px, `--text-muted`. In-text markers are `<sup><a href="#refN">N</a></sup>`; list items are `<li id="refN">`. Numbers are author-maintained and must stay sequential with no gaps; the browser also auto-numbers the `<ol>`, so list order and `id` order must match. DOIs/arXiv as full `https://` links.
 
-### Share strip (added 2026-06-28)
-Sits at the very end of `<article>`, between `.post-body` and `.post-nav`. Eyebrow label + hairline + bare text links — no icons, no cards, no tinted box (house style: eyebrow + hairline + bare list). Targets: **X, LinkedIn, Bluesky**.
+### Share strip (added 2026-06-28; moved below the title same day)
+Sits **directly below the post header**, between `</header>` and `.post-body`, so readers can share from the top. Eyebrow label + hairline + bare text links, no icons, no cards, no tinted box (house style: eyebrow + hairline + bare list). The `border-top` hairline separates the title/meta cluster from the share row. Targets: **X, LinkedIn, Bluesky**.
 
 Markup (label `Share` on EN, `分享` on ZH):
 ```html
@@ -132,7 +132,7 @@ To add a network later: add one `<a data-share="...">` and one entry to the scri
 
 1. Create `blog/<slug>/index.html` from an existing post (copy head, `<style>`, nav, article scaffold, scripts). Set `og:url`, `og:title`/`twitter:title` (`Title — Yuyang Wang`), `og:description`, `meta description`, `<title>`.
 2. Write the body in `.post-body`; add `.standfirst`, `h2` sections, and `references` if sourced.
-3. Keep the **share strip** before `.post-nav` (already in the template).
+3. Keep the **share strip** below the header / before `.post-body` (already in the template).
 4. Add the entry to `blog/index.html` (newest first) and to `sitemap.xml`.
 5. Create the ZH twin at `zh/blog/<slug>/index.html` (Noto Serif TC fonts, `虛室` nav, `EN` lang link, `分享` share label), add to `zh/blog/index.html` and `sitemap.xml`.
 6. Wire reciprocal language links between the two.
