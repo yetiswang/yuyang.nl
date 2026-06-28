@@ -132,6 +132,35 @@
             .post-header h1 { font-size: 28px; }
             .post-body { font-size: 16px; }
         }
+        .share-strip {
+            margin-top: 8px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+        .share-strip .share-label {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .share-strip a.share-link {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color .15s ease, border-color .15s ease;
+        }
+        .share-strip a.share-link:hover {
+            color: var(--text);
+            border-bottom-color: var(--text);
+        }
     </style>
 </head>
 <body>
@@ -171,6 +200,12 @@
                 <p>退一步看：迴路中的表徵環節（characterisation-in-loop）仍然是最稀缺的能力。多數已營運的 SDL 合成做得不差，表徵卻很粗糙。只有少數真正把先進的多模態表徵整合進自主迴路。這才是值得持續關注的斷點。</p>
             </div>
 
+            <div class="share-strip" aria-label="Share this article">
+                <span class="share-label">分享</span>
+                <a class="share-link" data-share="x" href="#" target="_blank" rel="noopener">X</a>
+                <a class="share-link" data-share="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="share-link" data-share="bluesky" href="#" target="_blank" rel="noopener">Bluesky</a>
+            </div>
             <div class="post-nav">
                 <a href="/zh/blog/">&larr; 返回網誌</a>
             </div>
@@ -242,5 +277,23 @@
                 }
             })();
 </script>
+    <script>
+        (function(){
+            var meta = function(p){ var m=document.querySelector('meta[property="'+p+'"]'); return m?m.content:''; };
+            var url = meta('og:url') || location.href.split('#')[0].split('?')[0];
+            var raw = meta('og:title') || document.title;
+            var title = raw.replace(/\s*[—–-]\s*(Yuyang Wang|王昱揚)\s*$/, '').trim();
+            var u = encodeURIComponent(url), t = encodeURIComponent(title), tu = encodeURIComponent(title + ' ' + url);
+            var map = {
+                x: 'https://twitter.com/intent/tweet?text=' + t + '&url=' + u,
+                linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + u,
+                bluesky: 'https://bsky.app/intent/compose?text=' + tu
+            };
+            document.querySelectorAll('.share-strip a.share-link').forEach(function(a){
+                var k = a.getAttribute('data-share');
+                if (map[k]) a.setAttribute('href', map[k]);
+            });
+        })();
+    </script>
 </body>
 </html>
