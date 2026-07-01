@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="The Product Was the Headline. The Lesson Was Somewhere Else. — Yuyang Wang">
+    <meta property="og:description" content="The value is the integration and the harness, not the model. And acceleration only compounds when the laboratory checks it against reality.">
+    <meta property="og:url" content="https://yuyang.nl/blog/anthropic-ai-for-science-briefing/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://yuyang.nl/og-image.jpg">
+    <meta name="twitter:title" content="The Product Was the Headline. The Lesson Was Somewhere Else. — Yuyang Wang">
+    <meta name="twitter:description" content="The value is the integration and the harness, not the model. And acceleration only compounds when the laboratory checks it against reality.">
+    <title>The Product Was the Headline. The Lesson Was Somewhere Else. — Yuyang Wang</title>
+    <meta name="description" content="Two take-homes from Anthropic's AI for Science briefing and the Claude Science launch, from a research-infrastructure view.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body .lead {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+        .post-body h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body blockquote {
+            margin: 40px 0;
+            padding: 28px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-style: italic;
+            font-size: 24px;
+            line-height: 1.45;
+            color: var(--text);
+            text-align: center;
+            text-wrap: balance;
+        }
+        .post-body blockquote p { margin: 0; }
+        .post-body blockquote p:last-child { margin-bottom: 0; }
+        .post-nav {
+            padding: 24px 0 0;
+            border-top: 1px solid var(--border);
+        }
+        .post-nav a {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        .share-strip {
+            margin-top: 8px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+        .share-strip .share-label {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .share-strip a.share-link {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color .15s ease, border-color .15s ease;
+        }
+        .share-strip a.share-link:hover {
+            color: var(--text);
+            border-bottom-color: var(--text);
+        }
+        @media (max-width: 600px) {
+            .post-header h1 { font-size: 32px; letter-spacing: -0.3px; }
+            .post-body { font-size: 17px; }
+        }
+    </style>
+    <meta property="og:image" content="https://yuyang.nl/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/" class="logo">Hypomnemata</a>
+            <div class="links">
+                <a href="/">Home</a>
+                <a href="/projects/">Projects</a>
+                <a href="/reading/">Reading</a>
+                <a href="/blog/">Blog</a>
+                <a href="/zh/" class="lang">中文</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">1 July 2026 · 5 min read</div>
+                <h1>The Product Was the Headline. The Lesson Was Somewhere Else.</h1>
+                <span class="category">AI for Science</span>
+            </header>
+
+            <div class="share-strip" aria-label="Share this article">
+                <span class="share-label">Share</span>
+                <a class="share-link" data-share="x" href="#" target="_blank" rel="noopener">X</a>
+                <a class="share-link" data-share="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="share-link" data-share="bluesky" href="#" target="_blank" rel="noopener">Bluesky</a>
+            </div>
+
+            <div class="post-body">
+                <p class="lead">Notes after Anthropic's "AI for Science" briefing and the Claude Science launch.</p>
+
+                <p>Anthropic held a briefing it called "AI for Science" and, the same day, launched Claude Science, a version of Claude built for research. I watched it today, with interest and a little distance. Every headline speaker came from pharma or biotech: the CEOs of Novartis and Bristol Myers Squibb, a research head from Genentech, the inventor of a blockbuster drug. Every database and skill on display was from the life sciences. Materials, my own field, was not in the room.</p>
+
+                <p>A few years ago that absence would have meant the technology was not ready for us. That is no longer true. Systems that plan experiments, read the literature, and reason across many steps already work well beyond biology, and the domain a product happens to launch in is not the domain the capability underneath is limited to. So I did not watch it as a biology announcement. I watched it for what carries across fields. Two things did, and neither is the product.</p>
+
+                <h2>The value is the integration, not the model</h2>
+
+                <p>The first is that the value is not in the tool that is handed to you. It is worth being precise here, because it is easy to miss. Claude Science is not a new model. It runs the same models any subscriber already has. What it adds is the workbench: the way tools, databases, and computing are connected to the actual shape of research work. That connection is the whole point, and it is also the part no vendor can finish for you.</p>
+
+                <p>This is the same shift that has already happened in agentic coding. A year ago the argument was about which model was strongest. Now the model matters less than the harness around it: the tools it can call, the context it can hold, the way it is wired into real work. The capability lives in the integration, not the raw weights. AI for science, and AI for research infrastructure, are moving the same direction, and Claude Science is an early sign of it. The way a language model compresses and speeds up work looks different in a genomics lab, a microscopy facility, and a materials group, because the work itself is different. A product can show you that compression is possible. It cannot tell you what it means for your problem, your data, your instruments. The only way to learn that is to sit with the tools and find out.</p>
+
+                <p>This is the part researchers are tempted to defer. There is always a reason to wait: for the tool to mature, for a colleague to try it first, for someone to write the guide. I think that instinct is expensive. The researchers who spend real hours now, putting these systems into their own work and learning where they help and where they mislead, are building an understanding that does not transfer secondhand. In my experience that effort feels like a detour and then pays back faster than almost anything else on the desk. Anthropic's own teams, running hands-on sessions rather than lectures, seem to have reached the same conclusion: direct experience beats abstract description. The lesson from the keynote is not "buy this". It is "go and learn what this does to your work, yourself, soon".</p>
+
+                <h2>Acceleration only compounds when it is checked</h2>
+
+                <p>The second thing that carries is quieter and, I think, more important. Acceleration only compounds when it is checked against reality.</p>
+
+                <p>Claude Science includes a reviewer agent that flags incorrect citations, untraceable numbers, and figures that do not match their code. That is genuinely useful, and it points at the real problem, but it does not solve it. A model reviewing its own output is still reasoning inside the same space that produced the output. It can catch a broken reference. It cannot tell you that a clean, plausible, well-cited result is quietly wrong about the physical world. Only the world can tell you that.</p>
+
+                <p>This is why the laboratory is not a detail. When an AI system proposes a candidate, a mechanism, a material, the worth of that proposal is not fixed until an experiment tests it. Fast, multimodal verification, measuring the real thing across several independent signals, is what converts a plausible answer into a trustworthy one. And it is what allows the next fast answer to stand on solid ground rather than on the last unverified guess. Speed without verification does not compound. It drifts, and each confident step carries the error of the one before. Speed with verification compounds, because every loop closes against something real. If you want the acceleration these tools promise, the rate-limiting step is not the model. It is how quickly and how honestly you can check it in the lab.</p>
+
+                <p>It was striking, and to their credit, that the event itself did not oversell. Dario Amodei declined to say the great compression of scientific timelines had arrived, or would in the next few years. He put it perhaps a decade out. The panels were substantive about what even rapidly improving models still cannot do. That is the honest version, and it is the one worth acting on.</p>
+
+                <p>So here is what I took home, standing slightly outside the intended audience. The models are already remarkable, and they are not the thing to wait for. Whether they become genuinely scientific depends on two unglamorous conditions. The first is that we build the connective layer and the fluency to use it: the tools, the integration, and researchers who actually know what these systems do to their own work, because that understanding cannot be bought ready-made. The second is that laboratories stay in the loop, because experimental verification is what keeps acceleration honest enough to compound. The keynote sold a product. The transition it pointed to is not something you purchase. It is something we co-develop, and something we test.</p>
+            </div>
+
+            <div class="post-nav">
+                <a href="/blog/">&larr; Back to Blog</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+        })();
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+
+            /* Static mode: ?static in URL disables video + animations, white background */
+            (function(){
+                if (window.location.search.indexOf('static') > -1) {
+                    document.documentElement.classList.add('static-mode');
+                }
+            })();
+</script>
+    <script>
+        (function(){
+            var meta = function(p){ var m=document.querySelector('meta[property="'+p+'"]'); return m?m.content:''; };
+            var url = meta('og:url') || location.href.split('#')[0].split('?')[0];
+            var raw = meta('og:title') || document.title;
+            var title = raw.replace(/\s*[—–-]\s*(Yuyang Wang|王昱揚)\s*$/, '').trim();
+            var u = encodeURIComponent(url), t = encodeURIComponent(title), tu = encodeURIComponent(title + ' ' + url);
+            var map = {
+                x: 'https://twitter.com/intent/tweet?text=' + t + '&url=' + u,
+                linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + u,
+                bluesky: 'https://bsky.app/intent/compose?text=' + tu
+            };
+            document.querySelectorAll('.share-strip a.share-link').forEach(function(a){
+                var k = a.getAttribute('data-share');
+                if (map[k]) a.setAttribute('href', map[k]);
+            });
+        })();
+    </script>
+</body>
+</html>
