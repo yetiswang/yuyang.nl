@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="上頭條的是產品，真正的啟示在別處 — 王昱揚">
+    <meta property="og:description" content="從 Anthropic「AI for Science」發表會與 Claude Science 上線帶走的兩點：價值在整合與骨架，不在模型；而加速唯有在實驗室對照現實查核時，才會複利。">
+    <meta property="og:url" content="https://yuyang.nl/zh/blog/anthropic-ai-for-science-briefing/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://yuyang.nl/og-image.jpg">
+    <meta name="twitter:title" content="上頭條的是產品，真正的啟示在別處 — 王昱揚">
+    <meta name="twitter:description" content="價值在整合與骨架，不在模型；加速唯有經過實驗室查核才會複利。">
+    <title>上頭條的是產品，真正的啟示在別處 — 王昱揚</title>
+    <meta name="description" content="Anthropic「AI for Science」發表會與 Claude Science 上線之後的筆記，從科研基礎設施的角度。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 38px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 18px;
+            line-height: 1.9;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body .standfirst {
+            font-size: 19px;
+            line-height: 1.85;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+        .share-strip {
+            margin-top: 8px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+        .share-strip .share-label {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .share-strip a.share-link {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color .15s ease, border-color .15s ease;
+        }
+        .share-strip a.share-link:hover {
+            color: var(--text);
+            border-bottom-color: var(--text);
+        }
+        .post-nav {
+            padding: 24px 0 0;
+            border-top: 1px solid var(--border);
+        }
+        .post-nav a {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        @media (max-width: 600px) {
+            .post-header h1 { font-size: 30px; }
+            .post-body { font-size: 17px; }
+        }
+    </style>
+    <meta property="og:image" content="https://yuyang.nl/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/zh/" class="logo">虛室</a>
+            <div class="links">
+                <a href="/zh/">首頁</a>
+                <a href="/zh/projects/">項目</a>
+                <a href="/zh/reading/">閱讀</a>
+                <a href="/zh/blog/">網誌</a>
+                <a href="/blog/anthropic-ai-for-science-briefing/" class="lang">EN</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">2026 年 7 月 1 日 · 5 min read</div>
+                <h1>上頭條的是產品，真正的啟示在別處</h1>
+                <span class="category">AI for Science</span>
+            </header>
+
+            <div class="share-strip" aria-label="Share this article">
+                <span class="share-label">分享</span>
+                <a class="share-link" data-share="x" href="#" target="_blank" rel="noopener">X</a>
+                <a class="share-link" data-share="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="share-link" data-share="bluesky" href="#" target="_blank" rel="noopener">Bluesky</a>
+            </div>
+
+            <div class="post-body">
+                <p class="standfirst">這是 Anthropic「AI for Science」發表會，與同日推出的 Claude Science 之後，我記下的一些想法。</p>
+
+                <p>Anthropic 辦了一場名為「AI for Science」的發表會，並在同一天推出 Claude Science，一個為研究打造的 Claude 版本。我今天看了這場發表，帶著興趣，也帶著一點距離。所有掛頭牌的講者都來自製藥或生技：諾華與必治妥施貴寶的執行長、基因泰克的一位研發主管、一款重磅新藥的發明人。台上展示的每一個資料庫與技能，都出自生命科學。材料，我自己的領域，不在場上。</p>
+
+                <p>若在幾年前，這樣的缺席會意味著這項技術還沒準備好給我們用。如今已非如此。那些會規劃實驗、閱讀文獻、跨多個步驟推理的系統，早已在生物學以外運作良好；一個產品剛好在哪個領域推出，並不等於底層那份能力就被限制在那個領域。所以我沒有把它當成一則生物學的公告來看。我看的是那些能跨領域帶走的東西。有兩件，而兩件都不是那個產品本身。</p>
+
+                <h2>價值在整合，不在模型</h2>
+
+                <p>第一件是：價值不在那個交到你手上的工具裡。這裡值得講精確一點，因為很容易錯過。Claude Science 不是一個新模型。它跑的是任何訂閱者早就有的同一批模型。它多出來的，是那張工作台：把工具、資料庫與算力，連到研究工作實際樣貌的那種連接方式。這個連接才是重點，而它也正是沒有任何廠商能替你做完的那部分。</p>
+
+                <p>這正是在代理式編程（agentic coding）裡已經發生過的轉變。一年前，爭論的是哪個模型最強。如今，模型的重要性已不如它周圍那套骨架：它能呼叫的工具、它能承載的脈絡、它被接進真實工作的方式。能力活在整合裡，不在原始權重裡。AI for science，以及 AI for research infrastructure，正朝同一個方向走，而 Claude Science 是其中一個早期的跡象。一個語言模型如何壓縮與加速工作，在基因體實驗室、顯微鏡設施、材料研究組裡，看起來都不一樣，因為工作本身就不一樣。一個產品能讓你看見壓縮是可能的，卻無法告訴你，對你的問題、你的資料、你的儀器而言，那究竟意味著什麼。要學會這件事，唯一的辦法就是坐下來，動手用這些工具，自己弄清楚。</p>
+
+                <p>這正是研究者容易一再拖延的地方。總有理由等下去：等工具成熟、等同事先試、等有人寫好指南。我認為這種直覺代價高昂。那些現在就花下真實時間、把這些系統放進自己工作裡、弄清楚它們在哪裡幫得上忙、又在哪裡會誤導的研究者，正在建立一種無法二手轉移的理解。以我的經驗，這種投入一開始像繞遠路，之後回報之快，幾乎勝過桌上任何其他事情。Anthropic 自己的團隊，辦的是動手的工作坊而不是講座，似乎也得出了同樣的結論：直接的體驗勝過抽象的描述。這場發表會的啟示不是「買這個」，而是「去，親自、盡早地弄清楚這東西會怎麼改變你的工作」。</p>
+
+                <h2>加速唯有經過查核才會複利</h2>
+
+                <p>第二件比較安靜，而我認為更重要。加速，唯有在對照現實接受查核時，才會複利。</p>
+
+                <p>Claude Science 內建一個審查代理，會標出不正確的引用、無法追溯的數字，以及與程式碼對不上的圖表。這確實有用，也點到了真正的問題，卻沒有解決它。一個模型審查自己的產出，仍是在產生那份產出的同一個空間裡推理。它能抓出一個壞掉的引用，卻無法告訴你，一個乾淨、看似合理、引用齊全的結果，其實悄悄地對物理世界說錯了話。只有這個世界，才能告訴你這件事。</p>
+
+                <p>這就是為什麼實驗室不是枝微末節。當一個 AI 系統提出一個候選物、一個機制、一種材料，這個提案的價值，要到一個實驗去檢驗它，才算定下來。快速的、多模態的驗證，也就是用好幾個彼此獨立的訊號去量測真實的東西，正是把一個看似合理的答案轉成一個可信答案的關鍵。它也讓下一個快速得出的答案，能站在堅實的地面上，而不是站在上一個未經驗證的猜測之上。沒有驗證的速度不會複利。它會漂移，而每一個自信的步伐，都揹著前一步的誤差。有驗證的速度會複利，因為每一次迴圈，都對照著某個真實的東西閉合。如果你想要這些工具承諾的加速，限速的那一步不是模型，而是你能多快、多誠實地在實驗室裡查核它。</p>
+
+                <p>值得肯定的是，這場活動本身並沒有過度推銷。Dario Amodei 沒有宣稱科學時程的那場大壓縮已經到來，或會在未來幾年內發生。他把它放在大約十年之後。那些座談，對於就算是飛速進步的模型仍然做不到的事，談得相當實在。這是誠實的版本，也是值得據以行動的版本。</p>
+
+                <p>所以，站在原本設定的受眾之外，這是我帶走的東西。這些模型已經很出色，而它們不是那個該等待的對象。它們是否會真正變得具有科學性，取決於兩個並不光鮮的條件。第一，是我們要把那層連接的組織、以及用好它的素養建起來：工具、整合，以及真正懂得這些系統會如何改變自己工作的研究者，因為這種理解無法現成買來。第二，是實驗室要留在迴圈裡，因為實驗驗證，正是讓加速誠實到足以複利的那件事。發表會賣的是一個產品。它指向的那場轉變，不是你能買來的東西。那是我們一起共建、也一起檢驗的東西。</p>
+            </div>
+
+            <div class="post-nav">
+                <a href="/zh/blog/">&larr; 回到網誌</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 王昱揚 &middot; 荷蘭 埃因霍温</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+        })();
+    </script>
+    <script>
+        (function(){
+            var meta = function(p){ var m=document.querySelector('meta[property="'+p+'"]'); return m?m.content:''; };
+            var url = meta('og:url') || location.href.split('#')[0].split('?')[0];
+            var raw = meta('og:title') || document.title;
+            var title = raw.replace(/\s*[—–-]\s*(Yuyang Wang|王昱揚)\s*$/, '').trim();
+            var u = encodeURIComponent(url), t = encodeURIComponent(title), tu = encodeURIComponent(title + ' ' + url);
+            var map = {
+                x: 'https://twitter.com/intent/tweet?text=' + t + '&url=' + u,
+                linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + u,
+                bluesky: 'https://bsky.app/intent/compose?text=' + tu
+            };
+            document.querySelectorAll('.share-strip a.share-link').forEach(function(a){
+                var k = a.getAttribute('data-share');
+                if (map[k]) a.setAttribute('href', map[k]);
+            });
+        })();
+    </script>
+</body>
+</html>
