@@ -143,4 +143,5 @@ To add a network later: add one `<a data-share="...">` and one entry to the scri
 4. Add the entry to `blog/index.html` (newest first), to `sitemap.xml`, and as an `<item>` in `/feed.xml` (RSS, newest first).
 5. Create the ZH twin at `zh/blog/<slug>/index.html` (Noto Serif TC fonts, `虛室` nav, `EN` lang link, `分享` share label), add to `zh/blog/index.html` and `sitemap.xml`.
 6. Wire reciprocal language links between the two.
-7. Commit, push, hard-refresh-verify both URLs live.
+7. **Generate the per-post OG cards** (added 2026-07-04): `assets/og/<slug>.jpg` + `assets/og/<slug>-zh.jpg`, 1200×630 — warm paper (`bg_light.webp` cover-crop), eyebrow `YUYANG WANG · HYPOMNEMATA` / `王昱揚 · 虛室` (Inter 560 tracked / Songti TC Bold), title in Source Serif 4 wght 700 opsz 26 (≤3 lines, shrink to fit) / Songti TC Bold for ZH, date bottom-left muted, `center.webp` 昱 ink blot 150px bottom-right, JPEG q86. Point both `og:image` and `twitter:image` (card `summary_large_image`) at them. Pillow gotcha: variable-font axis order differs — Source Serif 4 is `[Weight, Optical Size]`, Inter is `[Optical size, Weight]`; always check `get_variation_axes()` first. Listings keep the generic `/og-image.jpg`.
+8. Commit, push, hard-refresh-verify both URLs live.

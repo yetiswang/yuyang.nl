@@ -207,6 +207,9 @@
             width: 100%;
             text-shadow: 0 1px 12px var(--bg);
         }
+        [data-theme='dark'] .hero .eyebrow {
+            color: var(--text-secondary);
+        }
         .hero h1 {
             font-family: var(--body-font);
             font-size: 64px;
