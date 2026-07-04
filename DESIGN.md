@@ -11,7 +11,14 @@ Site: **yuyang.nl** (GitHub Pages, `yetiswang/yuyang.nl`). Bilingual: English at
 - **Wordmark / logo:** `Hypomnemata` (EN), `虛室` (ZH). Top-left of the nav, links home.
 - **Home intro:** a canvas "node-weaver" ink intro over the content (Three.js procedural ink, vendored in `/vendor/`). Documented separately; do not touch from a blog/post change.
 - **Voice:** quiet, serif, warm paper. Minimal chrome. Content first.
-- **Domain:** `yuyang.nl` (see `CNAME`). Canonical URLs are absolute `https://yuyang.nl/...` and live in each page's `og:url`.
+- **Domain:** `yuyang.nl` (see `CNAME`). Canonical URLs are absolute `https://yuyang.nl/...` and live in each page's `og:url`, plus a `rel="canonical"` link and reciprocal `hreflang` alternates (`en`, `zh-Hant`, `x-default`) in every page's head (added 2026-07-04).
+
+### Node-weaver intro lifecycle (2026-07-04)
+
+- The game engine script is **identical on `/` and `/zh/`** (it is bilingual: language from `/zh/` path or `localStorage['nw-lang']`). Any engine change: edit the EN block, copy verbatim into `zh/index.html`.
+- `nw-done` semantics: playing to completion or pressing Skip/Esc writes `localStorage['nw-done']` (permanent). The reduced-motion fallback (4 s static card) writes **`sessionStorage` only**, so those visitors get the card again next session, never a locked-out intro.
+- The Three.js ink module (`ink-gl`) is gated: when the overlay is already hidden (nw-done), the ~700 KB vendor import is skipped and the canvas removed. After the paper curl or a skip fade, the module tears itself down (loop stopped, GL disposed, canvas removed) — nothing renders after the intro ends.
+- Footer of both home pages carries a muted "↺ replay the ink intro" / "↺ 重看水墨序章" link that clears `nw-done` and reloads.
 
 ---
 
@@ -130,10 +137,10 @@ To add a network later: add one `<a data-share="...">` and one entry to the scri
 
 ## 8. Add a new blog post — checklist
 
-1. Create `blog/<slug>/index.html` from an existing post (copy head, `<style>`, nav, article scaffold, scripts). Set `og:url`, `og:title`/`twitter:title` (`Title — Yuyang Wang`), `og:description`, `meta description`, `<title>`.
+1. Create `blog/<slug>/index.html` from an existing post (copy head, `<style>`, nav, article scaffold, scripts). Set `og:url`, `og:title`/`twitter:title` (`Title — Yuyang Wang`), `og:description`, `meta description`, `<title>`, and the `canonical` + `hreflang` links (self URL + `/zh/` twin).
 2. Write the body in `.post-body`; add `.standfirst`, `h2` sections, and `references` if sourced.
 3. Keep the **share strip** below the header / before `.post-body` (already in the template).
-4. Add the entry to `blog/index.html` (newest first) and to `sitemap.xml`.
+4. Add the entry to `blog/index.html` (newest first), to `sitemap.xml`, and as an `<item>` in `/feed.xml` (RSS, newest first).
 5. Create the ZH twin at `zh/blog/<slug>/index.html` (Noto Serif TC fonts, `虛室` nav, `EN` lang link, `分享` share label), add to `zh/blog/index.html` and `sitemap.xml`.
 6. Wire reciprocal language links between the two.
 7. Commit, push, hard-refresh-verify both URLs live.

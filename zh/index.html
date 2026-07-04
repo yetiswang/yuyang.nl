@@ -72,11 +72,16 @@
             background-image: url(/assets/ink-splatters/bg_light.webp);
             background-size: cover;
             background-position: center;
-            transition: opacity 0.9s ease, transform 0.9s ease;
-            opacity: 1;
+            transition: opacity 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
             font-family: 'Source Serif 4', serif;
             cursor: default;
             overflow: hidden;
+        }
+        #node-weaver-overlay.nw-active {
+            opacity: 1;
+            pointer-events: auto;
         }
         [data-theme='dark'] #node-weaver-overlay {
             background-image: url(/assets/ink-splatters/bg_dark.webp);
@@ -84,7 +89,13 @@
         #node-weaver-overlay.fade-out {
             opacity: 0;
             pointer-events: none;
-            transform: scale(1.02);
+        }
+        /* During the JS-driven paper curl, the canvas is the entire visible
+           surface and the home page is below. The overlay div itself is just
+           a transparent z-index host. */
+        #node-weaver-overlay.curl-mode {
+            background-image: none !important;
+            transition: none;
         }
         #node-weaver-overlay .nw-hidden {
             display: none !important;
@@ -206,6 +217,10 @@
     }
     .vt-instant * { transition: none !important; }
     </style>
+    <link rel="canonical" href="https://yuyang.nl/zh/">
+    <link rel="alternate" hreflang="en" href="https://yuyang.nl/">
+    <link rel="alternate" hreflang="zh-Hant" href="https://yuyang.nl/zh/">
+    <link rel="alternate" hreflang="x-default" href="https://yuyang.nl/">
 </head>
 <body>
     <div class="container" id="main-content">
@@ -299,7 +314,15 @@
 
         <footer>
             <p>&copy; 2026 王昱揚 &middot; 荷蘭埃因霍溫</p>
+            <p><a href="#" id="replay-intro" style="color: var(--text-muted); font-size: 12px; text-decoration: none; border-bottom: 1px solid var(--border);">&#8634; 重看水墨序章</a></p>
         </footer>
+        <script>
+            document.getElementById('replay-intro').addEventListener('click', function(e) {
+                e.preventDefault();
+                try { localStorage.removeItem('nw-done'); sessionStorage.removeItem('nw-done'); } catch(err) {}
+                location.reload();
+            });
+        </script>
     </div>
 <!-- Node Weaver Overlay -->
 <div id="node-weaver-overlay">
@@ -318,34 +341,34 @@
     </div>
     
     <!-- Preloaded ink splatter images -->
-    <img data-src="/assets/ink-splatters/center.webp" class="nw-hidden" id="nw-src-center">
-    <img data-src="/assets/ink-splatters/node-ren-dark.webp" class="nw-hidden" id="nw-src-0">
-    <img data-src="/assets/ink-splatters/node-yi-dark.webp" class="nw-hidden" id="nw-src-1">
-    <img data-src="/assets/ink-splatters/node-si-dark.webp" class="nw-hidden" id="nw-src-2">
-    <img data-src="/assets/ink-splatters/node-zi-dark.webp" class="nw-hidden" id="nw-src-3">
-    <img data-src="/assets/ink-splatters/node-yan-dark.webp" class="nw-hidden" id="nw-src-4">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/center.webp" class="nw-hidden" id="nw-src-center">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-ren-dark.webp" class="nw-hidden" id="nw-src-0">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-yi-dark.webp" class="nw-hidden" id="nw-src-1">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-si-dark.webp" class="nw-hidden" id="nw-src-2">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-zi-dark.webp" class="nw-hidden" id="nw-src-3">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-yan-dark.webp" class="nw-hidden" id="nw-src-4">
     
     <!-- Dark mode copies -->
-    <img data-src="/assets/ink-splatters/center-dark.webp" class="nw-hidden" id="nw-src-center-dark">
-    <img data-src="/assets/ink-splatters/node-ren-light.webp" class="nw-hidden" id="nw-src-0-dark">
-    <img data-src="/assets/ink-splatters/node-yi-light.webp" class="nw-hidden" id="nw-src-1-dark">
-    <img data-src="/assets/ink-splatters/node-si-light.webp" class="nw-hidden" id="nw-src-2-dark">
-    <img data-src="/assets/ink-splatters/node-zi-light.webp" class="nw-hidden" id="nw-src-3-dark">
-    <img data-src="/assets/ink-splatters/node-yan-light.webp" class="nw-hidden" id="nw-src-4-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/center-dark.webp" class="nw-hidden" id="nw-src-center-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-ren-light.webp" class="nw-hidden" id="nw-src-0-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-yi-light.webp" class="nw-hidden" id="nw-src-1-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-si-light.webp" class="nw-hidden" id="nw-src-2-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-zi-light.webp" class="nw-hidden" id="nw-src-3-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/node-yan-light.webp" class="nw-hidden" id="nw-src-4-dark">
     
     <!-- Particles -->
-    <img data-src="/assets/ink-splatters/particles/particle-7.webp" class="nw-hidden" id="nw-src-p0">
-    <img data-src="/assets/ink-splatters/particles/particle-8.webp" class="nw-hidden" id="nw-src-p1">
-    <img data-src="/assets/ink-splatters/particles/particle-7-dark.webp" class="nw-hidden" id="nw-src-p0-dark">
-    <img data-src="/assets/ink-splatters/particles/particle-8-dark.webp" class="nw-hidden" id="nw-src-p1-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/particles/particle-7.webp" class="nw-hidden" id="nw-src-p0">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/particles/particle-8.webp" class="nw-hidden" id="nw-src-p1">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/particles/particle-7-dark.webp" class="nw-hidden" id="nw-src-p0-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/particles/particle-8-dark.webp" class="nw-hidden" id="nw-src-p1-dark">
     
     <!-- Brush stroke for connection lines -->
-    <img data-src="/assets/ink-splatters/brush-stroke.webp" class="nw-hidden" id="nw-src-brush">
-    <img data-src="/assets/ink-splatters/brush-stroke-dark.webp" class="nw-hidden" id="nw-src-brush-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/brush-stroke.webp" class="nw-hidden" id="nw-src-brush">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/brush-stroke-dark.webp" class="nw-hidden" id="nw-src-brush-dark">
     
     <!-- Yu calligraphy character -->
-    <img data-src="/assets/ink-splatters/yu_light.webp" class="nw-hidden" id="nw-src-yu">
-    <img data-src="/assets/ink-splatters/yu_dark_new.webp" class="nw-hidden" id="nw-src-yu-dark">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/yu_light.webp" class="nw-hidden" id="nw-src-yu">
+    <img alt="" aria-hidden="true" data-src="/assets/ink-splatters/yu_dark_new.webp" class="nw-hidden" id="nw-src-yu-dark">
     
 
     <script>
@@ -454,17 +477,18 @@
     /* === Node Weaver Game Engine === */
     (function() {
         'use strict';
-        
+
         var overlay = document.getElementById('node-weaver-overlay');
-        
-        // Persist: skip past games entirely
+
+        // P0: session-suppression read guard. Both Skip and game completion
+        // write localStorage.nw-done; this is where we honour it.
         try {
-            if (localStorage.getItem('nw-done') === '1') {
+            if (localStorage.getItem('nw-done') === '1' || sessionStorage.getItem('nw-done') === '1') {
                 overlay.style.display = 'none';
                 return;
             }
         } catch(e) {}
-        
+
         var canvas = document.getElementById('nw-canvas');
         var ctx = canvas.getContext('2d');
         var intro = document.getElementById('nw-intro');
@@ -518,7 +542,10 @@
         
         // Theme toggle
         function setTheme(t) {
+            // Propagate to both html and body so /shared.css selectors that target
+            // either ancestor pick it up — matches what the page-level theme button does.
             document.documentElement.setAttribute('data-theme', t);
+            if (document.body) document.body.setAttribute('data-theme', t);
             try { localStorage.setItem('theme', t); } catch(e) {}
             overlay.style.backgroundImage = 'url(/assets/ink-splatters/bg_' + t + '.webp)';
             updateThemeBtn();
@@ -621,7 +648,7 @@
                     if (allDone) {
                         try { localStorage.setItem('nw-done', '1'); } catch(e) {}
                         intro.classList.add('hidden');
-                        setTimeout(function(){gameComplete=true;completeEl.classList.add('show');burstParticles();setTimeout(dismissOverlay,2500);},600);
+                        setTimeout(function(){gameComplete=true;completeEl.classList.add('show');burstParticles();setTimeout(function(){dismissOverlay(true);},2500);},600);
                     }
                     return;
                 }
@@ -630,14 +657,180 @@
         
         function dismissOverlay(skip) {
             if (fadeStarted) return; fadeStarted = true;
-            overlay.classList.add('fade-out');
             if (skip) { try { localStorage.setItem('nw-done', '1'); } catch(e) {} }
-            setTimeout(function() {
+
+            var reducedMotion = false;
+            try { reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+
+            // Game completion gets the full paper-curl reveal.
+            // Skip button + reduced-motion get a quick opacity fade.
+            // `skip` is true in BOTH the Skip path AND the completion path
+            // (we use it to write nw-done), so it can't distinguish intent on
+            // its own. `gameComplete` is the right discriminator.
+            var userSkipped = skip && !gameComplete;
+            var useCurl = gameComplete && !reducedMotion;
+
+            if (useCurl) {
+                startPaperCurl(finalizeDismiss);
+            } else {
+                overlay.classList.add('fade-out');
+                setTimeout(finalizeDismiss, userSkipped ? 380 : 600);
+            }
+
+            function finalizeDismiss() {
                 overlay.style.display = 'none';
                 var isZh = window.location.pathname.indexOf('/zh/') === 0;
                 if (lang === 'zh' && !isZh) window.location.href = '/zh/';
                 else if (lang === 'en' && isZh) window.location.href = '/';
-            }, 1000);
+            }
+        }
+
+        // === Paper curl animation (Canvas 2D, cylindrical projection) ===
+        // Composites the overlay's final visual into the nw-canvas as a static
+        // "page texture", then animates a cylindrical curl around the right
+        // edge. The portion right of the curl boundary is left transparent,
+        // revealing the home page sitting in the DOM below us.
+        function startPaperCurl(onComplete) {
+            if (window.__inkCurl) { window.__inkCurl(onComplete); return; }
+            var dark = isDark();
+            var W = w, H = h;
+            var dpr = window.devicePixelRatio || 1;
+
+            var bgImg = new Image();
+            bgImg.onload = composeAndAnimate;
+            bgImg.onerror = composeAndAnimate;
+            bgImg.src = '/assets/ink-splatters/bg_' + (dark ? 'dark' : 'light') + '.webp';
+
+            function composeAndAnimate() {
+                // 1. Composite final state into the live canvas.
+                ctx.clearRect(0, 0, W, H);
+
+                if (bgImg.complete && bgImg.naturalWidth > 0) {
+                    var br = bgImg.naturalWidth / bgImg.naturalHeight;
+                    var cr = W / H;
+                    var dw, dh;
+                    if (cr > br) { dw = W; dh = W / br; }
+                    else { dh = H; dw = H * br; }
+                    ctx.drawImage(bgImg, (W - dw) / 2, (H - dh) / 2, dw, dh);
+                } else {
+                    ctx.fillStyle = dark ? '#1a1612' : '#f4ece0';
+                    ctx.fillRect(0, 0, W, H);
+                }
+
+                draw();
+
+                var titleText = T[lang].complete;
+                ctx.save();
+                ctx.fillStyle = dark ? '#e8ddd0' : '#1a1a1a';
+                var fs = Math.round(Math.min(W, H) * 0.048);
+                ctx.font = '700 ' + fs + 'px "Kaiti TC", "STKaiti", "BiauKai", "Hannotate TC", "Xingkai TC", "DFKai-SB", "Ma Shan Zheng", "Noto Serif TC", serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(titleText, W / 2, H * 0.86);
+                ctx.restore();
+
+                // 2. Snapshot — the source texture for the curl, in device pixels.
+                var src = document.createElement('canvas');
+                src.width = canvas.width;
+                src.height = canvas.height;
+                src.getContext('2d').drawImage(canvas, 0, 0);
+
+                // 3. Hide all overlay sibling layers so only the canvas is visible.
+                overlay.classList.add('curl-mode');
+                if (intro) intro.style.display = 'none';
+                if (completeEl) completeEl.style.display = 'none';
+                var toolbar = document.querySelector('#node-weaver-overlay .nw-toolbar');
+                if (toolbar) toolbar.style.display = 'none';
+                var washi = document.querySelector('#node-weaver-overlay .nw-washi');
+                if (washi) washi.style.display = 'none';
+
+                // 4. Animate.
+                var startTime = performance.now();
+                var DURATION = 1500;
+                var srcDevW = src.width, srcDevH = src.height;
+
+                function frame(now) {
+                    var t = Math.min(1, (now - startTime) / DURATION);
+                    // Ease-out: page accelerates from rest, glides to a stop.
+                    var p = 1 - Math.pow(1 - t, 2.4);
+
+                    ctx.clearRect(0, 0, W, H);
+
+                    var curlX = W * (1 - p);
+                    var radius = Math.min(W, H) * (0.07 + 0.03 * p);
+                    var arcLength = Math.PI * radius;
+
+                    // Flat (uncurled) portion to the left of the curl boundary.
+                    if (curlX > 0.5) {
+                        var srcFlatW = Math.min(curlX * dpr, srcDevW);
+                        ctx.drawImage(src,
+                            0, 0, srcFlatW, srcDevH,
+                            0, 0, curlX, H);
+                    }
+
+                    // Soft drop-shadow from the curl edge onto the flat portion of the page.
+                    if (curlX > 4) {
+                        var shadowGrad = ctx.createLinearGradient(curlX - 28, 0, curlX, 0);
+                        shadowGrad.addColorStop(0, 'rgba(0,0,0,0)');
+                        shadowGrad.addColorStop(1, 'rgba(0,0,0,0.22)');
+                        ctx.fillStyle = shadowGrad;
+                        ctx.fillRect(Math.max(0, curlX - 28), 0, Math.min(28, curlX), H);
+                    }
+
+                    // The curl: slice the next arcLength of source and project onto
+                    // a half-cylinder. Shading uses cos(θ) — bright at the front of
+                    // the cylinder, dark as it curves away.
+                    var slices = 100;
+                    for (var i = 0; i < slices; i++) {
+                        var theta0 = (i / slices) * Math.PI;
+                        var theta1 = ((i + 1) / slices) * Math.PI;
+
+                        var srcOff0 = (theta0 / Math.PI) * arcLength;
+                        var srcOff1 = (theta1 / Math.PI) * arcLength;
+                        var srcXCss = curlX + srcOff0;
+                        var srcXEnd = curlX + srcOff1;
+                        if (srcXCss >= W) break;
+
+                        var dstXStart = curlX + Math.sin(theta0) * radius;
+                        var dstXEnd = curlX + Math.sin(theta1) * radius;
+                        var dstW = dstXEnd - dstXStart;
+                        if (dstW < 0.4) continue;
+
+                        var srcWCss = Math.min(srcXEnd, W) - srcXCss;
+
+                        ctx.drawImage(src,
+                            srcXCss * dpr, 0, srcWCss * dpr, srcDevH,
+                            dstXStart, 0, dstW, H);
+
+                        // Shading pass: darken in proportion to how far the slice has
+                        // curved away from the viewer. Black-alpha is approximate but
+                        // reads as paper turning into shadow.
+                        var midTheta = (theta0 + theta1) / 2;
+                        var lit = 0.5 + 0.5 * Math.cos(midTheta);   // 1 → 0
+                        var darkness = (1 - lit) * 0.55;
+                        if (darkness > 0.01) {
+                            ctx.fillStyle = 'rgba(15,12,8,' + darkness.toFixed(3) + ')';
+                            ctx.fillRect(dstXStart, 0, dstW, H);
+                        }
+                    }
+
+                    // Soft fold highlight where the page lifts off, just left of curlX.
+                    if (curlX > 2 && p < 0.92) {
+                        var hlGrad = ctx.createLinearGradient(curlX, 0, curlX + 4, 0);
+                        hlGrad.addColorStop(0, 'rgba(255,250,240,0.18)');
+                        hlGrad.addColorStop(1, 'rgba(255,250,240,0)');
+                        ctx.fillStyle = hlGrad;
+                        ctx.fillRect(curlX, 0, 4, H);
+                    }
+
+                    if (t < 1) {
+                        requestAnimationFrame(frame);
+                    } else if (onComplete) {
+                        onComplete();
+                    }
+                }
+                requestAnimationFrame(frame);
+            }
         }
         
         // Mouse position tracking for hover ink splash
@@ -662,7 +855,7 @@
         // Hover state — character scaling on hover + ink drips
         var hoveredNode = -1;
         function spawnDrip() {
-            var n = nodes[hoveredNode];
+            var n = nodes[hoveredNode], dark = isDark();
             drips.push({
                 x: n.x + (Math.random()-0.5)*8,
                 y: n.y + Math.min(w,h)*0.06,
@@ -706,7 +899,12 @@
         }
         
         skipBtn.addEventListener('click', function(){ dismissOverlay(true); });
-        
+
+        // P2: Esc-to-skip for keyboard users.
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !fadeStarted) dismissOverlay(true);
+        });
+
         var themeObserver = new MutationObserver(function() {
             if (!fadeStarted) { updateThemeBtn(); draw(); }
         });
@@ -866,6 +1064,23 @@
             if (!gameComplete || particlesList.length > 0) requestAnimationFrame(draw);
         }
         
+        // P1: reveal overlay now that the read guard has passed (CSS starts at opacity:0).
+        overlay.classList.add('nw-active');
+
+        // P2: reduced-motion fallback. Show the title card, skip the canvas animation,
+        // auto-dismiss after 4s. Skip / Esc / language toggle all still work.
+        var reducedMotion = false;
+        try { reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+        if (reducedMotion) {
+            intro.classList.add('hidden');
+            completeEl.classList.add('show');
+            // Session-only suppression: the card returns next session instead
+            // of permanently locking these visitors out of the intro.
+            try { sessionStorage.setItem('nw-done', '1'); } catch(e) {}
+            setTimeout(function(){ dismissOverlay(false); }, 4000);
+            return;
+        }
+
         resize();
         Promise.all([document.fonts.load('1em "Ma Shan Zheng"'), document.fonts.load('1em "Kalam"'), document.fonts.load('1em "Caveat"'), document.fonts.load('1em "Shadows Into Light"'), document.fonts.load('1em "Hannotate TC"'), document.fonts.load('1em "Xingkai TC"'), document.fonts.load('1em "Noto Serif TC"'), document.fonts.load('1em "Kaiti TC"'), document.fonts.load('1em "BiauKai"')])
             .then(function(){draw();}).catch(function(){setTimeout(draw,2000);});
@@ -881,6 +1096,13 @@
 
     <canvas id="ink-gl" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10000;mix-blend-mode:multiply;"></canvas>
     <script type="module">
+    // The ink layer belongs to the intro. When the intro won't show (nw-done
+    // already set, so the game engine hid the overlay before this module ran),
+    // skip the ~700 KB Three.js import and the render loop entirely.
+    const __nwOv = document.getElementById('node-weaver-overlay');
+    if (!__nwOv || getComputedStyle(__nwOv).display === 'none') {
+        document.getElementById('ink-gl').remove();
+    } else {
     try {
 
     const THREE = await import('/vendor/three.module.min.js');
@@ -1046,6 +1268,16 @@
     }
 
 
+    // Once the intro is gone the ink layer has no further job: stop the
+    // render loop, free the GL context, drop the canvas from the DOM.
+    let curling = false, tornDown = false;
+    function teardown() {
+        if (tornDown) return; tornDown = true;
+        renderer.setAnimationLoop(null);
+        renderer.dispose();
+        canvas.remove();
+    }
+
     // skip-path fade: the ink page is abandoned, clear the live layer
     const ovEl = document.getElementById('node-weaver-overlay');
     if (ovEl) {
@@ -1054,6 +1286,9 @@
                 uniforms.uBlots.value.forEach(v => v.set(-10, -10, -1000, 0));
                 uniforms.uStrokes.value.forEach(v => v.set(-10, -10, -10, -10));
                 uniforms.uStrokeMeta.value.forEach(v => v.set(-1000, 0, 0, 0));
+                // the curl hides the overlay itself mid-animation; only tear
+                // down here on the skip/reduced-motion path
+                if (!curling) setTimeout(teardown, 700);
             }
         }).observe(ovEl, { attributes: true, attributeFilter: ['class', 'style'] });
     }
@@ -1061,6 +1296,7 @@
     // === WebGL page curl: the intro page (paper + network + YOUR ink) rolls
     //     away around a cylinder, backside showing, shadow falling ahead. ===
     window.__inkCurl = function(onComplete) {
+        curling = true;
         const overlay = document.getElementById('node-weaver-overlay');
         const nwCanvas = document.getElementById('nw-canvas');
         const dark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -1159,11 +1395,7 @@
                 else {
                     tex.dispose(); curlMat.dispose();
                     renderer.clear();
-                    canvas.style.mixBlendMode = dark ? 'screen' : 'multiply';
-                    renderer.setAnimationLoop(() => {   // resume the ink loop
-                        uniforms.uTime.value = (performance.now() - t0) / 1000;
-                        renderer.render(scene, cam);
-                    });
+                    teardown();   // the intro is over; the ink layer retires
                     onComplete();
                 }
             })();
@@ -1171,6 +1403,7 @@
     };
 
     } catch (e) { /* no WebGL: the PNG brush and static splats remain */ }
+    }
     </script>
 </body>
 </html>
