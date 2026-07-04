@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Yuyang Wang — Blog</title>
+  <link>https://yuyang.nl/blog/</link>
+  <description>Managing science at a Dutch university: research infrastructure, AI-driven lab operations, and science management.</description>
+  <language>en</language>
+  <atom:link href="https://yuyang.nl/feed.xml" rel="self" type="application/rss+xml"/>
+
+  <item>
+    <title>The Product Was the Headline. The Lesson Was Somewhere Else.</title>
+    <link>https://yuyang.nl/blog/anthropic-ai-for-science-briefing/</link>
+    <guid>https://yuyang.nl/blog/anthropic-ai-for-science-briefing/</guid>
+    <pubDate>Wed, 01 Jul 2026 09:00:00 +0200</pubDate>
+    <description>Two take-homes from Anthropic's AI for Science briefing and the Claude Science launch, from a research-infrastructure view.</description>
+  </item>
+
+  <item>
+    <title>AI for Science Needs Research Infrastructure</title>
+    <link>https://yuyang.nl/blog/ai-for-science-and-research-infrastructure/</link>
+    <guid>https://yuyang.nl/blog/ai-for-science-and-research-infrastructure/</guid>
+    <pubDate>Sat, 27 Jun 2026 09:00:00 +0200</pubDate>
+    <description>Why AI for science depends on research infrastructure: the two layers of scientific AI, the layered data bottleneck, and the European opportunity in the physical practice of science.</description>
+  </item>
+
+  <item>
+    <title>Mapping the Self-Driving Lab Landscape</title>
+    <link>https://yuyang.nl/blog/mapping-the-sdl-landscape/</link>
+    <guid>https://yuyang.nl/blog/mapping-the-sdl-landscape/</guid>
+    <pubDate>Sun, 07 Jun 2026 09:00:00 +0200</pubDate>
+    <description>Notes on building a hand-curated interactive map of self-driving lab initiatives worldwide, and what it reveals about the field.</description>
+  </item>
+
+  <item>
+    <title>Building Plaudio</title>
+    <link>https://yuyang.nl/blog/building-plaudio/</link>
+    <guid>https://yuyang.nl/blog/building-plaudio/</guid>
+    <pubDate>Sat, 30 May 2026 09:00:00 +0200</pubDate>
+    <description>Notes on building Plaudio, a small open-source tool that labels meeting speakers by voice instead of by cluster.</description>
+  </item>
+
+  <item>
+    <title>What Does It Mean to Manage Science?</title>
+    <link>https://yuyang.nl/blog/what-does-it-mean-to-manage-science/</link>
+    <guid>https://yuyang.nl/blog/what-does-it-mean-to-manage-science/</guid>
+    <pubDate>Tue, 26 May 2026 09:00:00 +0200</pubDate>
+    <description>An essay on managing science at a Dutch university in the age of AI-driven research infrastructure.</description>
+  </item>
+
+</channel>
+</rss>
