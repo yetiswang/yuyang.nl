@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="智驗圖譜：中國自主實驗室的一份公開整理 — 王昱揚">
+    <meta property="og:description" content="智驗圖譜是一份中英雙語、只用公開來源的中國自主實驗室生態整理：10 個省市的 57 個條目、34 條觀察記錄，以及譯成中文的全球地圖其餘 103 個條目。">
+    <meta property="og:url" content="https://yuyang.nl/zh/blog/zhiyan-atlas/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://yuyang.nl/assets/og/zhiyan-atlas-zh.jpg">
+    <meta name="twitter:title" content="智驗圖譜：中國自主實驗室的一份公開整理 — 王昱揚">
+    <meta name="twitter:description" content="智驗圖譜是一份中英雙語、只用公開來源的中國自主實驗室生態整理：10 個省市的 57 個條目、34 條觀察記錄，以及譯成中文的全球地圖其餘 103 個條目。">
+    <title>智驗圖譜：中國自主實驗室的一份公開整理 — 王昱揚</title>
+    <meta name="description" content="智驗圖譜是一份中英雙語、只用公開來源的中國自主實驗室生態整理：10 個省市的 57 個條目、34 條觀察記錄，以及譯成中文的全球地圖其餘 103 個條目。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 38px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: 0;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 18px;
+            line-height: 1.9;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Songti TC', 'Noto Serif TC', 'SimSun', 'STSong', serif;
+            font-size: 25px;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body .standfirst {
+            font-size: 19px;
+            line-height: 1.85;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+        .post-body a {
+            color: var(--text);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: var(--border);
+        }
+        .post-body a:hover { text-decoration-color: var(--text); }
+        .post-body sup a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0 1px;
+        }
+        .post-body .references {
+            margin-top: 16px;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+        .post-body .references li {
+            margin-bottom: 10px;
+        }
+        .post-body .references a { word-break: break-word; }
+        .share-strip {
+            margin-top: 8px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+        .share-strip .share-label {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .share-strip a.share-link {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color .15s ease, border-color .15s ease;
+        }
+        .share-strip a.share-link:hover {
+            color: var(--text);
+            border-bottom-color: var(--text);
+        }
+    </style>
+    <meta property="og:image" content="https://yuyang.nl/assets/og/zhiyan-atlas-zh.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <link rel="canonical" href="https://yuyang.nl/zh/blog/zhiyan-atlas/">
+    <link rel="alternate" hreflang="en" href="https://yuyang.nl/blog/zhiyan-atlas/">
+    <link rel="alternate" hreflang="zh-Hant" href="https://yuyang.nl/zh/blog/zhiyan-atlas/">
+    <link rel="alternate" hreflang="x-default" href="https://yuyang.nl/blog/zhiyan-atlas/">
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/zh/" class="logo">虛室</a>
+            <div class="links">
+                <a href="/zh/">首頁</a>
+                <a href="/zh/projects/">項目</a>
+                <a href="/zh/reading/">閱讀</a>
+                <a href="/zh/blog/">網誌</a>
+                <a href="/blog/zhiyan-atlas/" class="lang">EN</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">2026 年 11 月 1 日 · 3 min read</div>
+                <h1>智驗圖譜：中國自主實驗室的一份公開整理</h1>
+                <span class="category">Self-Driving Labs</span>
+            </header>
+
+            <div class="share-strip" aria-label="Share this article">
+                <span class="share-label">分享</span>
+                <a class="share-link" data-share="x" href="#" target="_blank" rel="noopener">X</a>
+                <a class="share-link" data-share="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="share-link" data-share="bluesky" href="#" target="_blank" rel="noopener">Bluesky</a>
+            </div>
+
+            <div class="post-body">
+                <p class="standfirst">今年 8 月，我上線了一份全球自主實驗室地圖。它的姊妹篇「智驗圖譜」，補上從外部最難看清的一塊：中國。網址是 <a href="https://www.zhiyanatlas.com">zhiyanatlas.com</a>。</p>
+
+                <h2>為什麼另做一份</h2>
+                <p>中國的自主實驗室進展很快，但由於語言和平台的隔閡，這些進展在全球社群裡並不容易被看到，反過來也一樣。智驗圖譜是我個人的計畫，希望讓中國與世界的同行互相看見。</p>
+
+                <h2>裡面有什麼</h2>
+                <p>截至 2026 年 10 月 31 日，圖譜收錄 57 個條目，涵蓋 10 個省市：北京 18、上海 11、浙江 9、廣東 7，其餘分布在江蘇、安徽、湖北、天津、遼寧、福建。依類型分，國家實驗室 3 個、新型研發機構 12 個、高校與院所團隊 15 個、企業 27 家。另有 34 條觀察記錄：17 條進展、9 條融資、8 條政策文件。</p>
+                <p>「全球」圖層收入<a href="https://sdl-map.discoverylabs.nl">全球地圖</a>中中國以外的 103 個條目，並譯成中文，讓中國的讀者在同一處看到兩邊。</p>
+
+                <h2>怎麼整理</h2>
+                <p>網站上寫明三條原則。只用公開來源：官方網站、政府公文、學術論文、公開報導與公眾號文章，每個條目附來源連結。不作個人檔案：圖譜記錄機構、平台與政策。行文中立：以描述與歸檔為務，收錄標準只有一條，就是與自主實驗室生態的相關性。已收錄的機構可以認領條目，補充「機構自述」與「合作方式」，這部分會標注「由機構提供」。</p>
+
+                <h2>在哪裡看</h2>
+                <p>網站中文優先、中英雙語：<a href="https://www.zhiyanatlas.com">zhiyanatlas.com</a>。微信公眾號 zhiyan_atlas 會發布更新，手機上的小程序正在審核。</p>
+
+                <h2>目標</h2>
+                <p>我在第一篇公眾號文章裡寫下的使命：與全球的自主實驗室一起，共同創造一個真正互聯、沒有邊界的共同體。歡迎透過網站或公眾號指正，或推薦尚未收錄的實驗室。</p>
+            </div>
+
+            <div class="post-nav">
+                <a href="/zh/blog/">&larr; 回到網誌</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 王昱揚 &middot; 荷蘭 埃因霍温</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+        })();
+    </script>
+    <script>
+        (function(){
+            var meta = function(p){ var m=document.querySelector('meta[property="'+p+'"]'); return m?m.content:''; };
+            var url = meta('og:url') || location.href.split('#')[0].split('?')[0];
+            var raw = meta('og:title') || document.title;
+            var title = raw.replace(/\s*[—–-]\s*(Yuyang Wang|王昱揚)\s*$/, '').trim();
+            var u = encodeURIComponent(url), t = encodeURIComponent(title), tu = encodeURIComponent(title + ' ' + url);
+            var map = {
+                x: 'https://twitter.com/intent/tweet?text=' + t + '&url=' + u,
+                linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + u,
+                bluesky: 'https://bsky.app/intent/compose?text=' + tu
+            };
+            document.querySelectorAll('.share-strip a.share-link').forEach(function(a){
+                var k = a.getAttribute('data-share');
+                if (map[k]) a.setAttribute('href', map[k]);
+            });
+        })();
+    </script>
+</body>
+</html>

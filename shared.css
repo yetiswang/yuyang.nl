@@ -426,6 +426,10 @@
             line-height: 1.50;
         }
         .about-text p { margin-bottom: 12px; }
+        /* Portrait beside the About text; above it on phones */
+        .about-row { display: flex; gap: 28px; align-items: flex-start; }
+        .about-photo { width: 120px; height: 120px; flex-shrink: 0; border-radius: 50%; object-fit: cover; }
+        @media (max-width: 600px) { .about-row { flex-direction: column; gap: 16px; } }
         .about-text p:last-child { margin-bottom: 0; }
 
         /* Topics */

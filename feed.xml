@@ -8,6 +8,14 @@
   <atom:link href="https://yuyang.nl/feed.xml" rel="self" type="application/rss+xml"/>
 
   <item>
+    <title>Zhiyan Atlas: Mapping China's Self-Driving Labs</title>
+    <link>https://yuyang.nl/blog/zhiyan-atlas/</link>
+    <guid>https://yuyang.nl/blog/zhiyan-atlas/</guid>
+    <pubDate>Sun, 01 Nov 2026 11:00:00 +0100</pubDate>
+    <description>Zhiyan Atlas (智验图谱) is a bilingual, public-source map of China's self-driving lab ecosystem: 57 entries in 10 provinces, 34 watch items, and the global map's 103 other entries in Chinese.</description>
+  </item>
+
+  <item>
     <title>The Product Was the Headline. The Lesson Was Somewhere Else.</title>
     <link>https://yuyang.nl/blog/anthropic-ai-for-science-briefing/</link>
     <guid>https://yuyang.nl/blog/anthropic-ai-for-science-briefing/</guid>

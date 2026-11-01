@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" class="preload">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Zhiyan Atlas: Mapping China's Self-Driving Labs — Yuyang Wang">
+    <meta property="og:description" content="Zhiyan Atlas (智验图谱) is a bilingual, public-source map of China's self-driving lab ecosystem: 57 entries in 10 provinces, 34 watch items, and the global map's 103 other entries in Chinese.">
+    <meta property="og:url" content="https://yuyang.nl/blog/zhiyan-atlas/">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Yuyang Wang">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://yuyang.nl/assets/og/zhiyan-atlas.jpg">
+    <meta name="twitter:title" content="Zhiyan Atlas: Mapping China's Self-Driving Labs — Yuyang Wang">
+    <meta name="twitter:description" content="Zhiyan Atlas (智验图谱) is a bilingual, public-source map of China's self-driving lab ecosystem: 57 entries in 10 provinces, 34 watch items, and the global map's 103 other entries in Chinese.">
+    <title>Zhiyan Atlas: Mapping China's Self-Driving Labs — Yuyang Wang</title>
+    <meta name="description" content="Zhiyan Atlas (智验图谱) is a bilingual, public-source map of China's self-driving lab ecosystem: 57 entries in 10 provinces, 34 watch items, and the global map's 103 other entries in Chinese.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/shared.css">
+    <script>
+        (function() {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = (saved === 'dark' || saved === 'light')
+                    ? saved
+                    : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+    <style>
+        .post-header {
+            padding: 64px 0 8px;
+        }
+        .post-header .date {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .post-header h1 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+            text-wrap: balance;
+        }
+        .post-header .category {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            padding: 4px 8px;
+            border-radius: 9999px;
+            letter-spacing: 0.125px;
+        }
+        .post-body {
+            padding: 40px 0 64px;
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+        .post-body p {
+            margin-bottom: 20px;
+        }
+        .post-body h2 {
+            font-family: 'Source Serif 4', Georgia, serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: -0.3px;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            text-transform: none;
+        }
+        .post-body .standfirst {
+            font-size: 20px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+        .post-body a {
+            color: var(--text);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: var(--border);
+        }
+        .post-body a:hover { text-decoration-color: var(--text); }
+        .post-body sup a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0 1px;
+        }
+        .post-body .references {
+            margin-top: 16px;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+        .post-body .references li {
+            margin-bottom: 10px;
+        }
+        .post-body .references a { word-break: break-word; }
+        .share-strip {
+            margin-top: 8px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+        }
+        .share-strip .share-label {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .share-strip a.share-link {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color .15s ease, border-color .15s ease;
+        }
+        .share-strip a.share-link:hover {
+            color: var(--text);
+            border-bottom-color: var(--text);
+        }
+    </style>
+    <meta property="og:image" content="https://yuyang.nl/assets/og/zhiyan-atlas.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <link rel="canonical" href="https://yuyang.nl/blog/zhiyan-atlas/">
+    <link rel="alternate" hreflang="en" href="https://yuyang.nl/blog/zhiyan-atlas/">
+    <link rel="alternate" hreflang="zh-Hant" href="https://yuyang.nl/zh/blog/zhiyan-atlas/">
+    <link rel="alternate" hreflang="x-default" href="https://yuyang.nl/blog/zhiyan-atlas/">
+    <link rel="alternate" type="application/rss+xml" title="Yuyang Wang — Blog" href="https://yuyang.nl/feed.xml">
+</head>
+<body>
+    <div class="container" id="main-content">
+        <nav>
+            <a href="/" class="logo">Hypomnemata</a>
+            <div class="links">
+                <a href="/">Home</a>
+                <a href="/projects/">Projects</a>
+                <a href="/reading/">Reading</a>
+                <a href="/blog/">Blog</a>
+                <a href="/zh/blog/zhiyan-atlas/" class="lang">中文</a>
+                </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="toggle-track">
+                        <span class="toggle-indicator"></span>
+                    </span>
+                </button>
+
+            <button class="nav-hamburger" aria-label="Menu"><span></span></button>
+        </nav>
+
+        <article>
+            <header class="post-header">
+                <div class="date">1 November 2026 · 3 min read</div>
+                <h1>Zhiyan Atlas: Mapping China's Self-Driving Labs</h1>
+                <span class="category">Self-Driving Labs</span>
+            </header>
+
+            <div class="share-strip" aria-label="Share this article">
+                <span class="share-label">Share</span>
+                <a class="share-link" data-share="x" href="#" target="_blank" rel="noopener">X</a>
+                <a class="share-link" data-share="linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+                <a class="share-link" data-share="bluesky" href="#" target="_blank" rel="noopener">Bluesky</a>
+            </div>
+
+            <div class="post-body">
+                <p class="standfirst">In August I published a world map of self-driving labs. Its companion, Zhiyan Atlas (智验图谱), covers the part of the picture that is hardest to see from outside: China. It lives at <a href="https://www.zhiyanatlas.com">zhiyanatlas.com</a>.</p>
+
+                <h2>Why a separate atlas</h2>
+                <p>Self-driving labs in China are advancing quickly. Because of language and platform barriers, much of this progress is hard for the global community to see, and the same holds the other way round. Zhiyan Atlas is a personal project to let peers in China and around the world see each other.</p>
+
+                <h2>What it holds</h2>
+                <p>As of 31 October 2026 the atlas lists 57 entries in 10 provinces and municipalities: Beijing 18, Shanghai 11, Zhejiang 9 and Guangdong 7, with the rest in Jiangsu, Anhui, Hubei, Tianjin, Liaoning and Fujian. By type there are 3 national laboratories, 12 new R&amp;D institutes, 15 university and institute teams and 27 companies. Alongside them run 34 watch items: 17 on progress, 9 on funding and 8 policy documents.</p>
+                <p>A worldwide layer brings in the 103 entries outside China from the <a href="https://sdl-map.discoverylabs.nl">global map</a>, translated into Chinese, so a reader in China sees both in one place.</p>
+
+                <h2>How it is curated</h2>
+                <p>The site states three rules. Public sources only: official websites, government documents, papers, press coverage and WeChat articles, each linked from its entry. No personal profiles: the atlas records institutions, platforms and policy. Neutral description: entries are described and filed without judgement, and the one test for inclusion is relevance to the self-driving lab ecosystem. A listed institution can claim its entry and add its own introduction and how it likes to collaborate; that text is labelled as provided by the institution.</p>
+
+                <h2>Where to find it</h2>
+                <p>The site is bilingual, Chinese first, at <a href="https://www.zhiyanatlas.com">zhiyanatlas.com</a>. The WeChat official account zhiyan_atlas posts updates, and a mini-program for phones is in review.</p>
+
+                <h2>The aim</h2>
+                <p>The mission I wrote in the first WeChat article: together with self-driving labs worldwide, to build a veritable interconnected community without boundary. Corrections and missing labs are welcome, through the site or the official account.</p>
+            </div>
+
+            <div class="post-nav">
+                <a href="/blog/">&larr; Back to Blog</a>
+            </div>
+        </article>
+
+        <footer>
+            <p>&copy; 2026 Yuyang Wang &middot; Eindhoven, Netherlands</p>
+        </footer>
+    </div>
+    <script>
+        (function() {
+            var btn = document.getElementById('theme-toggle');
+            var html = document.documentElement;
+            var sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateLabel() {
+                var t = html.getAttribute('data-theme');
+                btn.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            function syncBodyTheme(theme) {
+                document.body.setAttribute('data-theme', theme || html.getAttribute('data-theme'));
+            }
+
+            html.classList.remove('preload');
+            syncBodyTheme();
+            updateLabel();
+
+            btn.addEventListener('click', function() {
+                var cur = html.getAttribute('data-theme');
+                var next = cur === 'dark' ? 'light' : 'dark';
+                html.setAttribute('data-theme', next);
+                syncBodyTheme(next);
+                try { localStorage.setItem('theme', next); } catch(e) {}
+                updateLabel();
+            });
+
+            sysDark.addEventListener('change', function(e) {
+                try {
+                    if (!localStorage.getItem('theme')) {
+                        var nextSys = e.matches ? 'dark' : 'light';
+                        html.setAttribute('data-theme', nextSys);
+                        syncBodyTheme(nextSys);
+                        updateLabel();
+                    }
+                } catch(err) {}
+            });
+        })();
+
+            (function(){
+                var h = document.querySelector('.nav-hamburger');
+                var l = document.querySelector('nav .links');
+                if (h && l) {
+                    h.addEventListener('click', function(){
+                        h.classList.toggle('open');
+                        l.classList.toggle('open');
+                    });
+                    document.addEventListener('click', function(e){
+                        if (!h.contains(e.target) && !l.contains(e.target)) {
+                            h.classList.remove('open');
+                            l.classList.remove('open');
+                        }
+                    });
+                }
+            })();
+
+            (function(){
+                if (window.location.search.indexOf('static') > -1) {
+                    document.documentElement.classList.add('static-mode');
+                }
+            })();
+</script>
+    <script>
+        (function(){
+            var meta = function(p){ var m=document.querySelector('meta[property="'+p+'"]'); return m?m.content:''; };
+            var url = meta('og:url') || location.href.split('#')[0].split('?')[0];
+            var raw = meta('og:title') || document.title;
+            var title = raw.replace(/\s*[—–-]\s*(Yuyang Wang|王昱揚)\s*$/, '').trim();
+            var u = encodeURIComponent(url), t = encodeURIComponent(title), tu = encodeURIComponent(title + ' ' + url);
+            var map = {
+                x: 'https://twitter.com/intent/tweet?text=' + t + '&url=' + u,
+                linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + u,
+                bluesky: 'https://bsky.app/intent/compose?text=' + tu
+            };
+            document.querySelectorAll('.share-strip a.share-link').forEach(function(a){
+                var k = a.getAttribute('data-share');
+                if (map[k]) a.setAttribute('href', map[k]);
+            });
+        })();
+    </script>
+</body>
+</html>
